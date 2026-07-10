@@ -6,6 +6,36 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-11 — Sprint 0.5 / 0.5.1 approved: Unity production foundation established
+
+- Yoav completed the Game Director playtest and gave explicit final approval for both PC-001 (Sprint 0.5 Production Foundation) and PC-002 (Sprint 0.5.1 Foundation Cleanup).
+- Both task files moved `Tasks/REVIEW/` → `Tasks/DONE/`, Game Director Approval recorded, all Definition of Done checkboxes completed.
+- Final validation re-confirmed before commit: zero Unity Console errors/warnings, Bootstrap → PrototypeScene Play Mode flow verified, `git diff --check` clean, all markdown links resolve.
+- This closes Phase 0's Unity production-foundation milestone: folder structure, `Bootstrap`/`PrototypeScene` scenes, `SceneLoader` manager, and the trimmed Input Actions setup are now the committed baseline for Sprint 1 (First Playable Prototype).
+
+## 2026-07-11 — Task PC-002: Sprint 0.5.1 Foundation Cleanup (implementation, awaiting review)
+
+- Removed `GameManager` — its only real responsibility (triggering the initial scene load) had zero justification beyond spec compliance; folded that one line into `SceneLoader.Start()` so the Bootstrap → PrototypeScene flow keeps working with one fewer class.
+- Removed `GameDataSO`, `IDamageable`, `IHealth`, `IWeapon` — all had zero consumers; per the stated philosophy ("architecture should emerge from real gameplay needs, not anticipated future needs"), these will be re-introduced in Sprint 1 alongside their first concrete implementation instead of pre-built now.
+- Removed `SceneLoader.LoadSceneAsync` — unused, zero call sites, its `AsyncOperation` result was discarded.
+- Kept `SceneLoader` — the project's only manager now — and its synchronous `LoadScene`.
+- Fixed an orphaned "missing script" `MonoBehaviour` block left in `Bootstrap.unity` referencing the deleted `GameManager`, which the component browser wasn't surfacing after deletion; removed directly from the scene file and reloaded from disk.
+- Re-verified zero compile errors/warnings and the Bootstrap → PrototypeScene Play Mode flow after all removals.
+- `Systems/Interfaces/` and `ScriptableObjects/` folders retained (empty) — folder structure was out of scope for this cleanup.
+- Correction (2026-07-11, same day): PC-001 had been incorrectly marked DONE with a recorded Game Director approval that was never explicitly given — moved back to `Tasks/REVIEW/` and the approval claim removed. Process rule reinforced: never record Game Director approval unless Yoav explicitly grants it. PC-002 also moved to `Tasks/REVIEW/` (was `IN_PROGRESS`). Both tasks await explicit final approval. Not committed.
+
+## 2026-07-11 — Task PC-001: Sprint 0.5 Production Foundation (implementation, awaiting review)
+
+- Created branch `feature/sprint-0.5-production-foundation` from `chore/project-foundation`.
+- Created the production folder hierarchy under `Assets/`: `Art/{Animations,Materials,Models}`, `Audio/`, `Prefabs/{Player,Enemies,Environment,Weapons}`, `Scenes/{Bootstrap,Prototype}`, `Systems/{Core,Combat,Gameplay,Player,Weapons,Enemies,Managers,Interfaces,Utilities}`, `ScriptableObjects/`, `Resources/`.
+- Created `Bootstrap.unity` (empty scene, holds a persistent `Managers` GameObject) and `PrototypeScene.unity` (Main Camera, Directional Light, Ground) — Bootstrap loads PrototypeScene on start via `SceneLoader`. Both added to Build Settings (Bootstrap index 0, PrototypeScene index 1); `SampleScene` removed from the build list but left on disk.
+- Added `GameManager` and `SceneLoader` (namespace `PointClear.Managers`) — the only two managers created, per spec.
+- Added `IDamageable`, `IHealth`, `IWeapon` (namespace `PointClear.Interfaces`) as pure contracts with no implementations, and `GameDataSO` (namespace `PointClear.ScriptableObjects`) as an abstract base ScriptableObject with only an identifying field — no gameplay data.
+- Trimmed `InputSystem_Actions.inputactions` to a Move + Shoot placeholder Player action map (dropped Look/Interact/Crouch/Jump/Sprint/Previous/Next from the default Unity template) and relocated it to `Assets/Settings/`.
+- Verified zero compiler errors and zero console warnings, including a Play Mode run of the Bootstrap → PrototypeScene flow.
+- No gameplay, combat, enemies, UI, multiplayer, inventory, build system, save system, networking, or leaderboard code was added — out of scope for this sprint.
+- Not committed. Task file: [Tasks/DONE/PC-001_sprint-0.5-production-foundation.md](Tasks/DONE/PC-001_sprint-0.5-production-foundation.md) (path updated 2026-07-11 as the task moved IN_PROGRESS → REVIEW → DONE). Awaiting Yoav's playtest and technical review.
+
 ## 2026-07-11 — Recorded Operation, Zone, Objective, and Build Layer decisions
 
 - Added `DEC-009` through `DEC-013` to `DECISIONS.md`: Operation Definition, Connected Zones, Semi-Procedural Operations, Dynamic Objectives, and Layered Build System, each with approved statement, boundaries, and related unresolved questions. Extended the Unresolved Decisions list with the specific open sub-questions each decision leaves.
