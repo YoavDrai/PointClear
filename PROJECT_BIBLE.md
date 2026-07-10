@@ -2,7 +2,7 @@
 
 Status legend used throughout this document and all linked documentation: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**.
 
-This document is the top-level reference for what Point Clear is, who is responsible for what, and how work moves from idea to done. See also: [GAME_PILLARS.md](GAME_PILLARS.md), [VISION.md](VISION.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
+This document is the top-level reference for what Point Clear is, who is responsible for what, and how work moves from idea to done. See also: [DESIGN_DNA.md](DESIGN_DNA.md), [GAME_PILLARS.md](GAME_PILLARS.md), [VISION.md](VISION.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
 
 ---
 
@@ -142,6 +142,7 @@ Claude must then inspect the current Unity project and report any disagreement b
 
 ## Related Documents
 
+- [DESIGN_DNA.md](DESIGN_DNA.md)
 - [GAME_PILLARS.md](GAME_PILLARS.md)
 - [VISION.md](VISION.md)
 - [ROADMAP.md](ROADMAP.md)

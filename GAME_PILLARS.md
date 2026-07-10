@@ -2,7 +2,7 @@
 
 **[APPROVED FACT]**
 
-These pillars are the standard every design proposal, task, and implementation decision is measured against. See also: [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [VISION.md](VISION.md).
+These pillars are the standard every design proposal, task, and implementation decision is measured against. See also: [DESIGN_DNA.md](DESIGN_DNA.md), [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [VISION.md](VISION.md).
 
 1. **The game must be enjoyable when played solo.**
 2. **Co-op should make the experience significantly better.**
@@ -23,6 +23,7 @@ These pillars are the standard every design proposal, task, and implementation d
 
 ## Related Documents
 
+- [DESIGN_DNA.md](DESIGN_DNA.md)
 - [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
 - [VISION.md](VISION.md)
 - [ROADMAP.md](ROADMAP.md)

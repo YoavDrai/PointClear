@@ -13,11 +13,11 @@ This roadmap describes phase intent, not detailed production promises. Later pha
 **[APPROVED FACT]** Goals:
 - Repository and documentation foundation
 - Game vision refinement
-- Core gameplay loop definition
-- Multiplayer requirements definition
+- Core gameplay loop definition — see [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md)
+- Multiplayer requirements definition — unblocked now that Operation structure is defined (DEC-009–DEC-012); not yet written
 - Networking technology evaluation
 - Technical risk prototypes
-- Initial scope definition
+- Initial scope definition — unblocked now that Operation structure is defined (DEC-009–DEC-012); not yet written
 
 ---
 

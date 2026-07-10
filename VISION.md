@@ -1,6 +1,6 @@
 # Point Clear — Vision
 
-Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**. See also: [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [GAME_PILLARS.md](GAME_PILLARS.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
+Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**. See also: [DESIGN_DNA.md](DESIGN_DNA.md), [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [GAME_PILLARS.md](GAME_PILLARS.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
 
 ## Summary
 
@@ -16,11 +16,13 @@ Point Clear is an original cooperative Action Roguelite RPG designed for solo pl
 - Manual character movement
 - Active combat abilities
 - Large groups of enemies
-- Deep build creation
+- Deep build creation through a layered build system (weapon, active skills, passives, mutations, relics, team synergies, temporary Operation effects)
 - Temporary progression during each run
 - Long-term progression between runs
 - Skill and passive progression systems
 - Weapons, items, abilities, and build combinations
+- Operations composed of multiple connected, semi-procedural Zones
+- Dynamic mandatory and optional objectives per Operation
 - Maps and repeatable runs
 - Solo, duo, trio, and four-player co-op
 - Seasonal competition
@@ -28,6 +30,8 @@ Point Clear is an original cooperative Action Roguelite RPG designed for solo pl
 - Friends and global leaderboards
 - Separate leaderboard categories for solo, duo, trio, and four-player parties
 - Run records that preserve the party composition, build, weapons, items, skills, and relevant performance statistics
+
+See [DECISIONS.md](DECISIONS.md) DEC-009 through DEC-013 for the approved boundaries of Operation, Zone, objective, and build-layer structure, and [GLOSSARY.md](GLOSSARY.md) for term definitions.
 
 ## Possible Leaderboard Statistics
 
@@ -51,7 +55,10 @@ Point Clear must be described by its own systems and identity.
 
 ## Related Documents
 
+- [DESIGN_DNA.md](DESIGN_DNA.md)
 - [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
 - [GAME_PILLARS.md](GAME_PILLARS.md)
+- [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md)
+- [GLOSSARY.md](GLOSSARY.md)
 - [ROADMAP.md](ROADMAP.md)
 - [DECISIONS.md](DECISIONS.md)
