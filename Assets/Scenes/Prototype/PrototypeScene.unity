@@ -1484,6 +1484,9 @@ MonoBehaviour:
   spawnInterval: 0.5
   player: {fileID: 2862981006317607149}
   playerSafetyDistance: 8
+  initialActiveTarget: 5
+  targetIncreaseAmount: 5
+  targetIncreaseInterval: 25
 --- !u!4 &1700942417
 Transform:
   m_ObjectHideFlags: 0

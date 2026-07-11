@@ -119,7 +119,7 @@ namespace PointClear.Utilities
 
             GUILayout.Space(12);
             GUILayout.Label("— Sprint 1.3 Crowd Metrics (diagnostic) —", metricsStyle);
-            GUILayout.Label($"Active Enemies: {EnemyAI.ActiveCount} / {(spawner != null ? spawner.TargetActiveCount.ToString() : "?")}", metricsStyle);
+            GUILayout.Label($"Active Enemies: {EnemyAI.ActiveCount} / {(spawner != null ? spawner.CurrentTarget.ToString() : "?")} (max {(spawner != null ? spawner.TargetActiveCount.ToString() : "?")})", metricsStyle);
             GUILayout.Label($"Peak Active: {EnemyAI.PeakActiveCount}", metricsStyle);
             GUILayout.Label($"Spawn Interval: {(spawner != null ? spawner.SpawnInterval.ToString("0.00") : "?")}s", metricsStyle);
             GUILayout.Label($"FPS (approx, diagnostic only): {currentFps:0}", metricsStyle);

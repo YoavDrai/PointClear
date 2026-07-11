@@ -10,10 +10,19 @@ namespace PointClear.Enemies
     /// (see EnemyAI.ActiveCount) so counting stays correct regardless of
     /// how an enemy becomes inactive.
     ///
-    /// Behavior: ramps up to targetActiveCount at a fixed interval, then
-    /// holds steady-state by spawning a replacement whenever the active
-    /// count drops below target. Never intentionally exceeds target. Never
-    /// bulk-spawns — at most one enemy per interval tick.
+    /// Behavior: the allowed active-enemy target ramps up gradually from
+    /// initialActiveTarget to targetActiveCount (the configured maximum),
+    /// increasing by targetIncreaseAmount every targetIncreaseInterval
+    /// seconds — this is a population ceiling ramp, not a wave system.
+    /// Once at (or above) the current ramped target, the spawner holds
+    /// steady-state by spawning a replacement whenever the active count
+    /// drops below it. Never intentionally exceeds the current ramped
+    /// target. Never bulk-spawns — at most one enemy per interval tick.
+    ///
+    /// To reproduce Sprint 1.3's original fixed-target test methodology
+    /// (immediate 20/50/100 target, no ramp), set initialActiveTarget equal
+    /// to targetActiveCount — the ramp then starts already at the maximum
+    /// and every subsequent tick is a clamped no-op.
     /// </summary>
     public class EnemySpawner : MonoBehaviour
     {
@@ -35,13 +44,26 @@ namespace PointClear.Enemies
         [SerializeField]
         private float playerSafetyDistance = 8f;
 
+        [Header("Population Ramp")]
+        [SerializeField]
+        private int initialActiveTarget = 5;
+
+        [SerializeField]
+        private int targetIncreaseAmount = 5;
+
+        [SerializeField]
+        private float targetIncreaseInterval = 25f;
+
         public int TargetActiveCount => targetActiveCount;
         public float SpawnInterval => spawnInterval;
+        public int CurrentTarget => currentTarget;
 
         private float nextSpawnTime;
         private int nextSpawnPointIndex;
         private bool warnedMissingPrefab;
         private bool warnedNoSpawnPoints;
+        private int currentTarget;
+        private float nextRampTime;
 
         private void Awake()
         {
@@ -53,16 +75,21 @@ namespace PointClear.Enemies
                     player = playerObject.transform;
                 }
             }
+
+            currentTarget = Mathf.Clamp(initialActiveTarget, 0, targetActiveCount);
+            nextRampTime = Time.time + targetIncreaseInterval;
         }
 
         private void Update()
         {
+            UpdateRamp();
+
             if (Time.time < nextSpawnTime)
             {
                 return;
             }
 
-            if (EnemyAI.ActiveCount >= targetActiveCount)
+            if (EnemyAI.ActiveCount >= currentTarget)
             {
                 return;
             }
@@ -100,6 +127,28 @@ namespace PointClear.Enemies
             }
 
             Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        }
+
+        /// <summary>
+        /// Advances the current ramped target toward targetActiveCount by
+        /// targetIncreaseAmount every targetIncreaseInterval seconds.
+        /// Monotonically increasing and clamped to the configured maximum
+        /// — never decreases, never exceeds it.
+        /// </summary>
+        private void UpdateRamp()
+        {
+            if (currentTarget >= targetActiveCount)
+            {
+                return;
+            }
+
+            if (Time.time < nextRampTime)
+            {
+                return;
+            }
+
+            currentTarget = Mathf.Min(currentTarget + targetIncreaseAmount, targetActiveCount);
+            nextRampTime = Time.time + targetIncreaseInterval;
         }
 
         /// <summary>
