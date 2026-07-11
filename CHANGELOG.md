@@ -1,10 +1,59 @@
 # Point Clear — Changelog
 
-Dated log of documentation and project-foundation changes. This is not a gameplay changelog — gameplay systems do not exist yet.
+Dated log of documentation, project-foundation, and prototype changes.
 
 Format: `YYYY-MM-DD — Summary`
 
 ---
+
+## 2026-07-11 — Task PC-003 (Sprint 1.3): Continuous Enemy Spawning & Crowd Scalability Prototype (approved)
+
+- Added authoritative active-enemy counting to `EnemyAI` (`ActiveCount`/`PeakActiveCount`, owned by `OnEnable`/`OnDisable`, correct regardless of death/external destroy/scene unload), increased the separation buffer 8→32 slots after proving the original truncates under dense clustering.
+- Added a single `EnemySpawner` (timer-paced, 0.5s interval, steady-state replacement, never bulk-spawns, never exceeds target) and 8 round-robin boundary spawn points with a player safety-distance check.
+- Added diagnostic-only crowd metrics to `DebugHud` (active/target/peak count, spawn interval, approximate FPS).
+- Ran identical crowd tests at 20/50/100 enemies: 20 and 50 held cleanly with zero console errors and no separation-buffer truncation (**50 enemies is the validated Phase 1 crowd target**). At 100 enemies the population still held exactly at target with zero errors, but the separation buffer truncated (44 true neighbors vs. 32 slots) and several enemy pairs became effectively stacked — a geometric limit of the fixed-radius attack ring at high convergence, not a spawner or counting defect. Per the sprint's own criteria this does not fail the sprint since 50 remains fully stable.
+- Object pooling remains deferred until profiling demonstrates a current need — `Instantiate`/`Destroy` used throughout all three tiers with no allocation-related errors or stalls.
+- **Yoav explicitly approved Sprint 1.3** ("Sprint 1.3 Approved"). This approval covers Sprint 1.3 only — PC-003's overall Game Director Approval (spanning Sprint 1/1.1/1.2 too) remains unrecorded pending its own explicit sign-off. Not staged, committed, merged, or pushed. Task file: [Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md](Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md).
+
+## 2026-07-11 — Task PC-003 (Sprint 1.2): Combat Space & Enemy Behaviour (implementation, awaiting review)
+
+- Yoav's first full playtest flagged two highest-priority issues: enemies stacking/forming "trains" while chasing, and the arena being too small. No new gameplay systems, progression, XP, or Dash added.
+- **Enemy separation**: `EnemyAI` now blends seek-toward-player with a boids-style separation force computed via `Physics.OverlapSphereNonAlloc` against nearby enemies only (1.75-unit radius, 8-slot static non-alloc buffer) — spatially bounded, so cost scales with local crowd density, not total enemy count. No NavMesh, no new physics layer. The existing "don't push into the player" guard was reworked to clamp the *resulting* position radially rather than the step size, since separation can steer enemies off the direct line to the player.
+- **Arena expansion**: ground scaled 4x to 40×40 (from 10×10), boundary walls moved to ±20 to match. Two enemy spawn points relocated and two more added (four symmetric corners); enemy count raised from 2 to 4 to give separation something to demonstrate. Added 6 simple greybox obstacles (crates, rocks, short walls), kept low enough to preserve isometric camera sightlines.
+- Verified separation via direct algorithm invocation and an independent pure-math replication of the formula, plus one full simulated run showing 4 enemies converge from their corners into a clean diamond formation (~2.83 units apart) stopping exactly at `attackRange` (2.00) from the player — no stacking, no single-file line.
+- **Known limitation**: enemies do not navigate around the new obstacles (no obstacle-avoidance term was in scope for this task, and none was added) — a kinematic enemy on a straight path crossing an obstacle will currently clip through it visually.
+- Encountered the same Play Mode frame-loop stall as Sprint 1.1 (Editor losing OS focus during a long automated session); this time it also caused the player to briefly tunnel through the ground once (recovered by resetting its position) and revealed that `Rigidbody.MovePosition` on a kinematic body only applies during a real physics step — worked around via direct/reflection-based verification. Not a gameplay defect.
+- Not committed. Task file: [Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md](Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md). Awaiting review.
+
+## 2026-07-11 — Task PC-003 (Sprint 1.1): Playability and Combat Feedback Fix (implementation, awaiting review)
+
+- Yoav playtested Sprint 1 and reported movement/camera felt good but shooting was unclear, enemy contact felt like silent damage, and there wasn't enough visible feedback to understand combat. This pass fixes readability only — no new gameplay systems.
+- Confirmed `Shoot` is bound to `<Mouse>/leftButton` (no change needed, verified against the Input Actions asset).
+- Added `Health.Damaged` event so non-lethal hits can trigger reactions, not only death.
+- `HitscanWeapon`: added a `LineRenderer` bullet trail and a muzzle-flash `GameObject`, both visible in the Game View — `Debug.DrawLine` alone was insufficient and is now a secondary aid only.
+- `EnemyAI`: added a hit-reaction (color flash + scale pulse on taking damage) and an attack-tell (pulse on landing its melee hit); clamped its per-step movement so it can no longer overshoot past `attackRange` and push into the player.
+- `DebugHud`: added always-visible on-screen control instructions (WASD/Mouse/LMB), larger color-coded player HP, and a brief red screen flash on player damage.
+- Created `Assets/Art/Materials/VFX_Bright.mat` for the new trail/flash, wired into the Player prefab.
+- Jump was explicitly not implemented. **[UNRESOLVED]** Jump versus Dash/Dodge movement option requires a future Game Director decision.
+- Not committed. Task file: [Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md](Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md). Awaiting review.
+
+## 2026-07-11 — Task PC-003: Sprint 1 First Playable Combat Prototype (implementation, awaiting review)
+
+- Created branch `feature/sprint-1-first-playable` from `main`.
+- Added `Aim` action (Vector2, mouse position) to `InputSystem_Actions.inputactions` — Player map is now Move/Aim/Shoot.
+- Added `PlayerController` (`PointClear.Player`): Rigidbody-based WASD movement in `FixedUpdate` (frame-rate independent, diagonal normalized), mouse cursor projected onto the ground plane drives smooth rotation independently of movement direction.
+- Added `Health` (`PointClear.Combat`): single concrete component (no interface) shared by player and enemy — `TakeDamage`, `Died` event, `ResetHealth`.
+- Added `HitscanWeapon` (`PointClear.Weapons`): fires toward the player's live aim point (not the smoothed visual facing) on Shoot held, configurable fire rate and damage, infinite ammo, no reload, `Debug.DrawLine` shot feedback, single concrete weapon (no framework).
+- Added `EnemyAI` (`PointClear.Enemies`): straight-line chase toward the player, stops at attack range, timed melee damage, self-destroys on `Health.Died` — no pathfinding (not required by this small open arena).
+- Added `PlayerRespawn` (`PointClear.Player`), explicitly commented as prototype-only: disables controller/weapon/renderers on death, coroutine delay, teleports to a spawn point, resets health, re-enables.
+- Added `IsometricCameraFollow` (`PointClear.Gameplay`): fixed-angle smooth follow via `SmoothDamp`, never rotates from input.
+- Added `DebugHud` (`PointClear.Utilities`), marked prototype/debug-only: OnGUI player/enemy HP display.
+- Built one Player prefab (Capsule, Rigidbody, Health, PlayerController, HitscanWeapon, PlayerRespawn, muzzle child) and one Enemy prefab (Capsule, Rigidbody, Health, EnemyAI); placed a player spawn point, two enemy spawn points, two enemy instances, and four boundary walls matching the existing 10x10 ground plane in PrototypeScene; configured the Main Camera with a fixed isometric rotation and the follow script.
+- Verified zero compile errors and zero console warnings after fixing one deprecated-API warning (`FindObjectsByType` overload) during development.
+- Playtested extensively in Play Mode: real simulated WASD input confirmed movement and diagonal normalization; mouse-aim ground-plane projection confirmed; hitscan weapon fire confirmed via direct invocation (correctly stopped at a wall, then dealt exact configured damage against a valid target); enemy chase/attack observed organically over an extended session; enemy death confirmed (`Destroy` on zero health); player death→disable→delayed respawn→full heal→re-enable confirmed, including multiple autonomous cycles with no soft-lock or errors.
+- Sustained mouse-button-hold and precise cursor-position simulation proved unreliable once the Editor Game View has focus (real OS input overrides synthetic state) — a testing-tooling limitation noted in the task file, not a defect in the implementation.
+- No XP, upgrades, build layers, loot, inventory, objectives, extraction, boss, multiplayer, networking, save system, leaderboards, or audio/VFX polish was added — out of scope for this sprint.
+- Not committed. Task file: [Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md](Tasks/REVIEW/PC-003_sprint-1-first-playable-combat-prototype.md). Game Director approval intentionally not recorded — awaiting Yoav's explicit review and approval.
 
 ## 2026-07-11 — Sprint 0.5 / 0.5.1 approved: Unity production foundation established
 
