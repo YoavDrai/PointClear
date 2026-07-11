@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 4933664626822266210}
   - component: {fileID: 5296707020547593367}
   - component: {fileID: 566102923015509734}
+  - component: {fileID: 1739692223307529184}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -337,6 +338,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f703975c68b9242a691ba47d3c5578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Progression.PlayerXP
+--- !u!114 &1739692223307529184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fdc629fe044ab246a8cc18efdd1a49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Progression.PlayerLevel
+  baseXpPerLevel: 5
 --- !u!1 &9172251034777289193
 GameObject:
   m_ObjectHideFlags: 0
