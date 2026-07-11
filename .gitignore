@@ -109,3 +109,11 @@ InitTestScene*.unity*
 Dashboard/node_modules/
 Dashboard/dist/
 Dashboard/.vite/
+
+# VS Code — ignore everything except the shared project config files
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/*.code-snippets
