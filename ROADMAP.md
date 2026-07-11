@@ -6,6 +6,8 @@ Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOL
 
 This roadmap describes phase intent, not detailed production promises. Later phases are tentative and will be broken down further as earlier phases complete.
 
+This roadmap is intentionally iterative — a research plan, not a fixed production schedule (see [PROJECT_BIBLE.md](PROJECT_BIBLE.md) § Workflow). Each cluster below exists to answer a specific question. If playtesting does not confirm the answer, sprints may be repeated, expanded, split, or reordered — returning to an earlier sprint is a valid, expected outcome, not a deviation from the plan.
+
 ---
 
 ## Phase 0 — Foundation and Pre-Production
@@ -41,16 +43,116 @@ This roadmap describes phase intent, not detailed production promises. Later pha
 
 **Status: In Progress** — assessed against this phase's own goals below, independent of "Sprint 2.x" numbering (see the Terminology Note at the top of this document). Not complete.
 
-**[PROPOSAL]** Initial target:
-- 1 small map — not done (current greybox arena is a combat-prototype test space, not a designed map)
-- 1 playable character (cosmetic-only creation — no fixed classes, per [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Character Philosophy) — in progress (one placeholder playable character exists; cosmetic-only creation not built)
-- Small ability set — in progress (one weapon exists; a small set of active skills is the next planned increment)
-- Small enemy set — in progress (one enemy type exists)
-- 1 boss — not done
-- 1–2 player online co-op proof — not done (no networking solution chosen; see Unresolved Decisions in [DECISIONS.md](DECISIONS.md))
-- Basic persistent character progression across missions (level, experience, equipment — see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Persistence Philosophy), not run-reset progression — in progress (persistent Level/Experience/Skill Points implemented as a design model per DEC-020; no equipment yet; no save system yet)
-- Basic results screen — not done
-- Prototype leaderboard submission — not done
+**[PROPOSAL]** Restructured 2026-07-11 around three research clusters, each ending in an explicit Decision Gate, rather than one flat checklist. Phase 2 is complete when Cluster C's gate passes — not when a fixed sprint count is reached.
+
+Deferred out of all three clusters: cosmetic character creation, networking/co-op implementation, leaderboards, production art/UI, seasonal infrastructure, full itemization/crafting/economy/endgame-map systems. None of the sprints below are blocked by these.
+
+### Cluster A — First Real Build
+
+Exists to answer: can Point Clear create meaningful Build Identity at all?
+
+**Sprint 2.3 — Active Skill System Validation**
+- Question: Can Point Clear support mechanically diverse Active Skills as a real system — not just one weapon with variations?
+- Dependencies: `PlayerXP`/`PlayerLevel`/`PlayerStats` (Sprint 2.0–2.2, DONE); `Health`/`EnemyAI`/`HitscanWeapon` (Sprint 1.x, DONE).
+- Why before 2.4: Skill Point allocation needs at least two real, mechanically distinct skills to allocate points into. Which specific skills those are is a design decision made at sprint kickoff, not a roadmap commitment.
+- Playable loop at end: two or more Active Skills exist, demonstrably mechanically distinct from each other and from the existing weapon; both usable, no persistent choice yet.
+- Out of scope: Skill Points, selection screen, second build layer, stat-card systems, physical knockback, gamepad input, committing to specific skill identities beyond what's needed to prove the system works.
+
+**Sprint 2.4 — Persistent Skill Points & Allocation**
+- Question: Does leveling up grant a real, spendable, persistent resource that produces an actual build choice — is DEC-020 true in code, not just in a placeholder comment?
+- Dependencies: Sprint 2.3.
+- Why before 2.5: this is the first point two players' builds can actually diverge (CORE_PHILOSOPHY point 7) — a second layer has nothing to diverge from without it.
+- Playable loop at end: kill → level up → earn a Skill Point → spend it on one of the Sprint 2.3 skills → relative skill power is a real, in-session player choice.
+- Out of scope: Second build layer, disk persistence, respec, UI polish.
+
+**Sprint 2.5 — Second Build Layer**
+- Question: Does a second build layer deepen player expression and the interaction space — and which of the seven DEC-013 layers is the right one to build second? Passives is the leading candidate (already named in the Loadout MVP scope) but the choice is made at sprint kickoff, not fixed here.
+- Dependencies: Sprint 2.4 (reuses Skill Points as the spend-currency, avoiding a premature second currency system).
+- Why before Cluster B: the "improve the build" loop leg needs more than one lever to pull, or the loop will feel thin when tested end-to-end.
+- Playable loop at end: a second build layer exists, with at least one piece of content that creates a genuine interaction with the Sprint 2.3 skills — the first proof that Expanding the Interaction Space (CORE_PHILOSOPHY § Build Philosophy) isn't just theoretical.
+- Out of scope: Any layer beyond the second; a full tree/UI for it; more than a handful of entries.
+
+**Cluster A Decision Gate**
+- Question: Did we prove that Point Clear can create meaningful Build Identity?
+- Decision: If yes → proceed to Cluster B. If no → return to Sprint 2.3, 2.4, or 2.5 (repeat, expand, split, or reorder as needed), improve the system, then repeat this validation before proceeding.
+- Relationship to Sprint 2.10: this gate tests whether Build Identity exists *at all* — the earliest, cheapest checkpoint, before Mission Risk or Loot exist. Sprint 2.10 (in Cluster C) re-tests a related but distinct, later question: not "does Build Identity exist" but "does the build space remain healthy — genuinely divergent, not converging on one dominant build — once equipment and additional systems have been layered on top of it." Passing this gate is a prerequisite for reaching Sprint 2.10, but does not guarantee Sprint 2.10 will also pass.
+
+---
+
+### Cluster B — Mission Risk and Reward Loop
+
+Exists to answer: does Mission Risk create meaningful tension and player decisions?
+
+**Sprint 2.6 — Minimal Mission Wrapper**
+- Question: Can a "mission" exist as a bounded session with explicit start/success/failure conditions, wrapping the existing combat loop — proving the full Operation/Zone system (still largely `[UNRESOLVED]` per DEC-011) doesn't need to exist yet to test mission risk?
+- Dependencies: Existing `PrototypeScene`/combat loop (Sprint 1.x). Sequenced after Cluster A by priority, not by hard technical dependency.
+- Why before 2.7: rewards can't be meaningfully secured or lost without a mission boundary to secure/lose them at.
+- Playable loop at end: enter a bounded mission → fight with the Cluster A build → mission ends in explicit success (placeholder win condition) or failure (player death) → return to neutral state. No rewards yet.
+- Out of scope: Loot, currency, rewards of any kind; Operations/Zones formal structure; Lobby/Party UI; results polish.
+
+**Sprint 2.7 — Unsecured Rewards & Mission Risk**
+- Question: Does DEC-019 (loot lost on failure, XP retained) hold up as a felt mechanic, not just a rule on paper?
+- Dependencies: Sprint 2.6; `PlayerXP` (already auto-retains per DEC-018, no change needed).
+- Why before 2.8: a results summary has nothing to summarize until secure/lose logic exists.
+- Playable loop at end: enemies drop a single simple currency (unsecured) during the mission; success banks it permanently, failure loses it; XP gained during the mission is retained per a rule matching DEC-019 (exact retained percentage remains `[UNRESOLVED]` in `DECISIONS.md` — this sprint implements the mechanism, not the number).
+- Out of scope: Equipment/itemization, rarity tiers, drop-table tuning, inventory UI.
+
+**Sprint 2.8 — Minimal Results Summary**
+- Question: Can the player actually see what happened — secured, lost, retained — so "improve the build → enter harder content" has something to act on?
+- Dependencies: Sprint 2.7.
+- Why before Cluster C: Cluster C validates the integration of Build + Mission Risk + Progression — unobservable without a way to see a loop's outcome.
+- Playable loop at end: the full loop closes for the first time — enter → fight with a real build → find unsecured currency → succeed/fail → see what was secured/lost/retained → return with a persistently improved character.
+- Out of scope: Production UI, leaderboard submission, run history beyond the single most recent result, cosmetic polish.
+
+**Cluster B Decision Gate**
+- Question: Did Mission Risk create meaningful tension and player decisions?
+- Decision: If yes → proceed to Cluster C. If no → return to Sprint 2.6, 2.7, or 2.8, improve the system, then repeat this validation before proceeding.
+
+---
+
+### Cluster C — Integrated Vertical Slice
+
+Exists to answer: would players actually want to repeat this gameplay loop?
+
+**Sprint 2.9 — Minimal Loot & Equipment Foundation**
+- Question: Can a build layer actually be acquired through Loot rather than fixed at start — does DEC-018 work end to end for at least one equipment slot?
+- Dependencies: Sprint 2.7 (equipment drops plug into the existing mission-risk pipeline); Cluster A (equipment needs existing build content to interact with — enforced by the Build Content Alignment gate in `Documentation/AI/REVIEW_CHECKLIST.md`).
+- Why before 2.10: the build-validation check needs equipment in the mix to be a meaningful test of the full accumulated build space.
+- Playable loop at end: one equipment slot, droppable, subject to the same secure/lose rule as currency, interacting with existing build content rather than adding a flat stat.
+- Out of scope: Full itemization, multiple slots, rarity tiers, crafting, vendor/economy systems, real inventory UI.
+
+**Sprint 2.10 — Build Validation & Convergence Check**
+- Question: Now that equipment and additional systems have been layered on top of the Cluster A build space, does that space remain healthy — are players still creating genuinely divergent builds, or has everything converged on one dominant combination?
+- Dependencies: Sprints 2.3–2.5 (full build-layer stack) + Sprint 2.9 (equipment) — the first point the build space is complete enough to be worth measuring.
+- Why before 2.11: per Expanding the Interaction Space (CORE_PHILOSOPHY § Build Philosophy), adding more mechanics before verifying the existing space produces divergence would be growing vertically before confirming horizontal health first.
+- What this sprint is: not content work — structured playtesting across multiple sessions/players, observing which builds naturally emerge. Not a one-time pass; repeatable.
+- Decision: If divergence holds → proceed to Sprint 2.11. If convergence on one dominant build is found → do not proceed to new mechanics; return to expanding the interaction space among existing layers (not new layers/mechanics), then repeat this check before continuing.
+- Out of scope: any new mechanic, layer, or content — measurement and rebalancing of what already exists only.
+
+**Sprint 2.11 — First Meaningful Enemy Variety**
+- Question: Does a second enemy archetype create a genuine new combat/skill-validation need — not variety for its own sake?
+- Dependencies: Cluster A's build content (the new enemy must specifically challenge something that exists); Sprint 2.10 passed.
+- Why before 2.12: a boss drawing on an already-proven enemy mechanic is more coherent than one invented from nothing.
+- Playable loop at end: at least one new enemy type that tests something the current build space doesn't already test.
+- Out of scope: A full bestiary, Elite/Mini-Boss tiers, balancing pass.
+
+**Sprint 2.12 — First Boss**
+- Question: Does accumulated build depth produce a felt difference in how a boss fight plays out between different builds?
+- Dependencies: Cluster A (build depth to test) + Sprint 2.7 (the boss sits inside a mission's risk, not as a standalone fight) + optionally Sprint 2.11.
+- Why before 2.13: cheaper to discover "the boss isn't fun yet" against the placeholder arena than after authoring real content around it.
+- Playable loop at end: one hard encounter inside the mission loop, genuinely shaped by build choices, resolving into the same success/failure/results flow as any other mission.
+- Out of scope: Multiple bosses, Mini-Boss tier, boss-specific loot tables, scripted/cinematic sequences.
+
+**Sprint 2.13 — Small Authored Mission/Map**
+- Question: Does the full proven loop hold up in a real, designed space instead of the greybox arena?
+- Dependencies: Everything above — deliberately last, so content authoring follows systems validation rather than leading it (DESIGN_DNA's MVP Rule).
+- Why it's last: this is the Phase 2 exit point, not a dependency for anything further in this list.
+- Playable loop at end: the full `CORE_GAMEPLAY_LOOP` sequence — enter → fight → find rewards → succeed/fail → secure/lose → improve build → re-enter, harder — inside an authored space.
+- Out of scope: Multiple maps, semi-procedural generation (DEC-011 still unresolved), formal Operations/Zones structure, production art.
+
+**Cluster C Decision Gate**
+- Question: Would players actually want to repeat this gameplay loop?
+- Decision: If yes → Phase 2 (Vertical Slice) is complete; proceed toward Phase 3 planning. If no → return to the relevant Cluster C sprint(s) — or to Cluster A or B, if the issue traces back further — improve the system, then repeat this validation before declaring Phase 2 complete.
 
 ---
 

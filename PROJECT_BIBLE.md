@@ -93,6 +93,8 @@ A task is **not** DONE merely because code was written. A task can only move to 
 - Technical review was completed
 - Relevant documentation was updated
 
+Roadmaps and sprint sequences are research plans, not fixed production schedules. Each cluster of work exists to answer a specific question; if playtesting does not confirm the answer, sprints may be repeated, expanded, split, or reordered — returning to earlier work is a valid outcome, not a failure of process. See [ROADMAP.md](ROADMAP.md) for this principle applied to the current roadmap.
+
 See [Documentation/AI/TASK_WORKFLOW.md](Documentation/AI/TASK_WORKFLOW.md) and [Templates/TASK_TEMPLATE.md](Templates/TASK_TEMPLATE.md).
 
 ---
