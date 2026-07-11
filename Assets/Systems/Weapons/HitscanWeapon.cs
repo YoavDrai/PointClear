@@ -12,6 +12,7 @@ namespace PointClear.Weapons
     /// shots land exactly where the mouse points. Infinite ammo, no reload.
     /// </summary>
     [RequireComponent(typeof(PlayerController))]
+    [RequireComponent(typeof(PlayerStats))]
     public class HitscanWeapon : MonoBehaviour
     {
         [SerializeField]
@@ -39,6 +40,7 @@ namespace PointClear.Weapons
         private float muzzleFlashDuration = 0.05f;
 
         private PlayerController playerController;
+        private PlayerStats stats;
         private InputAction shootAction;
         private float nextFireTime;
         private Coroutine trailRoutine;
@@ -47,6 +49,9 @@ namespace PointClear.Weapons
         private void Awake()
         {
             playerController = GetComponent<PlayerController>();
+            stats = GetComponent<PlayerStats>();
+            stats.SetBase(StatType.Damage, damage);
+            stats.SetBase(StatType.FireRate, fireRate);
 
             if (bulletTrail != null)
             {
@@ -69,7 +74,7 @@ namespace PointClear.Weapons
             if (shootAction.IsPressed() && Time.time >= nextFireTime)
             {
                 Fire();
-                nextFireTime = Time.time + 1f / fireRate;
+                nextFireTime = Time.time + 1f / stats.GetValue(StatType.FireRate);
             }
         }
 
@@ -97,7 +102,7 @@ namespace PointClear.Weapons
                 Health targetHealth = hit.collider.GetComponentInParent<Health>();
                 if (targetHealth != null)
                 {
-                    targetHealth.TakeDamage(damage);
+                    targetHealth.TakeDamage(stats.GetValue(StatType.Damage));
                 }
             }
 

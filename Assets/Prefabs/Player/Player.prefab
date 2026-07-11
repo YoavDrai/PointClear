@@ -107,6 +107,8 @@ GameObject:
   - component: {fileID: 1176724466070526320}
   - component: {fileID: 7756485173679843408}
   - component: {fileID: 5629629700456351823}
+  - component: {fileID: 4933664626822266210}
+  - component: {fileID: 5296707020547593367}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -298,6 +300,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Player.PlayerRespawn
   spawnPoint: {fileID: 0}
   respawnDelay: 2
+--- !u!114 &4933664626822266210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f979d691f4c28354b96f3a268fdf9dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Player.PlayerStats
+--- !u!114 &5296707020547593367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac91b5f7c33bdc4d9036d0c34b761e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Player.PlayerReference
 --- !u!1 &9172251034777289193
 GameObject:
   m_ObjectHideFlags: 0

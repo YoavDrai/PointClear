@@ -1,4 +1,5 @@
 using UnityEngine;
+using PointClear.Player;
 
 namespace PointClear.Enemies
 {
@@ -67,21 +68,17 @@ namespace PointClear.Enemies
 
         private void Awake()
         {
-            if (player == null)
-            {
-                GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-                if (playerObject != null)
-                {
-                    player = playerObject.transform;
-                }
-            }
-
             currentTarget = Mathf.Clamp(initialActiveTarget, 0, targetActiveCount);
             nextRampTime = Time.time + targetIncreaseInterval;
         }
 
         private void Update()
         {
+            if (player == null)
+            {
+                player = PlayerReference.Instance;
+            }
+
             UpdateRamp();
 
             if (Time.time < nextSpawnTime)

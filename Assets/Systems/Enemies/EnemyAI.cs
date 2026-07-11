@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using PointClear.Combat;
+using PointClear.Player;
 
 namespace PointClear.Enemies
 {
@@ -94,15 +95,6 @@ namespace PointClear.Enemies
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             bodyRenderer = GetComponentInChildren<Renderer>();
             baseScale = transform.localScale;
-
-            if (player == null)
-            {
-                GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-                if (playerObject != null)
-                {
-                    player = playerObject.transform;
-                }
-            }
         }
 
         private void OnEnable()
@@ -127,6 +119,11 @@ namespace PointClear.Enemies
 
         private void FixedUpdate()
         {
+            if (player == null)
+            {
+                player = PlayerReference.Instance;
+            }
+
             if (player == null || health.IsDead)
             {
                 return;

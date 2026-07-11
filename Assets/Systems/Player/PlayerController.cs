@@ -9,6 +9,7 @@ namespace PointClear.Player
     /// rotation. The two are intentionally independent of each other.
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(PlayerStats))]
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
@@ -20,6 +21,7 @@ namespace PointClear.Player
         public Vector3 AimWorldPoint { get; private set; }
 
         private Rigidbody rb;
+        private PlayerStats stats;
         private Camera mainCamera;
         private InputAction moveAction;
         private InputAction aimAction;
@@ -31,6 +33,9 @@ namespace PointClear.Player
             rb = GetComponent<Rigidbody>();
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             mainCamera = Camera.main;
+
+            stats = GetComponent<PlayerStats>();
+            stats.SetBase(StatType.MoveSpeed, moveSpeed);
         }
 
         private void OnEnable()
@@ -77,7 +82,8 @@ namespace PointClear.Player
                 direction.Normalize();
             }
 
-            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+            float speed = stats.GetValue(StatType.MoveSpeed);
+            rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
         }
 
         private void ApplyRotation()
