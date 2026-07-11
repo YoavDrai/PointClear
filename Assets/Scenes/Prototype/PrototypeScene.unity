@@ -736,6 +736,7 @@ GameObject:
   - component: {fileID: 1372351178}
   - component: {fileID: 1372351182}
   - component: {fileID: 1372351181}
+  - component: {fileID: 1372351183}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -848,6 +849,19 @@ MonoBehaviour:
   target: {fileID: 2862981006317607149}
   offset: {x: -8.13, y: 9.64, z: -8.13}
   smoothTime: 0.2
+--- !u!114 &1372351183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372351177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a08281d740f9142bd0805465776c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Utilities.XPDiagnosticDisplay
+  playerXP: {fileID: 3741096081050754560}
 --- !u!1001 &1461876400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2192,6 +2206,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa7168b36e5ae848b0a347b16765377, type: 3}
+--- !u!114 &3741096081050754560 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 566102923015509734, guid: ffa7168b36e5ae848b0a347b16765377, type: 3}
+  m_PrefabInstance: {fileID: 3741096081050754559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f703975c68b9242a691ba47d3c5578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Progression.PlayerXP
 --- !u!1001 &8930377479868303069
 PrefabInstance:
   m_ObjectHideFlags: 0

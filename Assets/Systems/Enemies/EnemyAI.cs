@@ -187,7 +187,15 @@ namespace PointClear.Enemies
         /// </summary>
         private Vector3 ComputeSeparation()
         {
-            int count = Physics.OverlapSphereNonAlloc(rb.position, separationRadius, SeparationBuffer);
+            // QueryTriggerInteraction.Ignore: Sprint 2.1 introduces trigger-collider
+            // XP pickups into the arena; without this, pickups near an enemy would
+            // consume slots in this fixed-size buffer alongside real neighbors.
+            int count = Physics.OverlapSphereNonAlloc(
+                rb.position,
+                separationRadius,
+                SeparationBuffer,
+                Physics.AllLayers,
+                QueryTriggerInteraction.Ignore);
             Vector3 separation = Vector3.zero;
             int neighborCount = 0;
 

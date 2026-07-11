@@ -96,7 +96,9 @@ namespace PointClear.Weapons
 
             Vector3 endPoint = origin + direction * range;
 
-            if (Physics.Raycast(origin, direction, out RaycastHit hit, range))
+            // QueryTriggerInteraction.Ignore: Sprint 2.1's trigger-collider XP
+            // pickups must not block shots meant for enemies behind them.
+            if (Physics.Raycast(origin, direction, out RaycastHit hit, range, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
                 endPoint = hit.point;
                 Health targetHealth = hit.collider.GetComponentInParent<Health>();
