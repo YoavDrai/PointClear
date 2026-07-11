@@ -104,3 +104,8 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Point Clear Project Dashboard (Dashboard/) — Node tooling, not part of the Unity project
+Dashboard/node_modules/
+Dashboard/dist/
+Dashboard/.vite/

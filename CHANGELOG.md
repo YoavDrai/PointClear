@@ -6,6 +6,39 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-11 — Task PC-006 moved to DONE: Project Dashboard v1 approved
+
+- Yoav's second manual review passed. Both first-review issues (live updates, Documentation Markdown reader) were confirmed fixed in a real browser. **Task PC-006 moved `Tasks/IN_PROGRESS/` → `Tasks/DONE/`**, status and Definition of Done updated, Game Director approval recorded.
+- One Definition of Done item intentionally left unchecked: no Technical Director review occurred (none present this session) — moved to DONE on Yoav's explicit authority as Game Director, flagged rather than silently checked (same handling as PC-004).
+- `README.md` updated to reference the dashboard (a permanent project tool) in the Start Here section and the repository-layout tree; `Dashboard/README.md`'s task-file link repointed from the old IN_PROGRESS path to DONE.
+- The dashboard is a local, read-only Node tool at `Dashboard/` (run: `cd Dashboard && npm install && npm run dev`). It never writes project files and never runs a git write command. Final state: 12/12 tests pass, `npm run build` succeeds.
+- Not staged, committed, or pushed.
+
+## 2026-07-11 — Task PC-006: fixed two issues from Yoav's first manual review
+
+- **Live updates now work.** Root cause: `chokidar` v4 dropped glob support, so the watcher's `*.md`/`Documentation/**/*.md`/`Tasks/**/*.md` patterns matched zero paths and nothing was ever watched (initial snapshot worked because it's a direct build, not watcher-driven — matching the reported symptom that changes only appeared after a restart). Rewrote `server/watcher.ts` to watch real directory trees plus enumerated root `.md` files plus `.git/HEAD`, with full debug logging (watched paths, every fs event, every rebuild+broadcast). Verified end-to-end in a real browser: editing and reverting `CHANGELOG.md` updated the dashboard within ~1s with no reload or restart.
+- **Documentation page is now readable.** The click-to-open Markdown reader was an unfinished v1 feature, not a regression. Added a read-only, path-validated `/api/doc` endpoint (rejects path traversal, non-`.md`, and absolute paths — all probed) and a two-pane Documentation view rendering the selected file with `react-markdown` + `remark-gfm` (no raw-HTML pass-through). Verified in-browser.
+- 12/12 tests pass (added a Phase-goals-leak regression and focus-inference range-notation coverage in the prior pass; both still green); `npm run build` succeeds. Task PC-006 remains in `Tasks/IN_PROGRESS/` pending Yoav's second review.
+- Not staged, committed, or pushed.
+
+## 2026-07-11 — Task PC-006: Project Dashboard v1 implemented (read-only)
+
+- Built `Dashboard/`, a local Vite + React + TypeScript dev tool that reads `ROADMAP.md`, `DECISIONS.md`, `CHANGELOG.md`, `Tasks/**/*.md`, and `POINT_CLEAR_KNOWLEDGE_MAP.md` into a single `ProjectSnapshot`, parsed via `remark`/`unified` ASTs rather than regex-over-lines, rebuilt on file change (`chokidar`, scoped to markdown paths only) and pushed to connected browser tabs over a WebSocket — no polling, no manual refresh, no second source of truth.
+- Six pages implemented: Main Dashboard (with Project Health and a merged Changelog+Decisions Activity Timeline), Roadmap (all 3 clusters, 11 sprints, 3 Decision Gates), Tasks (board matching `Tasks/`'s actual folders), Decisions (timeline + unresolved list), Knowledge Map (Graph and Tree views, generated from `POINT_CLEAR_KNOWLEDGE_MAP.md`'s own registry table), Documentation (browsable tree with ownership labels). Global Search spans sprints, tasks, decisions, and changelog entries.
+- Read-only git status (`server/git/readOnlyGit.ts`) — structurally contains no write subcommand.
+- 12 Vitest unit tests across 6 test files, all passing; production build (`npm run build`) succeeds.
+- Two real bugs found and fixed via live smoke-testing against the actual repository (not just fixtures): a Phase-goals list that absorbed every Cluster/Sprint bullet list, and a "current sprint" inference that picked a stale sub-sprint mention over a more advanced already-DONE task's sprint. Both have regression tests now.
+- Filed and tracked as [Tasks/IN_PROGRESS/PC-006_project-dashboard.md](Tasks/IN_PROGRESS/PC-006_project-dashboard.md) — not yet moved to DONE, pending Yoav's review and approval.
+- `.gitignore` updated for `Dashboard/node_modules/`, `Dashboard/dist/`, `Dashboard/.vite/`.
+- Not staged, committed, or pushed.
+
+## 2026-07-11 — Restructured Phase 2 into three research clusters with explicit Decision Gates
+
+- `ROADMAP.md` Phase 2 ("Vertical Slice") rewritten from a flat 9-item checklist into three clusters — A: First Real Build (Sprints 2.3–2.5), B: Mission Risk and Reward Loop (2.6–2.8), C: Integrated Vertical Slice (2.9–2.13) — each ending in an explicit Decision Gate (named question + if-yes/if-no branch) rather than an implicit "done or not" status. Sprint 2.3 and 2.5 reworded to validate systems (Active Skills, a second build layer), not commit to specific content (Fracture Bolt/Detonation Field, Passives remain leading candidates, not fixed). Sprint 2.10 (Build Validation & Convergence Check) added as a repeatable, content-free playtesting checkpoint between the first equipment layer and further content expansion, operationalizing "grow horizontally before vertically" as an actual roadmap gate. Its relationship to the Cluster A gate is stated explicitly: Cluster A tests whether Build Identity exists at all; Sprint 2.10 re-tests whether that build space stays healthy once more systems are layered on top.
+- `ROADMAP.md` and `PROJECT_BIBLE.md` § Workflow: added a permanent statement that roadmaps/sprint sequences are research plans, not fixed production schedules — sprints may be repeated, expanded, split, or reordered when playtesting doesn't confirm a cluster's question, without that being a process failure. Placed in `PROJECT_BIBLE.md` (Governance & Process, KD-02) rather than `CORE_PHILOSOPHY.md` (Identity & Philosophy, KD-01) deliberately — this is a development-methodology principle, not a game-design one, matching the domain separation `POINT_CLEAR_KNOWLEDGE_MAP.md` already establishes between the two.
+- Deferred explicitly out of all three clusters: cosmetic character creation, networking/co-op, leaderboards, production art/UI, seasonal infrastructure, full itemization/crafting/economy/endgame-map systems.
+- Not staged or committed — presented as a diff for review first, per instruction.
+
 ## 2026-07-11 — Established Build Identity / Discovery / Expanding the Interaction Space / Healthy Meta as an explicit causal chain in CORE_PHILOSOPHY.md
 
 - Added `CORE_PHILOSOPHY.md` § Build Philosophy point 13 (renumbering 13→14, 14→15): **Expanding the Interaction Space** (internally nicknamed "Horizontal Growth") — new build-layer content (Skills, Items, Passives, Mutations, Relics, mechanics) must be judged first by how many new interactions it creates with existing content, not only by how good it is in isolation. Distinguished explicitly from point 12 (a player-facing choice-quality rule) and tied to point 8 (the general system-evaluation question this sharpens).

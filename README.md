@@ -21,6 +21,10 @@ This repository root **is** the Unity project root (`Assets/`, `Packages/`, `Pro
 | [CHANGELOG.md](CHANGELOG.md) | Dated log of documentation and project changes |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How work gets proposed, implemented, reviewed, and completed |
 
+## Project Dashboard
+
+A local, read-only web dashboard visualizes the project's current state — phase, cluster, sprint, tasks, decisions, changelog, and document relationships — derived live from the markdown files below (never a second source of truth). Run it with `cd Dashboard && npm install && npm run dev`; see [Dashboard/README.md](Dashboard/README.md).
+
 ## For AI Sessions
 
 Any AI assistant (Claude or otherwise) working on this project must read [Documentation/AI/SESSION_START.md](Documentation/AI/SESSION_START.md) before making any changes.
@@ -35,7 +39,8 @@ PointClear/ (repo root = Unity project root)
 ├── Documentation/      Design & technical documentation by domain
 │   └── AI/              AI collaborator onboarding and process docs
 ├── Tasks/              Task files by status (TODO, IN_PROGRESS, REVIEW, DONE, ARCHIVED)
-└── Templates/          Reusable templates for tasks, systems, decisions, and content types
+├── Templates/          Reusable templates for tasks, systems, decisions, and content types
+└── Dashboard/          Local read-only web dashboard over the docs above (Node tool, not part of the Unity build)
 ```
 
 ## Status
