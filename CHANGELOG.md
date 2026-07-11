@@ -6,6 +6,17 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-11 — BUG-001: Enemy obstacle blocking and local avoidance (fixed, approved)
+
+- Found during the extended gameplay review of the Sprint 2.3 build (PC-007): enemies passed straight through arena obstacles and walls, while the player (correctly) collided with them.
+- **Root cause:** `EnemyAI` moves a **kinematic** Rigidbody via `MovePosition`, which static colliders do not stop; the player's Rigidbody is dynamic, hence the asymmetry. Colliders/layers/triggers/collision-matrix were all already correct.
+- **First (blocking-only) fix was insufficient:** it stopped enemies at obstacles (no more pass-through) but left them passively stuck against a wall when the player stood behind one.
+- **Final fix — local wall-tangent avoidance (no NavMesh):** when blocked, the enemy slides along the obstacle using the tangent of the hit surface's normal (stable along the wall, so it walks to the edge without oscillating), latches the chosen side for the traversal, recovers via a position-based stuck-timer, and returns to direct pursuit once the path clears. The kinematic sweep-stop remains as a hard anti-pass-through safety. Enemy stays kinematic; separation and attack-range behavior preserved.
+- **Refactor before finalizing:** consolidated three duplicated "sweep + filter enemies/player/floor" checks into one `TryGetObstacleAhead` helper (behavior-neutral, re-verified).
+- Play-Mode verified (wide wall, small obstacle, four enemies, moving player, open-space regression, both Active Skills) with zero console errors; **playtest-approved by Yoav.**
+- **Known limitation (recorded):** single-obstacle local steering, not global pathfinding — concave/dead-end geometry or dense mazes would need a NavMesh; that is the deliberate future trigger point.
+- Files: `Assets/Systems/Enemies/EnemyAI.cs` only. Tracked as [Tasks/DONE/BUG-001_enemy-obstacle-blocking-and-avoidance.md](Tasks/DONE/BUG-001_enemy-obstacle-blocking-and-avoidance.md) (a dedicated bug-fix task; PC-008 intentionally not used — it remains reserved for Sprint 2.4).
+
 ## 2026-07-11 — Task PC-007 (Sprint 2.3) approved and moved to DONE
 
 - Yoav playtested Sprint 2.3 in Unity and approved ("Result: Approved" — implementation solid, gameplay responsive, both skills behave as expected). **Task PC-007 moved `Tasks/REVIEW/` → `Tasks/DONE/`**, Game Director approval recorded.
