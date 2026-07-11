@@ -1,8 +1,10 @@
 # Point Clear — Core Gameplay Loop
 
-**[APPROVED FACT]** — Version 1.0
+**[APPROVED FACT]** — Version 1.1
 
-This document defines the complete gameplay loop of Point Clear: the player's journey from entering the game until starting the next run. This is a design blueprint, not a technical document — every gameplay system must support this loop. This document owns the Operation's place and sequence in a run; canonical term definitions live in [GLOSSARY.md](../../GLOSSARY.md). See also: [DESIGN_DNA.md](../../DESIGN_DNA.md), [GAME_PILLARS.md](../../GAME_PILLARS.md), [VISION.md](../../VISION.md), [ROADMAP.md](../../ROADMAP.md), [DECISIONS.md](../../DECISIONS.md).
+This document defines the complete gameplay loop of Point Clear: the player's journey from entering the game until starting the next run. This is a design blueprint, not a technical document — every gameplay system must support this loop. This document owns the Operation's place and sequence in a run; canonical term definitions live in [GLOSSARY.md](../../GLOSSARY.md). The permanent rules this loop must obey — persistent characters, automatic experience, loot as reward, mission risk — are defined in [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md); this document does not restate them, only sequences them. See also: [DESIGN_DNA.md](../../DESIGN_DNA.md), [GAME_PILLARS.md](../../GAME_PILLARS.md), [VISION.md](../../VISION.md), [ROADMAP.md](../../ROADMAP.md), [DECISIONS.md](../../DECISIONS.md).
+
+**Terminology note:** this document uses "Operation" per [DEC-009](../../DECISIONS.md), the currently approved formal term. Recent design discussion has used "mission" for the same or a closely related concept informally. Whether "Mission" replaces, splits from, or is simply another name for "Operation" is **[UNRESOLVED]** and is deliberately not decided by this pass — see [DECISIONS.md](../../DECISIONS.md) Unresolved Decisions.
 
 ## Purpose
 
@@ -18,7 +20,7 @@ Main Menu → Lobby → Party → Loadout → Select Operation → Deploy → Ex
 
 ## Lobby
 
-The Lobby is the player's home. Here players can invite friends, join a party, inspect builds, change cosmetics, select a character, configure loadout, view leaderboards, and review previous runs. The Lobby should feel calm — no combat happens here.
+The Lobby is the player's home. Here players can invite friends, join a party, inspect builds, change cosmetics, select or create a character, configure loadout, view leaderboards, and review previous runs. Character creation is cosmetic only — there are no predefined gameplay classes to choose between (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Character Philosophy). The Lobby should feel calm — no combat happens here.
 
 ## Party
 
@@ -50,7 +52,7 @@ Combat is continuous. See [DESIGN_DNA.md](../../DESIGN_DNA.md) § Combat Is King
 
 ## Experience
 
-Enemies grant Experience. Experience fills the Level Bar. Leveling up immediately pauses the action for Upgrade Selection. Players should always be excited when leveling.
+Enemies grant Experience immediately on death — Experience is never a physical pickup (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Progression Philosophy). Experience fills the Level Bar. Leveling up immediately pauses the action for Upgrade Selection. Players should always be excited when leveling. Levels earned during a mission are not lost if the mission is abandoned partway — see Permanent Progression, below.
 
 ## Upgrade Selection
 
@@ -58,7 +60,7 @@ Players choose one option from multiple upgrade choices (e.g., choose 1 of 3). E
 
 ## Build Growth
 
-The build evolves constantly through combinations of the layered build system — Weapon, Active Skills, Passives, Mutations, Relics, Team Synergies, and Temporary Operation Effects (DEC-013; see [GLOSSARY.md](../../GLOSSARY.md) and [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](../Progression/BUILD_SYSTEM_OVERVIEW.md)). Exact layer rules, slot counts, and acquisition methods are **[UNRESOLVED]**. A run should feel like a journey: Weak → Interesting → Powerful → Ridiculous. Players should feel noticeably stronger every few minutes.
+The build evolves constantly through combinations of the layered build system — Weapon, Active Skills, Passives, Mutations, Relics, Team Synergies, and Temporary Operation Effects (DEC-013; see [GLOSSARY.md](../../GLOSSARY.md) and [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](../Progression/BUILD_SYSTEM_OVERVIEW.md)). Exact layer rules, slot counts, and acquisition methods are **[UNRESOLVED]**. Build creation is the heart of Point Clear — every layer above exists to serve build diversity and player agency (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Build Philosophy). A run should feel like a journey: Weak → Interesting → Powerful → Ridiculous, layered on top of whatever the character has already permanently earned — see Permanent Progression, below, for how much of that growth carries forward. Players should feel noticeably stronger every few minutes.
 
 ## Difficulty Curve
 
@@ -82,11 +84,20 @@ Defeating the Boss does not complete the run — Extraction begins. Players must
 
 ## Results
 
-The Results screen summarizes the journey: Operation, Time, Difficulty, Kills, Deaths, Revives, Damage, Final Build, Build Timeline, Rewards, Leaderboard Position. Players should immediately understand what happened during the run.
+The Results screen summarizes the journey: Operation, Time, Difficulty, Kills, Deaths, Revives, Damage, Final Build, Build Timeline, Rewards, Leaderboard Position. Players should immediately understand what happened during the run — including which rewards were actually secured (see Permanent Progression, below) versus lost to mission failure.
 
 ## Permanent Progression
 
-After the run, players earn permanent rewards — examples include Account XP, Unlocks, Classes, Weapons, Cosmetics, Achievements. Run progression is temporary; account progression is permanent.
+**Revised under [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Persistence Philosophy and § Mission Risk Philosophy — this section previously stated the opposite of the approved model and has been rewritten, not merely amended.**
+
+The character is the persistent unit of progression, not the account in isolation. Level, Experience, equipped Weapons, Skills, and owned Equipment all carry forward from mission to mission — a player does not start over at zero each time they deploy.
+
+What a mission actually secures, at Results:
+- **Loot, Gold, and other in-mission rewards** are not permanently owned until the mission is completed successfully. Mission failure loses them.
+- **Experience** is retained at least in part regardless of outcome — failure should still leave the character measurably stronger than before the attempt, even if the mission itself was lost.
+- **Account-level rewards** (cosmetics, achievements, and similar account-wide unlocks not tied to a specific character's build) persist independently of any single mission's outcome, the same as before.
+
+Only a new Season resets character-level progression (level, experience, equipment, skills). No individual mission does.
 
 ## Emotional Curve
 
@@ -94,7 +105,7 @@ See [DESIGN_DNA.md](../../DESIGN_DNA.md) § Player Journey for the emotional arc
 
 ## Failure
 
-Failure is expected. Failure teaches. Failure should motivate another attempt. Never punish failure so heavily that players stop playing.
+Failure is expected. Failure teaches. Failure should motivate another attempt. The exact cost of failure is defined in [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Mission Risk Philosophy and summarized in Permanent Progression, above — it must never be so heavy that players stop playing, and must never erase all long-term progression.
 
 ## Success
 
@@ -121,6 +132,7 @@ Point Clear is not about finishing Operations. Point Clear is about creating sto
 
 ## Related Documents
 
+- [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md)
 - [DESIGN_DNA.md](../../DESIGN_DNA.md)
 - [GAME_PILLARS.md](../../GAME_PILLARS.md)
 - [VISION.md](../../VISION.md)

@@ -1,6 +1,8 @@
 # Point Clear — Roadmap
 
-Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**. See also: [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [VISION.md](VISION.md), [DECISIONS.md](DECISIONS.md).
+Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**. See also: [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md), [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [VISION.md](VISION.md), [DECISIONS.md](DECISIONS.md).
+
+**Note:** the informal "Sprint 1", "Sprint 2.x" implementation numbering used in day-to-day development is a separate, more granular tracking scheme than this document's own Phase 0/1/2 numbering below. The two have not yet been reconciled — flagged here rather than silently assumed equivalent.
 
 This roadmap describes phase intent, not detailed production promises. Later phases are tentative and will be broken down further as earlier phases complete.
 
@@ -41,12 +43,12 @@ This roadmap describes phase intent, not detailed production promises. Later pha
 
 **[PROPOSAL]** Initial target:
 - 1 small map
-- 1 playable character
+- 1 playable character (cosmetic-only creation — no fixed classes, per [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Character Philosophy)
 - Small ability set
 - Small enemy set
 - 1 boss
 - 1–2 player online co-op proof
-- Basic run progression
+- Basic persistent character progression across missions (level, experience, equipment — see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Persistence Philosophy), not run-reset progression
 - Basic results screen
 - Prototype leaderboard submission
 
@@ -66,6 +68,7 @@ This roadmap describes phase intent, not detailed production promises. Later pha
 
 ## Related Documents
 
+- [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md)
 - [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
 - [VISION.md](VISION.md)
 - [DECISIONS.md](DECISIONS.md)

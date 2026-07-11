@@ -4,7 +4,7 @@
 
 "Games are remembered by the stories players tell, not by the features they contain."
 
-This document is the philosophical foundation behind [GAME_PILLARS.md](GAME_PILLARS.md) and [VISION.md](VISION.md). Where those documents state *what* Point Clear is, this document states *why* — the design instincts every feature, system, and proposal should be checked against. See also: [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
+This document is the philosophical foundation behind [GAME_PILLARS.md](GAME_PILLARS.md) and [VISION.md](VISION.md). Where those documents state *what* Point Clear is, this document states *why* — the design instincts every feature, system, and proposal should be checked against. [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) is the project's highest-level, permanent design document and sits above this one: it states the permanent rules; this document elaborates on why they matter and how they should feel. See also: [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
 
 ## Purpose
 
@@ -14,7 +14,7 @@ Players should remember the impossible boss they defeated, the teammate they rev
 
 ## Mission
 
-Build the most satisfying cooperative Action Roguelite where:
+Build the most satisfying cooperative Action ARPG where:
 
 - Combat feels incredible
 - Builds constantly surprise players
@@ -69,13 +69,11 @@ The emotional journey of a single run should look like this:
 
 ## Build Philosophy
 
-Numbers are boring. Interactions are exciting.
+The rule itself — build diversity, player agency, and interactions over numbers — is defined in [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Build Philosophy. This section exists only to illustrate what that rule looks like in practice:
 
 Bad upgrade: `+10% Damage`
 
 Good upgrade: Bullets ricochet. Poison spreads. Enemies explode. Lightning chains. Fire melts armor. Ice shatters frozen enemies.
-
-Every major upgrade should create a new way to play.
 
 ## Multiplayer Philosophy
 
@@ -93,7 +91,7 @@ Players should lose because they made mistakes, they took risks, or they failed 
 
 Death is not punishment. Death is feedback.
 
-A failed run should create motivation, not frustration. Permanent progression exists to encourage learning, not remove challenge.
+A failed mission should create motivation, not frustration. The exact mechanical cost of failure — what is lost, what is kept — is defined in [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Mission Risk Philosophy, not here. This section owns only the emotional framing: failure should teach, not punish.
 
 ## Extraction
 
@@ -107,7 +105,7 @@ Leaderboards are motivation, not the objective. Players compete because they are
 
 ## Seasons
 
-A season should feel like a fresh adventure, not simply a reset. Every season should introduce new discoveries, new build opportunities, new strategies, and new reasons to experiment.
+A season should feel like a fresh adventure, not simply a reset. Every season should introduce new discoveries, new build opportunities, new strategies, and new reasons to experiment. See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Long-Term Vision for why this matters at the highest level, and § Seasons for the approved cadence and reset boundary.
 
 ## What We Will Never Build
 
@@ -148,12 +146,13 @@ Combat First. Builds Second. Everything Else Exists to Support Them.
 
 ## Final Statement
 
-Point Clear is not trying to become the biggest Action Roguelite. Point Clear is trying to become the one players recommend to their friends.
+Point Clear is not trying to become the biggest Action ARPG. Point Clear is trying to become the one players recommend to their friends.
 
 Because every run creates a story. And every story creates the desire for one more run.
 
 ## Related Documents
 
+- [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md)
 - [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
 - [GAME_PILLARS.md](GAME_PILLARS.md)
 - [VISION.md](VISION.md)

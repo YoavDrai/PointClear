@@ -1,6 +1,6 @@
 # Point Clear — Decisions
 
-This document is the persistent record of accepted decisions and open questions. When a decision changes, update its entry rather than deleting history where practical, and log the change in [CHANGELOG.md](CHANGELOG.md). See also: [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [ROADMAP.md](ROADMAP.md), [GLOSSARY.md](GLOSSARY.md).
+This document is the persistent record of accepted decisions and open questions. When a decision changes, update its entry rather than deleting history where practical, and log the change in [CHANGELOG.md](CHANGELOG.md). Permanent design principles live in [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) — this document records when and with what boundaries each was formally approved, not the principle itself. See also: [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [ROADMAP.md](ROADMAP.md), [GLOSSARY.md](GLOSSARY.md).
 
 ---
 
@@ -67,6 +67,36 @@ Point Clear uses a layered build system. A player's build is created through com
 
 **Related unresolved questions:** per-layer rules; slot counts; acquisition methods; balance and rarity systems.
 
+### DEC-014 — Core Philosophy Adopted
+[CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) is adopted as the project's highest-level, permanent design document — the root every other design document traces back to. It establishes build diversity and player agency as the project's central thesis, supersedes the prior informal framing of Point Clear as primarily a "Roguelite" (see DEC-015), and formalizes persistent character progression, the Experience/Loot separation, and mission risk as permanent rules (see DEC-016 through DEC-019).
+
+**Important boundaries:** `CORE_PHILOSOPHY.md` states permanent principles only — it does not specify implementation or individual systems. Changing a principle within it is itself a decision requiring a new or amended DEC entry.
+
+### DEC-015 — Genre Identity
+Point Clear's genre is a persistent, seasonal, cooperative Action ARPG — not a Survivors-like, not a traditional roguelite, and not a clone of any existing ARPG. It takes inspiration from the endgame philosophy of games like Diablo and Path of Exile but must be described by its own systems and identity. This replaces the prior "Action Roguelite RPG" label used in `PROJECT_BIBLE.md` and `VISION.md`.
+
+**Important boundaries:** This is a label and identity decision, not a mechanical specification. It does not itself define any system's rules.
+
+### DEC-016 — Character Persistence
+A player's character — level, Experience, equipped Weapons, Skills, and owned Equipment — persists across missions. No individual mission resets a character. Only a new Season resets character progression.
+
+**Important boundaries:** Exact save/persistence technical implementation is not specified here — it is a future technical requirement, not yet in scope for any current sprint.
+
+### DEC-017 — No Fixed Classes
+Point Clear has no predefined gameplay classes (no Warrior/Mage/Rogue-style archetypes). Character creation is cosmetic only — appearance, not gameplay. Gameplay identity is created entirely through build: equipment, skills, passives, and upgrades.
+
+**Important boundaries:** This does not preclude future starting-loadout variety (e.g., different starting weapons) as long as it remains a build choice, not a locked class.
+
+### DEC-018 — Experience and Loot Separation
+Experience and Loot are permanently separate systems. Experience is automatic progression: enemy deaths grant it immediately, and it is never represented as a physical pickup. Loot is the physical, RNG-based reward — gold, currency, equipment, crafting materials, rare and legendary items. The two must never be merged into one mechanic.
+
+**Important boundaries:** This decision does not specify loot tables, drop rates, rarity tiers, or itemization — all remain **[UNRESOLVED]** pending a future Loot/Itemization system design.
+
+### DEC-019 — Mission Risk and Reward Security
+Rewards earned during a mission (Loot, Gold, other in-mission rewards) are not permanently owned until the mission is completed successfully. Mission failure loses them. Failure must not erase all long-term progression — some earned Experience is retained regardless of outcome.
+
+**Important boundaries:** The exact retained-Experience formula/percentage, and the exact definition of "mission failure" (e.g., party wipe vs. abandonment vs. timeout), are **[UNRESOLVED]**.
+
 ---
 
 ## Unresolved Decisions
@@ -78,8 +108,8 @@ Point Clear uses a layered build system. A player's build is created through com
 - Backend service
 - Leaderboard verification model
 - Exact number of simultaneous enemies
-- Exact progression structure
-- Exact season rules
+- Exact progression structure — high-level model now resolved (persistent character, XP/Loot separation, mission risk — DEC-016 through DEC-019); exact skill trees, XP curve, and loot tables remain open
+- Exact season rules — cadence resolved (DEC-004/005); exactly what (if anything) carries over between Seasons remains open
 - Exact primary leaderboard metric
 - Monetization model
 - Initial release platform and store
@@ -88,6 +118,10 @@ Point Clear uses a layered build system. A player's build is created through com
 - Procedural-generation techniques and tooling (DEC-011)
 - Objective type catalog; objective selection and frequency rules (DEC-012)
 - Build layer exact rules, slot counts, acquisition methods, balance and rarity systems (DEC-013)
+- Whether "Mission" replaces, splits from, or is another name for "Operation" (raised by recent design discussion; not resolved by DEC-014 through DEC-019)
+- Loot tables, drop rates, rarity tiers, and itemization (DEC-018)
+- Exact retained-Experience amount on mission failure, and the exact definition of "mission failure" (DEC-019)
+- Character persistence save/technical implementation (DEC-016)
 
 ---
 
@@ -97,6 +131,7 @@ Use [Templates/DECISION_TEMPLATE.md](Templates/DECISION_TEMPLATE.md). Assign the
 
 ## Related Documents
 
+- [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md)
 - [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
 - [VISION.md](VISION.md)
 - [ROADMAP.md](ROADMAP.md)

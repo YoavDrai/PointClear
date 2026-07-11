@@ -2,7 +2,7 @@
 
 Status legend used throughout this document and all linked documentation: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**.
 
-This document is the top-level reference for what Point Clear is, who is responsible for what, and how work moves from idea to done. See also: [DESIGN_DNA.md](DESIGN_DNA.md), [GAME_PILLARS.md](GAME_PILLARS.md), [VISION.md](VISION.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
+This document is the top-level reference for what Point Clear is, who is responsible for what, and how work moves from idea to done. For the project's permanent design principles, see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md). See also: [DESIGN_DNA.md](DESIGN_DNA.md), [GAME_PILLARS.md](GAME_PILLARS.md), [VISION.md](VISION.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
 
 ---
 
@@ -14,7 +14,7 @@ This document is the top-level reference for what Point Clear is, who is respons
 |---|---|
 | Project name | Point Clear |
 | Current phase | Phase 0 — Pre-Production and Foundation |
-| Genre | Multiplayer-first cooperative isometric Action Roguelite RPG |
+| Genre | Multiplayer-first, persistent, seasonal, cooperative isometric Action ARPG (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Identity) |
 | Player count | 1–4 players |
 | Primary platform target | Windows PC |
 | Engine | Unity 6000.5.3f1 |
@@ -105,15 +105,16 @@ Project knowledge must live in repository documentation, not only in chat histor
 
 At the beginning of a future session, Claude must read:
 
-1. [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
-2. [GAME_PILLARS.md](GAME_PILLARS.md)
-3. [VISION.md](VISION.md)
-4. [ROADMAP.md](ROADMAP.md)
-5. [DECISIONS.md](DECISIONS.md)
-6. [CHANGELOG.md](CHANGELOG.md)
-7. [Documentation/AI/AI_ONBOARDING.md](Documentation/AI/AI_ONBOARDING.md)
-8. [Documentation/AI/CLAUDE_RULES.md](Documentation/AI/CLAUDE_RULES.md)
-9. The active task file
+1. [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md)
+2. [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
+3. [GAME_PILLARS.md](GAME_PILLARS.md)
+4. [VISION.md](VISION.md)
+5. [ROADMAP.md](ROADMAP.md)
+6. [DECISIONS.md](DECISIONS.md)
+7. [CHANGELOG.md](CHANGELOG.md)
+8. [Documentation/AI/AI_ONBOARDING.md](Documentation/AI/AI_ONBOARDING.md)
+9. [Documentation/AI/CLAUDE_RULES.md](Documentation/AI/CLAUDE_RULES.md)
+10. The active task file
 
 Claude must then inspect the current Unity project and report any disagreement between the documentation and the actual project state before implementing changes.
 
@@ -142,6 +143,7 @@ Claude must then inspect the current Unity project and report any disagreement b
 
 ## Related Documents
 
+- [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md)
 - [DESIGN_DNA.md](DESIGN_DNA.md)
 - [GAME_PILLARS.md](GAME_PILLARS.md)
 - [VISION.md](VISION.md)

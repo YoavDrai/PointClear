@@ -6,6 +6,15 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-11 — Established CORE_PHILOSOPHY.md as the project's foundational design document
+
+- Created `CORE_PHILOSOPHY.md` at the repository root — the new highest-level design document, sitting above `DESIGN_DNA.md` as the root of Layer 1. Defines the permanent, stable rules every future system must follow: build diversity and player agency as the project's central thesis; persistent character progression across missions, reset only by Seasons; Experience and Loot as permanently separate systems (Experience automatic and immediate, Loot physical and RNG-based); mission risk (rewards not secured until success, some Experience retained on failure); no predefined gameplay classes; and a "living game" long-term vision — the game is designed to be played for years, not completed once.
+- This formalizes a deliberate identity shift: Point Clear moves from an "Action Roguelite RPG" framing toward a persistent, seasonal, cooperative Action ARPG inspired by (but not cloning) the endgame philosophy of games like Diablo and Path of Exile.
+- Updated `DECISIONS.md` with DEC-014 through DEC-019 recording this adoption and its component decisions (Core Philosophy Adopted, Genre Identity, Character Persistence, No Fixed Classes, Experience/Loot Separation, Mission Risk and Reward Security); updated the Unresolved Decisions list accordingly.
+- Updated `PROJECT_BIBLE.md` (genre field, session read-order), `VISION.md` (genre summary, feature list), `DESIGN_DNA.md` (cross-references instead of restating Build Philosophy/Death/Seasons content now owned by `CORE_PHILOSOPHY.md`), `GAME_PILLARS.md` (derivation note), `GLOSSARY.md` (added Loot, Persistent Character, Season terms; revised Loadout, Run; flagged the open Operation/Mission terminology question), `Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md` (rewrote "Permanent Progression," which previously stated the opposite of the approved model), `Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md`, `ROADMAP.md`, and `POINT_CLEAR_KNOWLEDGE_MAP.md` (added `CORE_PHILOSOPHY.md` to the Layer 1 architecture) to be consistent with the new document and to remove now-duplicated content.
+- Explicitly left unresolved: whether "Mission" (used informally in recent design discussion) replaces, splits from, or is another name for "Operation" (the current formal `GLOSSARY.md`/DEC-009 term) — flagged in every document that touches it rather than guessed at.
+- Documentation only — no gameplay code, scenes, or project settings were modified.
+
 ## 2026-07-11 — Task PC-003 (Sprint 1.3): Continuous Enemy Spawning & Crowd Scalability Prototype (approved)
 
 - Added authoritative active-enemy counting to `EnemyAI` (`ActiveCount`/`PeakActiveCount`, owned by `OnEnable`/`OnDisable`, correct regardless of death/external destroy/scene unload), increased the separation buffer 8→32 slots after proving the original truncates under dense clustering.

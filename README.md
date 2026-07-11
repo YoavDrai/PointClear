@@ -1,6 +1,6 @@
 # Point Clear
 
-Multiplayer-first cooperative isometric Action Roguelite RPG.
+Multiplayer-first, persistent, seasonal, cooperative isometric Action ARPG. See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) for the full identity statement.
 
 **Current phase:** Phase 0 — Pre-Production and Foundation
 **Engine:** Unity 6000.5.3f1 (Universal Render Pipeline, Unity New Input System)

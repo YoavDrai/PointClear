@@ -1,12 +1,12 @@
 # Point Clear — Vision
 
-Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**. See also: [DESIGN_DNA.md](DESIGN_DNA.md), [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [GAME_PILLARS.md](GAME_PILLARS.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
+Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOLVED]**. See also: [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md), [DESIGN_DNA.md](DESIGN_DNA.md), [PROJECT_BIBLE.md](PROJECT_BIBLE.md), [GAME_PILLARS.md](GAME_PILLARS.md), [ROADMAP.md](ROADMAP.md), [DECISIONS.md](DECISIONS.md).
 
 ## Summary
 
 **[APPROVED FACT]**
 
-Point Clear is an original cooperative Action Roguelite RPG designed for solo play and online co-op for up to four players. The player controls a character manually from an isometric camera perspective.
+Point Clear is an original, persistent, seasonal cooperative Action ARPG designed for solo play and online co-op for up to four players. The player controls a character manually from an isometric camera perspective. See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Identity for the full statement of what Point Clear is and is not.
 
 ## Intended Features
 
@@ -17,8 +17,8 @@ Point Clear is an original cooperative Action Roguelite RPG designed for solo pl
 - Active combat abilities
 - Large groups of enemies
 - Deep build creation through a layered build system (weapon, active skills, passives, mutations, relics, team synergies, temporary Operation effects)
-- Temporary progression during each run
-- Long-term progression between runs
+- Persistent character progression carried across missions — level, experience, equipment, weapons, and skills all persist; only a new Season resets them (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Persistence Philosophy)
+- Mission-scoped risk on top of that persistence — loot and gold earned during a mission are not secured until it is completed successfully (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Mission Risk Philosophy)
 - Skill and passive progression systems
 - Weapons, items, abilities, and build combinations
 - Operations composed of multiple connected, semi-procedural Zones
@@ -55,6 +55,7 @@ Point Clear must be described by its own systems and identity.
 
 ## Related Documents
 
+- [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md)
 - [DESIGN_DNA.md](DESIGN_DNA.md)
 - [PROJECT_BIBLE.md](PROJECT_BIBLE.md)
 - [GAME_PILLARS.md](GAME_PILLARS.md)

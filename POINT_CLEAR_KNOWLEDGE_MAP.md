@@ -65,8 +65,9 @@ No cycles: knowledge flows strictly downward from philosophy/process toward cont
 
 | Domain | Topic | Canonical Owner (current or intended) | Status |
 |---|---|---|---|
+| KD-01 | Permanent Design Principles (root of Layer 1) | `CORE_PHILOSOPHY.md` | SOURCE OF TRUTH |
 | KD-01 | Studio Identity & Mission | `PROJECT_BIBLE.md` §1 + `DESIGN_DNA.md` Purpose/Mission | SOURCE OF TRUTH |
-| KD-01 | Design Pillars (operational checklist) | `GAME_PILLARS.md` | DERIVED from `DESIGN_DNA.md` |
+| KD-01 | Design Pillars (operational checklist) | `GAME_PILLARS.md` | DERIVED from `CORE_PHILOSOPHY.md` + `DESIGN_DNA.md` |
 | KD-01 | Feature Vision / Intent | `VISION.md` | SOURCE OF TRUTH |
 | KD-01 | Terminology | `GLOSSARY.md` | SHIPPED, LIVING |
 | KD-02 | Roles & Responsibilities | `PROJECT_BIBLE.md` §2 | SOURCE OF TRUTH |
@@ -211,16 +212,16 @@ Knowledge Architecture answers "where does this fact live?" Decision Architectur
 
 ### Layer 1 — Philosophy
 
-| Field | `DESIGN_DNA.md` | `GAME_PILLARS.md` | `VISION.md` |
-|---|---|---|---|
-| Primary Question | Why does Point Clear exist, and what experience must every feature serve? | What is the checklist every proposal must pass? | What features does Point Clear intend to have? |
-| Required Inputs | None (root of Layer 1) | `DESIGN_DNA.md` | `GAME_PILLARS.md`, `DESIGN_DNA.md` |
-| Produced Knowledge | Five experience pillars, player emotional arc, build/death/difficulty/leaderboard/season/combat philosophy, "what we will never build" | A 10-item gating checklist | The intended feature list, party-size support, leaderboard category intent |
-| Unlocked Decisions | Whether any feature is worth pursuing at all | Whether a specific proposal may proceed to spec | What `CORE_GAMEPLAY_LOOP.md` and every domain doc below it is allowed to contain |
-| Blocked Decisions | Every design document | Feature approval | Any Layer 2+ document's scope |
-| Success Criteria | No downstream doc should need to re-justify "why" — it can always cite here | Every proposal review is a checklist pass, not a debate | No reader should wonder "is X actually intended, or just possible?" |
-| Lifecycle | STABLE | STABLE — "not expected to change casually" per its own text | SEMI-STABLE — individual items may move from PROPOSAL to APPROVED FACT as decisions land |
-| Source of Truth | Exclusive owner of: player emotional arc **(currently duplicated — see resolution above)**, death/failure philosophy **(duplicated)**, combat feel philosophy **(duplicated, drifted)**, multiplayer philosophy **(duplicated)**, difficulty/leaderboard/season philosophy, "never build" list | Exclusive owner of: the 10 gating pillars | Exclusive owner of: the intended feature list, leaderboard category proposals |
+| Field | `CORE_PHILOSOPHY.md` | `DESIGN_DNA.md` | `GAME_PILLARS.md` | `VISION.md` |
+|---|---|---|---|---|
+| Primary Question | What IS Point Clear, structurally, and what rules must every system obey? | Why does Point Clear exist, and what experience must every feature serve? | What is the checklist every proposal must pass? | What features does Point Clear intend to have? |
+| Required Inputs | None (new root of Layer 1) | `CORE_PHILOSOPHY.md` | `CORE_PHILOSOPHY.md`, `DESIGN_DNA.md` | `GAME_PILLARS.md`, `DESIGN_DNA.md` |
+| Produced Knowledge | Build-diversity thesis, player agency/divergence, persistence, Experience/Loot separation, mission risk, identity, long-term "living game" vision | Five experience pillars, player emotional arc, build/death/difficulty/leaderboard/season/combat philosophy, "what we will never build" | A 10-item gating checklist | The intended feature list, party-size support, leaderboard category intent |
+| Unlocked Decisions | Whether any feature is worth pursuing at all; supersedes ad hoc genre framing | Whether a specific proposal fits the game's feel | Whether a specific proposal may proceed to spec | What `CORE_GAMEPLAY_LOOP.md` and every domain doc below it is allowed to contain |
+| Blocked Decisions | Every design document | Every design document | Feature approval | Any Layer 2+ document's scope |
+| Success Criteria | No downstream doc should need to re-justify "what is this game, fundamentally" — it can always cite here | No downstream doc should need to re-justify "why" — it can always cite here | Every proposal review is a checklist pass, not a debate | No reader should wonder "is X actually intended, or just possible?" |
+| Lifecycle | STABLE — highest-level document; changes ripple everywhere | STABLE | STABLE — "not expected to change casually" per its own text | SEMI-STABLE — individual items may move from PROPOSAL to APPROVED FACT as decisions land |
+| Source of Truth | Exclusive owner of: build-diversity thesis, player agency, character persistence, Experience/Loot separation, mission risk, genre identity | Exclusive owner of: player emotional arc **(currently duplicated — see resolution above)**, combat feel philosophy **(duplicated, drifted)**, multiplayer philosophy **(duplicated)**, difficulty/leaderboard philosophy, "never build" list. Build Philosophy, Death mechanics, and Seasons mechanics now reference `CORE_PHILOSOPHY.md` rather than restating the rule. | Exclusive owner of: the 10 gating pillars | Exclusive owner of: the intended feature list, leaderboard category proposals |
 
 ### Layer 2 — Design Blueprints
 
@@ -367,6 +368,7 @@ This is not the document graph from the Knowledge Map — it's the chain of *que
 
 ## Related
 
+- [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) (new root of Layer 1)
 - [DESIGN_DNA.md](DESIGN_DNA.md)
 - [GAME_PILLARS.md](GAME_PILLARS.md)
 - [VISION.md](VISION.md)

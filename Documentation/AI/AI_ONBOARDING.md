@@ -1,10 +1,10 @@
 # AI Onboarding — Point Clear
 
-This document orients any AI collaborator (Claude, ChatGPT, or others) joining work on Point Clear. Read this alongside [PROJECT_BIBLE.md](../../PROJECT_BIBLE.md), [GAME_PILLARS.md](../../GAME_PILLARS.md), [VISION.md](../../VISION.md), [ROADMAP.md](../../ROADMAP.md), and [DECISIONS.md](../../DECISIONS.md).
+This document orients any AI collaborator (Claude, ChatGPT, or others) joining work on Point Clear. Read this alongside [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md), [PROJECT_BIBLE.md](../../PROJECT_BIBLE.md), [GAME_PILLARS.md](../../GAME_PILLARS.md), [VISION.md](../../VISION.md), [ROADMAP.md](../../ROADMAP.md), and [DECISIONS.md](../../DECISIONS.md).
 
 ## What Point Clear Is
 
-**[APPROVED FACT]** Point Clear is an original, multiplayer-first, cooperative isometric Action Roguelite RPG for 1–4 players, built in Unity 6000.5.3f1 with URP and the New Input System. It is currently in **Phase 0 — Pre-Production and Foundation**, which is **in progress and not complete**.
+**[APPROVED FACT]** Point Clear is an original, multiplayer-first, persistent, seasonal, cooperative isometric Action ARPG for 1–4 players, built in Unity 6000.5.3f1 with URP and the New Input System. See [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) for the full identity and design-principles statement. It is currently in **Phase 0 — Pre-Production and Foundation**, which is **in progress and not complete**.
 
 Point Clear must be described by its own systems and identity — do not use other commercial games as implementation specifications, and do not copy another game's content, terminology, assets, progression structure, or UI.
 
