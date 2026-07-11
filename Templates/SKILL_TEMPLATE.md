@@ -27,7 +27,7 @@ Active | Passive
 
 ## Build Interactions
 
-(How this skill is intended to combine with other skills, weapons, or items — supports Pillar 3, build creation and experimentation.)
+(How this skill is intended to combine with other skills, weapons, or items — supports Pillar 3, build creation and experimentation. Per [CORE_PHILOSOPHY.md](../CORE_PHILOSOPHY.md) § Build Philosophy — Expanding the Interaction Space: name the specific existing content this connects to. A skill that only adds isolated depth to itself, with no new interaction with anything that already exists, does not yet satisfy this principle.)
 
 ## Progression
 

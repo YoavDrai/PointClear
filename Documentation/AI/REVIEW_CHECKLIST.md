@@ -24,6 +24,13 @@ Use this checklist during the "Technical review" and "Approval" steps of [TASK_W
 - [ ] Networked state (if any) has clear ownership; competitive/leaderboard-sensitive logic remains server-authoritative in design intent even if networking is not yet implemented.
 - [ ] Design is performance-aware for large enemy counts where relevant.
 
+## Build Content Alignment
+
+*(Applies only to tasks introducing or modifying a Skill, Item, Passive, Mutation, Relic, or other build-layer content — see [DECISIONS.md](../../DECISIONS.md) DEC-013.)*
+
+- [ ] This content creates at least one new interaction with existing content, not only isolated depth (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Build Philosophy — Expanding the Interaction Space).
+- [ ] This content does not make existing Skills, Items, Passives, Mutations, or Relics meaningfully less relevant or viable.
+
 ## Identity
 
 - [ ] No content, terminology, assets, progression structure, or UI was copied from another commercial game.

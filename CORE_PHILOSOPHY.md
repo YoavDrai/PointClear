@@ -33,8 +33,9 @@ This document defines the permanent design principles of Point Clear — the rul
 10. Meaningful choices create meaningful builds. A build should not be able to become everything — choosing one direction should mean giving up another. Players should regularly face decisions that open one path while closing another.
 11. Permanent or difficult-to-reverse choices are valuable when they create identity, but they must never punish experimentation unfairly.
 12. Interesting interactions are worth more than larger numbers. A build choice should change how the game is played, not just its stat sheet.
-13. There should never be only one intended way to play.
-14. Every Season should expand build diversity — new weapons, skills, mechanics, and items that create new viable ways to play — not simply larger numbers.
+13. Build diversity should expand horizontally, not vertically: new content earns its place by expanding the interaction space — creating new combinations with what already exists — not by replacing it or simply outscaling it in isolation. A new Skill, Item, Passive, Mutation, Relic, or mechanic should be judged first by how many new interactions it creates with existing content, not only by how good it is on its own. This sharpens point 8's general evaluation question along one specific axis, and is distinct from point 12: point 12 is about what a player should value when choosing an upgrade; this is about what a designer should optimize for when creating one. (Internally nicknamed "Horizontal Growth.")
+14. There should never be only one intended way to play.
+15. Every Season should expand build diversity — new weapons, skills, mechanics, and items that create new viable ways to play — not simply larger numbers.
 
 ### Player Agency & Divergent Journeys
 
@@ -56,32 +57,36 @@ This curiosity — not grinding, not routine — is what should bring players ba
 ### Player Expression & The Meta
 
 - A dominant meta will emerge naturally over time. This is expected, not a failure.
-- The goal is not to eliminate the meta. The goal is to continuously create new viable alternatives to it — through new skills, weapons, items, mechanics, and interactions, Season after Season.
+- The goal is not to eliminate the meta. New viable alternatives continue to appear as a direct consequence of expanding the interaction space (point 13) — Season after Season — not as a separately-pursued goal in itself.
+
+### How These Ideas Connect
+
+These principles form a chain, not a list of unrelated rules. Build identity (points 5–6) — *"I created a build that feels uniquely mine"* — is the terminal player fantasy this document exists to serve. It is produced by discovery (see The Player Mindset, above): players earn ownership over a build by finding it themselves, not by being handed one. Discovery requires something to find, which is why the interaction space must keep expanding (point 13) — and why new content must add to that space rather than replace what's already in it. A healthy, ever-shifting meta (above) is the observable result when this is working: many viable builds, no single forced solution, Season after Season.
 
 ## Character Philosophy
 
-15. There are no predefined gameplay classes. Character creation is cosmetic only — appearance, not gameplay.
-16. Gameplay identity is created entirely through build: equipment, skills, passives, and upgrades. The build is the class.
+16. There are no predefined gameplay classes. Character creation is cosmetic only — appearance, not gameplay.
+17. Gameplay identity is created entirely through build: equipment, skills, passives, and upgrades. The build is the class.
 
 ## Progression Philosophy
 
-17. Experience is automatic progression, and it exists to unlock build potential — levels and skill points, not stat inflation on its own. Enemy deaths grant experience immediately; experience is never represented as a physical pickup.
-18. Loot is reward, and it exists to improve and diversify builds. Physical, RNG-based drops — gold, currency, equipment, crafting materials, rare and legendary items — exist to be found and fought for.
-19. Experience and Loot are permanently separate systems and must never be merged into one mechanic.
+18. Experience is automatic progression, and it exists to unlock build potential — levels and skill points, not stat inflation on its own. Enemy deaths grant experience immediately; experience is never represented as a physical pickup.
+19. Loot is reward, and it exists to improve and diversify builds. Physical, RNG-based drops — gold, currency, equipment, crafting materials, rare and legendary items — exist to be found and fought for.
+20. Experience and Loot are permanently separate systems and must never be merged into one mechanic.
 
 ## Persistence Philosophy
 
-20. Characters persist. Level, experience, equipment, weapons, and skills carry forward from mission to mission — so a build can be developed, tested, and refined over time, not rebuilt from scratch every session.
-21. Only a new Season resets character progression. No individual mission resets a character.
+21. Characters persist. Level, experience, equipment, weapons, and skills carry forward from mission to mission — so a build can be developed, tested, and refined over time, not rebuilt from scratch every session.
+22. Only a new Season resets character progression. No individual mission resets a character.
 
 ## Mission Risk Philosophy
 
-22. Missions exist to challenge builds. They create meaningful risk: rewards earned during a mission are not permanently owned until the mission is completed successfully.
-23. Failure has a real cost: loot, gold, and other in-mission rewards are lost. Failure must not erase all long-term progression — some earned experience is retained regardless of outcome.
+23. Missions exist to challenge builds. They create meaningful risk: rewards earned during a mission are not permanently owned until the mission is completed successfully.
+24. Failure has a real cost: loot, gold, and other in-mission rewards are lost. Failure must not erase all long-term progression — some earned experience is retained regardless of outcome.
 
 ## Seasons
 
-24. Seasons last approximately four months. Each Season begins with a fresh character progression and economy. Exactly what resets and what (if anything) carries between Seasons is recorded in [DECISIONS.md](DECISIONS.md), not here — see Long-Term Vision, above, for why Seasons exist beyond the reset itself.
+25. Seasons last approximately four months. Each Season begins with a fresh character progression and economy. Exactly what resets and what (if anything) carries between Seasons is recorded in [DECISIONS.md](DECISIONS.md), not here — see Long-Term Vision, above, for why Seasons exist beyond the reset itself.
 
 ## How These Principles Are Used
 

@@ -97,6 +97,11 @@ Rewards earned during a mission (Loot, Gold, other in-mission rewards) are not p
 
 **Important boundaries:** The exact retained-Experience formula/percentage, and the exact definition of "mission failure" (e.g., party wipe vs. abandonment vs. timeout), are **[UNRESOLVED]**.
 
+### DEC-020 — Level-Up Grants Persistent Build Potential Only
+Character Level, total Experience, and earned Skill Points are persistent character progression within a Season (extends DEC-016) — they persist mission-to-mission and reset only at a new Season. Leveling up grants persistent build-unlocking currency (a Skill Point) to the character; it never grants a temporary in-mission stat bonus, and it does not pause the mission for an in-mission upgrade-selection screen. In-run power growth during an Operation instead comes from Loot, Relics and Mutations discovered during that run, and Temporary Operation Effects (DEC-013) — not from Level or Experience. This supersedes the "choose 1 of 3 upgrade selection tied to leveling" description previously in [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md) § Upgrade Selection (now § In-Run Power Growth), which has been revised to match.
+
+**Important boundaries:** This does not specify exact Skill-Point-to-Skill/Passive mechanics, acquisition rate, or respec rules — remain **[UNRESOLVED]** pending a future Skill Point Allocation sprint. This does not resolve whether Mutations, Relics, or Temporary Operation Effects persist between missions once found — those individual layer persistence rules remain **[UNRESOLVED]** (see [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md)). This does not imply any save system has been implemented — persistence of Level, Experience, and Skill Points is the approved design model; the actual technical save/persistence implementation remains a separate, not-yet-scoped requirement (same boundary as DEC-016).
+
 ---
 
 ## Unresolved Decisions
@@ -108,7 +113,8 @@ Rewards earned during a mission (Loot, Gold, other in-mission rewards) are not p
 - Backend service
 - Leaderboard verification model
 - Exact number of simultaneous enemies
-- Exact progression structure — high-level model now resolved (persistent character, XP/Loot separation, mission risk — DEC-016 through DEC-019); exact skill trees, XP curve, and loot tables remain open
+- Exact progression structure — high-level model now resolved (persistent character, XP/Loot separation, mission risk, Level-Up grants persistent build potential only — DEC-016 through DEC-020); exact skill trees, Skill Point acquisition/spend rules, XP curve, and loot tables remain open
+- Whether Mutations, Relics, or Temporary Operation Effects persist between missions once found (DEC-013, DEC-020) — individual layer persistence rules remain unresolved
 - Exact season rules — cadence resolved (DEC-004/005); exactly what (if anything) carries over between Seasons remains open
 - Exact primary leaderboard metric
 - Monetization model
@@ -121,7 +127,7 @@ Rewards earned during a mission (Loot, Gold, other in-mission rewards) are not p
 - Whether "Mission" replaces, splits from, or is another name for "Operation" (raised by recent design discussion; not resolved by DEC-014 through DEC-019)
 - Loot tables, drop rates, rarity tiers, and itemization (DEC-018)
 - Exact retained-Experience amount on mission failure, and the exact definition of "mission failure" (DEC-019)
-- Character persistence save/technical implementation (DEC-016)
+- Character persistence save/technical implementation (DEC-016, DEC-020) — no save system exists yet; persistence is the approved design model only, not an implemented feature
 
 ---
 

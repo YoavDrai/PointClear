@@ -95,9 +95,10 @@ No cycles: knowledge flows strictly downward from philosophy/process toward cont
 | KD-05 | Damage Model | Not written | BLOCKED |
 | KD-05 | Targeting | Not written | BLOCKED |
 | KD-05 | Enemy Interaction | Loop-sequencing stubs only | BLOCKED |
-| KD-06 | Build Philosophy | `DESIGN_DNA.md` "Build Philosophy" | SOURCE OF TRUTH |
+| KD-06 | Build Philosophy | `CORE_PHILOSOPHY.md` § Build Philosophy (rule); `DESIGN_DNA.md` "Build Philosophy" (illustration/why) | SPLIT OWNERSHIP — see Layer 1 table below; this row corrected 2026-07-11 to match it (previously listed `DESIGN_DNA.md` alone, a leftover from before `CORE_PHILOSOPHY.md` existed) |
+| KD-06 | Build Identity, Discovery, Interaction Space ("Horizontal Growth"), Healthy Meta — the causal chain explaining why build diversity matters and how new content should be evaluated | `CORE_PHILOSOPHY.md` § Build Philosophy | SOURCE OF TRUTH, RESOLVED from creation — `DESIGN_DNA.md` illustrates (propagation-chain examples), does not restate |
 | KD-06 | Build Layer Structure (high-level) | `Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md` | RESOLVED at high level via DEC-013 (7 layers + interaction principle); exact rules **[UNRESOLVED]** |
-| KD-06 | Upgrade Selection Mechanic | Loop stub, will move to Systems layer | BLOCKED — still needs `PROGRESSION_OVERVIEW.md` |
+| KD-06 | In-Run Power Growth Mechanic (renamed from "Upgrade Selection" under DEC-020) | `CORE_GAMEPLAY_LOOP.md` § In-Run Power Growth (loop stub); exact mechanics still need `PROGRESSION_OVERVIEW.md` | BLOCKED — still needs `PROGRESSION_OVERVIEW.md` |
 | KD-06 | Run vs. Account Progression | `PROGRESSION_OVERVIEW.md` | PLANNED |
 | KD-07 | Difficulty Philosophy (mastery, fairness) | `DESIGN_DNA.md` "Difficulty" | SOURCE OF TRUTH |
 | KD-07 | Difficulty Curve Mechanics (pacing) | `CORE_GAMEPLAY_LOOP.md` "Difficulty Curve" | SOURCE OF TRUTH — correctly separate from KD-07 philosophy; principle vs. mechanic, not duplication |

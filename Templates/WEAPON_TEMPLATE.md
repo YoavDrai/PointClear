@@ -28,7 +28,7 @@ Use for documenting a weapon under [Documentation/Weapons/](../Documentation/Wea
 
 ## Build Interactions
 
-(How this weapon combines with skills, items, and other build elements — supports Pillar 3.)
+(How this weapon combines with skills, items, and other build elements — supports Pillar 3. Per [CORE_PHILOSOPHY.md](../CORE_PHILOSOPHY.md) § Build Philosophy — Expanding the Interaction Space: name the specific existing content this connects to. A weapon that only adds isolated depth to itself, with no new interaction with anything that already exists, does not yet satisfy this principle.)
 
 ## Data / Configuration
 

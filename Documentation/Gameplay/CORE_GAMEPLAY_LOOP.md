@@ -1,6 +1,6 @@
 # Point Clear — Core Gameplay Loop
 
-**[APPROVED FACT]** — Version 1.1
+**[APPROVED FACT]** — Version 1.2
 
 This document defines the complete gameplay loop of Point Clear: the player's journey from entering the game until starting the next run. This is a design blueprint, not a technical document — every gameplay system must support this loop. This document owns the Operation's place and sequence in a run; canonical term definitions live in [GLOSSARY.md](../../GLOSSARY.md). The permanent rules this loop must obey — persistent characters, automatic experience, loot as reward, mission risk — are defined in [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md); this document does not restate them, only sequences them. See also: [DESIGN_DNA.md](../../DESIGN_DNA.md), [GAME_PILLARS.md](../../GAME_PILLARS.md), [VISION.md](../../VISION.md), [ROADMAP.md](../../ROADMAP.md), [DECISIONS.md](../../DECISIONS.md).
 
@@ -16,7 +16,7 @@ Every run must answer one question: "Do I want to start another run immediately?
 
 ## High-Level Loop
 
-Main Menu → Lobby → Party → Loadout → Select Operation → Deploy → Explore Zones → Fight → Complete Objectives → Gain Experience → Choose Upgrades → Become Stronger → Face Increasing Danger → Mini Boss → Continue Building → Boss → Extraction → Results → Permanent Progression → Lobby → Repeat.
+Main Menu → Lobby → Party → Loadout → Select Operation → Deploy → Explore Zones → Fight → Complete Objectives → Gain Experience → Find Loot & Temporary Effects → Grow Stronger → Face Increasing Danger → Mini Boss → Continue Building → Boss → Extraction → Results → Permanent Progression → Lobby → Repeat.
 
 ## Lobby
 
@@ -52,15 +52,19 @@ Combat is continuous. See [DESIGN_DNA.md](../../DESIGN_DNA.md) § Combat Is King
 
 ## Experience
 
-Enemies grant Experience immediately on death — Experience is never a physical pickup (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Progression Philosophy). Experience fills the Level Bar. Leveling up immediately pauses the action for Upgrade Selection. Players should always be excited when leveling. Levels earned during a mission are not lost if the mission is abandoned partway — see Permanent Progression, below.
+**Revised under [DECISIONS.md](../../DECISIONS.md) DEC-020 — this section previously described leveling as pausing the run for an in-mission upgrade choice; that description is superseded, not merely amended.**
 
-## Upgrade Selection
+Enemies grant Experience immediately on death — Experience is never a physical pickup (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Progression Philosophy). Experience fills the character's persistent Level Bar — the same Level and total Experience the character carries into every future mission within the current Season (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Persistence Philosophy). Leveling up unlocks persistent build potential — a Skill Point banked on the character for spending on permanent Skills/Passives — it does not pause the mission for an in-mission choice, and it grants no power by itself (see DEC-020). Players should always be excited when leveling. Levels and Skill Points earned during a mission are never lost, regardless of mission outcome — see Permanent Progression, below.
 
-Players choose one option from multiple upgrade choices (e.g., choose 1 of 3). Every choice should significantly influence the future build. Avoid small statistical upgrades whenever possible — every selection should create anticipation.
+## In-Run Power Growth
+
+**Revised under DEC-020 — replaces this section's former title, "Upgrade Selection," and its framing of upgrade choices as tied to leveling.**
+
+A run's Weak → Ridiculous power curve (see Build Growth, below) comes from what is found and used during the Operation itself — Loot, Relics and Mutations discovered but not yet secured, and Temporary Operation Effects scoped to the current run (DEC-013) — not from Experience or Level, which are permanent character progression (see § Experience, above). Whether any in-run finds present the player with a choice (e.g., "1 of 3"), and exactly how they are acquired, is **[UNRESOLVED]** pending the Loot/Equipment system design. Whatever form in-run choices take, the same principle applies: avoid small statistical upgrades whenever possible — every choice should create anticipation, not just a bigger number.
 
 ## Build Growth
 
-The build evolves constantly through combinations of the layered build system — Weapon, Active Skills, Passives, Mutations, Relics, Team Synergies, and Temporary Operation Effects (DEC-013; see [GLOSSARY.md](../../GLOSSARY.md) and [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](../Progression/BUILD_SYSTEM_OVERVIEW.md)). Exact layer rules, slot counts, and acquisition methods are **[UNRESOLVED]**. Build creation is the heart of Point Clear — every layer above exists to serve build diversity and player agency (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Build Philosophy). A run should feel like a journey: Weak → Interesting → Powerful → Ridiculous, layered on top of whatever the character has already permanently earned — see Permanent Progression, below, for how much of that growth carries forward. Players should feel noticeably stronger every few minutes.
+The build evolves constantly through combinations of the layered build system — Weapon, Active Skills, Passives, Mutations, Relics, Team Synergies, and Temporary Operation Effects (DEC-013; see [GLOSSARY.md](../../GLOSSARY.md) and [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](../Progression/BUILD_SYSTEM_OVERVIEW.md)). Exact layer rules, slot counts, and acquisition methods are **[UNRESOLVED]**. Build creation is the heart of Point Clear — every layer above exists to serve build diversity and player agency (see [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) § Build Philosophy). A run should feel like a journey: Weak → Interesting → Powerful → Ridiculous, driven by in-run finds (see In-Run Power Growth, above) layered on top of whatever the character has already permanently earned — see Permanent Progression, below, for how much of that growth carries forward. Players should feel noticeably stronger every few minutes.
 
 ## Difficulty Curve
 

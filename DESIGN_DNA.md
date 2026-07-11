@@ -75,6 +75,8 @@ Bad upgrade: `+10% Damage`
 
 Good upgrade: Bullets ricochet. Poison spreads. Enemies explode. Lightning chains. Fire melts armor. Ice shatters frozen enemies.
 
+The reason: excitement should come from discovering how mechanics chain into each other, not from unlocking another button. The best moments are propagation chains — one effect setting up the next: Mark → Fracture → Explosion. Poison → Spread → Corpse Explosion. Freeze → Shatter. Fire → Ignite → Detonation. A new skill, item, or passive is doing its job when it makes an existing chain reach further, not just when it's strong in isolation. See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Build Philosophy (Expanding the Interaction Space) for the permanent rule this expresses.
+
 ## Multiplayer Philosophy
 
 Solo must always be enjoyable. Co-op must always be better.
@@ -119,6 +121,8 @@ We reject:
 - Mandatory meta builds
 - Complexity without purpose
 - Systems that distract from the core experience
+
+Mandatory meta builds specifically are what a continuously expanding interaction space (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Build Philosophy) is designed to prevent structurally — not simply a bad outcome to avoid by intention alone.
 
 ## Design Principles
 
