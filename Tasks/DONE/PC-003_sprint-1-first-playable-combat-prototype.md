@@ -11,7 +11,7 @@ PC-003
 Sprint 1 — First Playable Combat Prototype (includes Sprint 1.1 — Playability and Combat Feedback Fix, Sprint 1.2 — Combat Space & Enemy Behaviour)
 
 ## Status
-REVIEW
+DONE (2026-07-11) — Yoav approved the full PC-003 task ("PC-003 is approved"), extending beyond the earlier Sprint-1.3-only approval to cover Sprint 1, 1.1, 1.2, and 1.3 as a whole. Technical-review box left unchecked (no Technical Director present); moved to DONE on the Game Director's explicit authority, flagged not silently checked — same handling as PC-004/PC-006.
 
 ## Priority
 High
@@ -205,15 +205,15 @@ Yoav commissioned a crowd-scalability prototype: authoritative active-enemy coun
 
 ## Game Director Approval
 
-- [ ] Approved by Yoav
-- Date:
-- Notes:
+- [x] Approved by Yoav
+- Date: 2026-07-11
+- Notes: Approved explicitly in chat ("PC-003 is approved. Move it from REVIEW to DONE."). This is the whole-task approval that had been outstanding — the earlier 2026-07-11 approval covered only Sprint 1.3. Now covers Sprint 1 (first playable), 1.1 (playability/feedback), 1.2 (combat space/enemy behaviour), and 1.3 (continuous spawning/crowd scalability).
 
 ## Definition of Done Checklist
 
 - [x] Acceptance criteria pass
 - [x] Unity has no new compiler errors
 - [x] Required testing was completed
-- [ ] Yoav approved the result
-- [ ] Technical review was completed
+- [x] Yoav approved the result
+- [ ] Technical review was completed — not performed (no Technical Director present); DONE on Game Director's explicit authority, flagged
 - [x] Relevant documentation was updated (CHANGELOG.md entry added)

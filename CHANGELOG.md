@@ -6,6 +6,30 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-11 — Task PC-007 (Sprint 2.3) approved and moved to DONE
+
+- Yoav playtested Sprint 2.3 in Unity and approved ("Result: Approved" — implementation solid, gameplay responsive, both skills behave as expected). **Task PC-007 moved `Tasks/REVIEW/` → `Tasks/DONE/`**, Game Director approval recorded.
+- **Sprint 2.3 complete.** This is the first Phase 2 Cluster-A sprint finished, and it answers the Cluster's opening question affirmatively at the skill level: Point Clear can support mechanically diverse Active Skills as a real system (Fracture Bolt vs. Detonation Field are genuinely distinct). `ROADMAP.md` Sprint 2.3 marked DONE.
+- Technical-review box left unchecked (no Technical Director present); DONE on the Game Director's explicit authority, flagged.
+- Implementation details are in the entry below; nothing about the code changed at approval — this entry records the sign-off and status transition only.
+
+## 2026-07-11 — Task PC-007 (Sprint 2.3): Active Skill System — Fracture Bolt + Detonation Field (implementation, in review)
+
+- First entry into Phase 2 Cluster A's sprint sequence. Built the two Game-Director-approved Active Skills, validating the Active Skills build layer (DEC-013) as a real system with two mechanically distinct entries — not one weapon with variations.
+- **Fracture Bolt (Projectile):** `Q`. A bolt fired toward the aim point that pierces its first enemy for full damage (40), then splits into two shards (±25°) dealing reduced damage (20); shards do not re-split. Rewards lining enemies up. New `PointClear.Skills` scripts `FractureBolt` + `FractureBoltProjectile` (per-FixedUpdate raycast collision, no tunnelling), prefabs `FractureBoltProjectile`/`FractureShard`.
+- **Detonation Field (Area):** `E`. Self-centered burst that Marks nearby enemies; a Marked enemy that dies within the mark's duration detonates in an AoE, which can chain-detonate other Marked enemies — a "set up, then chain" payoff distinct from the direct projectile. New scripts `DetonationField` + `DetonationMark` (subscribes to the existing `Health.Died`; chains terminate because `Died` fires once per enemy). Prefab `DetonationFieldVfx`.
+- Each skill owns its own private cooldown gate — no shared skill/cooldown abstraction (Game Director declined extraction until real duplication with shared behaviour appears). Added `FractureBolt`/`DetonationField` input actions (Q/E) to the Player map; wired both components onto `Player.prefab`; added Q/E control lines and per-skill cooldown readouts to `DebugHud`. The two skills are deliberately **not** wired to interact (Fracture Bolt does not apply Marks) — that first cross-skill interaction is Sprint 2.5.
+- `Health.cs`, `EnemyAI.cs`, `PlayerStats.cs`, `PlayerXP.cs`, `PlayerLevel.cs` were **not** modified — skills build only on existing public surfaces. `PlayerStats` is untouched by skills (no stat scaling yet).
+- Verified in Play Mode (deterministic frame-stepping): full-damage + split, shard reduced-damage + no-resplit, both cooldowns, mark in/out of radius, detonate-on-death, chain reaction, mark expiry, and regression (weapon/XP/level/PlayerStats intact). **Zero console errors/warnings.** A human `Q`/`E` playtest remains for Yoav's review.
+- **`explosionDamage = 100`** (equal to enemy max HP) is a prototype placeholder chosen so the chain-detonation is reliably demonstrable — not a balance decision (balance is out of scope for this sprint).
+- Task file: [Tasks/REVIEW/PC-007_sprint-2.3-active-skill-system.md](Tasks/REVIEW/PC-007_sprint-2.3-active-skill-system.md). Not committed — awaiting Game Director playtest and approval.
+
+## 2026-07-11 — Task PC-003 approved and moved to DONE; VS Code config shared; dashboard progress metric corrected
+
+- **PC-003 (Sprint 1 First Playable Combat Prototype, incl. 1.1/1.2/1.3) approved by Yoav and moved `Tasks/REVIEW/` → `Tasks/DONE/`.** This is the whole-task approval that had been outstanding since Sprint 1 — the earlier approval covered only Sprint 1.3. Technical-review box left unchecked (no Technical Director present); DONE on the Game Director's explicit authority.
+- **Shared VS Code configuration** (committed as `chore: share project vscode configuration`, `5615292`): committed the Unity-generated `.vscode/extensions.json` (Unity extension recommendation), `.vscode/launch.json` (Attach to Unity), and `.vscode/settings.json` (Unity file excludes, YAML associations, `dotnet.defaultSolution`), and added a `.vscode` whitelist to `.gitignore` (ignore user-specific files, keep the shared configs tracked). Recorded here retroactively for a complete project-foundation history.
+- **Dashboard sprint-progress metric corrected:** the Main view previously counted DONE tasks referencing *any* sprint number (e.g. "0.5", "2.0–2.2") against the 11 Cluster sprints (2.3–2.13) — apples-to-oranges. Now counts only DONE tasks whose referenced sprint is one of the roadmap's actual Cluster sprints, against the Cluster total. Dashboard/documentation-only change; no gameplay system touched.
+
 ## 2026-07-11 — Task PC-006 moved to DONE: Project Dashboard v1 approved
 
 - Yoav's second manual review passed. Both first-review issues (live updates, Documentation Markdown reader) were confirmed fixed in a real browser. **Task PC-006 moved `Tasks/IN_PROGRESS/` → `Tasks/DONE/`**, status and Definition of Done updated, Game Director approval recorded.

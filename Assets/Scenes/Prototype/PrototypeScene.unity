@@ -832,6 +832,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Utilities.DebugHud
   playerHealth: {fileID: 1213083631711341283}
   spawner: {fileID: 1700942416}
+  fractureBolt: {fileID: 3741096081050754562}
+  detonationField: {fileID: 3741096081050754561}
   damageFlashDuration: 0.15
   maxEnemyHpLinesShown: 5
 --- !u!114 &1372351182
@@ -2217,6 +2219,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f703975c68b9242a691ba47d3c5578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Progression.PlayerXP
+--- !u!114 &3741096081050754561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7102381199682803074, guid: ffa7168b36e5ae848b0a347b16765377, type: 3}
+  m_PrefabInstance: {fileID: 3741096081050754559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8a4774616ea4b1a88f41d46d1de431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.DetonationField
+--- !u!114 &3741096081050754562 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6772949840303927135, guid: ffa7168b36e5ae848b0a347b16765377, type: 3}
+  m_PrefabInstance: {fileID: 3741096081050754559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41470bcdbfa447cfb48bb9c43432b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.FractureBolt
 --- !u!1001 &8930377479868303069
 PrefabInstance:
   m_ObjectHideFlags: 0

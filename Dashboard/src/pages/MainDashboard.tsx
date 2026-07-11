@@ -1,9 +1,34 @@
 import type { ProjectSnapshot } from "../../server/model/types";
 import IssueBanner from "../components/IssueBanner";
 
+// Sprint references in a task title, range notation ("2.0-2.2") expanded to
+// both endpoints. Matches the server-side inferFocus extractor.
+function sprintRefsIn(title: string): string[] {
+  const out: string[] = [];
+  for (const m of title.matchAll(/Sprint (\d+\.\d+)(?:\s*[-–]\s*(\d+\.\d+))?/g)) {
+    out.push(m[1]);
+    if (m[2]) out.push(m[2]);
+  }
+  return out;
+}
+
 export default function MainDashboard({ snapshot }: { snapshot: ProjectSnapshot }) {
   const { focus, health, activity, git } = snapshot;
-  const doneSprints = snapshot.tasks.filter((t) => t.column === "DONE" && /Sprint \d+\.\d+/.test(t.title)).length;
+
+  // Progress counts only actual Cluster sprints (those in the roadmap,
+  // 2.3–2.13) that have a DONE task — not every DONE task that happens to
+  // mention any sprint number (e.g. the pre-cluster "0.5" or "2.0–2.2"
+  // foundation tasks, which are not part of the Cluster sequence).
+  const clusterSprintIds = new Set(snapshot.roadmap.sprints.map((s) => s.id));
+  const doneClusterSprints = new Set<string>();
+  for (const t of snapshot.tasks) {
+    if (t.column !== "DONE") continue;
+    for (const ref of sprintRefsIn(t.title)) {
+      if (clusterSprintIds.has(ref)) doneClusterSprints.add(ref);
+    }
+  }
+  const doneSprints = doneClusterSprints.size;
+  const totalSprints = snapshot.roadmap.sprints.length;
 
   return (
     <section>
@@ -36,9 +61,9 @@ export default function MainDashboard({ snapshot }: { snapshot: ProjectSnapshot 
         <div className="card stat-card">
           <div className="stat-label">Overall progress</div>
           <div className="stat-value">
-            {doneSprints} / {snapshot.roadmap.sprints.length}
+            {doneSprints} / {totalSprints}
           </div>
-          <div className="stat-note">sprints complete, Phase 2</div>
+          <div className="stat-note">Cluster sprints complete (Phase 2)</div>
         </div>
       </div>
 

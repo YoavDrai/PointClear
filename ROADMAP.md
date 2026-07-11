@@ -52,7 +52,8 @@ Deferred out of all three clusters: cosmetic character creation, networking/co-o
 Exists to answer: can Point Clear create meaningful Build Identity at all?
 
 **Sprint 2.3 — Active Skill System Validation**
-- Question: Can Point Clear support mechanically diverse Active Skills as a real system — not just one weapon with variations?
+- Status: DONE (PC-007, playtest-approved 2026-07-11) — Fracture Bolt (projectile) + Detonation Field (area) built; the Active Skills build layer is validated as a real system with two mechanically distinct entries.
+- Question: Can Point Clear support mechanically diverse Active Skills as a real system — not just one weapon with variations? (Answered: yes.)
 - Dependencies: `PlayerXP`/`PlayerLevel`/`PlayerStats` (Sprint 2.0–2.2, DONE); `Health`/`EnemyAI`/`HitscanWeapon` (Sprint 1.x, DONE).
 - Why before 2.4: Skill Point allocation needs at least two real, mechanically distinct skills to allocate points into. Which specific skills those are is a design decision made at sprint kickoff, not a roadmap commitment.
 - Playable loop at end: two or more Active Skills exist, demonstrably mechanically distinct from each other and from the existing weapon; both usable, no persistent choice yet.

@@ -111,6 +111,8 @@ GameObject:
   - component: {fileID: 5296707020547593367}
   - component: {fileID: 566102923015509734}
   - component: {fileID: 1739692223307529184}
+  - component: {fileID: 6772949840303927135}
+  - component: {fileID: 7102381199682803074}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -351,6 +353,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Progression.PlayerLevel
   baseXpPerLevel: 5
+--- !u!114 &6772949840303927135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a41470bcdbfa447cfb48bb9c43432b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.FractureBolt
+  boltPrefab: {fileID: 7559165517573655961, guid: f86184f074f30409b94807c930aea450, type: 3}
+  muzzle: {fileID: 7152544408276369385}
+  cooldown: 1.5
+--- !u!114 &7102381199682803074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8a4774616ea4b1a88f41d46d1de431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.DetonationField
+  markRadius: 5
+  markDuration: 4
+  explosionRadius: 3
+  explosionDamage: 100
+  cooldown: 6
+  fieldVfxPrefab: {fileID: 4236607451165933359, guid: deaa5e8c69f984960a792f40a58d5a2a, type: 3}
+  fieldVfxDuration: 0.4
 --- !u!1 &9172251034777289193
 GameObject:
   m_ObjectHideFlags: 0

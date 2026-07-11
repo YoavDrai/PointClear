@@ -1,6 +1,7 @@
 using UnityEngine;
 using PointClear.Combat;
 using PointClear.Enemies;
+using PointClear.Skills;
 
 namespace PointClear.Utilities
 {
@@ -24,6 +25,12 @@ namespace PointClear.Utilities
 
         [SerializeField]
         private EnemySpawner spawner;
+
+        [SerializeField]
+        private FractureBolt fractureBolt;
+
+        [SerializeField]
+        private DetonationField detonationField;
 
         [SerializeField]
         private float damageFlashDuration = 0.15f;
@@ -107,6 +114,19 @@ namespace PointClear.Utilities
             GUILayout.Label("WASD — Move", controlsStyle);
             GUILayout.Label("Mouse — Aim", controlsStyle);
             GUILayout.Label("Left Mouse Button — Shoot", controlsStyle);
+            GUILayout.Label("Q — Fracture Bolt", controlsStyle);
+            GUILayout.Label("E — Detonation Field", controlsStyle);
+
+            GUILayout.Space(12);
+
+            if (fractureBolt != null)
+            {
+                GUILayout.Label(SkillReadout("Fracture Bolt (Q)", fractureBolt.IsReady, fractureBolt.CooldownRemaining), metricsStyle);
+            }
+            if (detonationField != null)
+            {
+                GUILayout.Label(SkillReadout("Detonation Field (E)", detonationField.IsReady, detonationField.CooldownRemaining), metricsStyle);
+            }
 
             GUILayout.Space(12);
 
@@ -151,6 +171,11 @@ namespace PointClear.Utilities
             }
 
             GUILayout.EndArea();
+        }
+
+        private static string SkillReadout(string label, bool ready, float remaining)
+        {
+            return ready ? $"{label}: READY" : $"{label}: {remaining:0.0}s";
         }
 
         private void EnsureStyles()
