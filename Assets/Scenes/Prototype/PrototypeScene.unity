@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 548563686}
   - component: {fileID: 548563685}
   - component: {fileID: 548563684}
+  - component: {fileID: 548563687}
   m_Layer: 0
   m_Name: Operation
   m_TagString: Untagged
@@ -357,6 +358,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Utilities.OperationHud
   operation: {fileID: 0}
   wallet: {fileID: 0}
+  weaponModule: {fileID: 0}
+  playerLevel: {fileID: 0}
+  skillPoints: {fileID: 0}
 --- !u!114 &548563685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +393,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &548563687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548563683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27940a906e0f94576830e1a920137a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Operations.WeaponModuleDropper
+  operation: {fileID: 0}
+  enemySpawner: {fileID: 0}
+  playerModule: {fileID: 0}
+  modulePickupPrefab: {fileID: 7181790569319581973, guid: b14d2ea72e5d7433089e6f94b84ed4f9, type: 3}
+  dropOnKill: 4
+  dropHeight: 1.2
 --- !u!1 &559009454
 GameObject:
   m_ObjectHideFlags: 0

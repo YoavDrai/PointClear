@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 5105293245788915795}
   - component: {fileID: 3460743454181759343}
   - component: {fileID: 2020793373995687812}
+  - component: {fileID: 399155430798791500}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -463,6 +464,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Operations.CurrencyWallet
   operation: {fileID: 0}
+--- !u!114 &399155430798791500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd20b26e8a591417cbe85cef37efe1e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Operations.WeaponModule
+  operation: {fileID: 0}
+  weapon: {fileID: 0}
 --- !u!1 &9172251034777289193
 GameObject:
   m_ObjectHideFlags: 0

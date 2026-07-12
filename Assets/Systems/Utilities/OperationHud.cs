@@ -26,6 +26,10 @@ namespace PointClear.Utilities
         [SerializeField]
         private CurrencyWallet wallet;
 
+        [Tooltip("Sprint 2.9: the Detonator Module — for the EQUIPPED/SECURED status line and the secured/lost-this-run summary.")]
+        [SerializeField]
+        private WeaponModule weaponModule;
+
         [Tooltip("Read-only, for the retained-progress line of the results summary.")]
         [SerializeField]
         private PlayerLevel playerLevel;
@@ -45,6 +49,10 @@ namespace PointClear.Utilities
             if (wallet == null)
             {
                 wallet = FindFirstObjectByType<CurrencyWallet>();
+            }
+            if (weaponModule == null)
+            {
+                weaponModule = FindFirstObjectByType<WeaponModule>();
             }
             if (playerLevel == null)
             {
@@ -72,7 +80,7 @@ namespace PointClear.Utilities
             // Right column, stacked BELOW the Skills panel (which occupies
             // Screen.width-320 .. y 10-270) so the two prototype HUDs don't overlap.
             const float width = 310f;
-            GUILayout.BeginArea(new Rect(Screen.width - width - 10f, 285f, width, 260f), GUI.skin.box);
+            GUILayout.BeginArea(new Rect(Screen.width - width - 10f, 285f, width, 310f), GUI.skin.box);
 
             GUILayout.Label($"OPERATION: {operation.State}", titleStyle);
 
@@ -104,12 +112,19 @@ namespace PointClear.Utilities
 
             // Live currency read-out only OUTSIDE the terminal summary
             // (in the terminal states the summary carries the currency values).
-            if (wallet != null
-                && (operation.State == OperationState.Ready || operation.State == OperationState.InProgress))
+            if (operation.State == OperationState.Ready || operation.State == OperationState.InProgress)
             {
-                GUILayout.Space(6f);
-                GUILayout.Label($"Unsecured (at risk): {wallet.Unsecured}");
-                GUILayout.Label($"Banked (secured): {wallet.Banked}");
+                if (wallet != null)
+                {
+                    GUILayout.Space(6f);
+                    GUILayout.Label($"Unsecured (at risk): {wallet.Unsecured}");
+                    GUILayout.Label($"Banked (secured): {wallet.Banked}");
+                }
+
+                if (weaponModule != null)
+                {
+                    GUILayout.Label($"Weapon Module: {ModuleStatus()}");
+                }
             }
 
             GUILayout.EndArea();
@@ -131,6 +146,14 @@ namespace PointClear.Utilities
                 GUILayout.Label($"Banked total: {wallet.Banked}");
             }
 
+            // Sprint 2.9: whether the Detonator Module was secured or lost this run.
+            if (weaponModule != null && (weaponModule.SecuredThisRun || weaponModule.LostThisRun))
+            {
+                GUILayout.Label(success
+                    ? "Weapon Module: SECURED this run"
+                    : "Weapon Module: LOST this run");
+            }
+
             GUILayout.Space(4f);
             GUILayout.Label("Character Progress Retained", headerStyle);
             GUILayout.Label($"Level: {(playerLevel != null ? playerLevel.CurrentLevel.ToString() : "-")}");
@@ -141,6 +164,16 @@ namespace PointClear.Utilities
             {
                 operation.ReturnToReady();
             }
+        }
+
+        // Sprint 2.9: the Detonator Module's ownership at a glance.
+        private string ModuleStatus()
+        {
+            if (weaponModule.Banked)
+            {
+                return "SECURED";
+            }
+            return weaponModule.Equipped ? "EQUIPPED (at risk)" : "—";
         }
     }
 }

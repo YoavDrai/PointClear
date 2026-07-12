@@ -123,7 +123,8 @@ Exists to answer: does Mission Risk create meaningful tension and player decisio
 Exists to answer: would players actually want to repeat this gameplay loop?
 
 **Sprint 2.9 — Minimal Loot & Equipment Foundation**
-- Question: Can a build layer actually be acquired through Loot rather than fixed at start — does DEC-018 work end to end for at least one equipment slot?
+- Status: **DONE (PC-013, playtest-approved 2026-07-12).** First equipment slot = the **Weapon layer** (DEC-013), realized as the **Detonator Module**: dropped physically on a deterministic mid-run kill, auto-equipped (immediate power), **secured on extraction / lost on death** (DEC-019), banked = session-persistent + no longer at risk + no re-drop. Its effect is an **interaction, not a flat stat** — while equipped, a weapon hit on a *marked* enemy detonates the mark early (Weapon ↔ Detonation Field ↔ Volatile Fracture); Detonation Field still owns marking. First Cluster C sprint. **Note:** this sprint is the experiment that informs the still-open **Cluster B Decision Gate** (does Mission Risk create meaningful tension / fear-of-loss?) — that gate is evaluated separately by the Game Director and is **not** called by this entry.
+- Question: Can a build layer actually be acquired through Loot rather than fixed at start — does DEC-018 work end to end for at least one equipment slot? (Answered: yes, for the Weapon layer.)
 - Dependencies: Sprint 2.7 (equipment drops plug into the existing mission-risk pipeline); Cluster A (equipment needs existing build content to interact with — enforced by the Build Content Alignment gate in `Documentation/AI/REVIEW_CHECKLIST.md`).
 - Why before 2.10: the build-validation check needs equipment in the mix to be a meaningful test of the full accumulated build space.
 - Playable loop at end: one equipment slot, droppable, subject to the same secure/lose rule as currency, interacting with existing build content rather than adding a flat stat.

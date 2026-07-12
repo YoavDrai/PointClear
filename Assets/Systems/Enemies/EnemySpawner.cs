@@ -65,6 +65,14 @@ namespace PointClear.Enemies
         public int KillCount => killCount;
 
         /// <summary>
+        /// Sprint 2.9: world position of the most recently killed tracked enemy,
+        /// captured immediately before EnemyKilled fires. Lets a subscriber (the
+        /// WeaponModuleDropper) drop loot where the enemy died without changing the
+        /// parameterless EnemyKilled signature that OperationController consumes.
+        /// </summary>
+        public Vector3 LastKillPosition { get; private set; }
+
+        /// <summary>
         /// Sprint 2.6: raised exactly once for each genuine death of an enemy
         /// this spawner instantiated (a player kill, via the enemy's existing
         /// Health.Died). Enemies removed by an Operation reset/clear are
@@ -132,6 +140,7 @@ namespace PointClear.Enemies
             if (health != null)
             {
                 health.Died -= handler;
+                LastKillPosition = health.transform.position;
             }
 
             trackedEnemies.Remove(health);

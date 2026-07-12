@@ -41,6 +41,7 @@ namespace PointClear.Skills
         private float explosionRadius;
         private float explosionDamage;
         private bool subscribed;
+        private bool detonated;
         private GameObject markIndicator;
 
         private void Awake()
@@ -85,6 +86,37 @@ namespace PointClear.Skills
                 return;
             }
 
+            Detonate();
+        }
+
+        /// <summary>
+        /// Sprint 2.9: triggers this mark's detonation immediately — the Detonator
+        /// Module's weapon-triggered path — instead of waiting for the enemy's
+        /// death. Shares the exact death-detonation path (and its one-shot guard),
+        /// then removes the mark so it can never detonate twice: a lethal shot on a
+        /// marked enemy detonates once via death and this call becomes a no-op.
+        /// Detonation Field still owns marking; this only exposes a trigger entry.
+        /// </summary>
+        public void DetonateEarly()
+        {
+            Detonate();
+
+            // Consume the mark after an early trigger: unsubscribe from Health.Died
+            // and destroy this component (OnDestroy also clears the marker visual).
+            Unsubscribe();
+            Destroy(this);
+        }
+
+        // Single shared explosion path for both the death and early-trigger routes.
+        // The one-shot guard makes the two mutually idempotent.
+        private void Detonate()
+        {
+            if (detonated)
+            {
+                return;
+            }
+
+            detonated = true;
             Explode();
         }
 

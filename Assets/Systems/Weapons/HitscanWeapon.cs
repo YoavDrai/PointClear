@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -38,6 +39,13 @@ namespace PointClear.Weapons
 
         [SerializeField]
         private float muzzleFlashDuration = 0.05f;
+
+        /// <summary>
+        /// Sprint 2.9: raised after a shot deals damage to an enemy's Health, with
+        /// that Health. Additive hook for the Weapon layer (the Detonator Module
+        /// subscribes to trigger marks); no behavior change when nothing listens.
+        /// </summary>
+        public event Action<Health> EnemyHit;
 
         private PlayerController playerController;
         private PlayerStats stats;
@@ -105,6 +113,7 @@ namespace PointClear.Weapons
                 if (targetHealth != null)
                 {
                     targetHealth.TakeDamage(stats.GetValue(StatType.Damage));
+                    EnemyHit?.Invoke(targetHealth);
                 }
             }
 
