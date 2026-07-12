@@ -27,6 +27,14 @@ namespace PointClear.Operations
         public int Unsecured { get; private set; }
         public int Banked { get; private set; }
 
+        /// <summary>Sprint 2.8: currency banked by the just-ended run (Success). The
+        /// wallet is the sole owner of this result value; captured from Unsecured
+        /// inside the terminal handler before it is cleared, reset on the next run.</summary>
+        public int LastSecured { get; private set; }
+
+        /// <summary>Sprint 2.8: currency lost by the just-ended run (Failure).</summary>
+        public int LastLost { get; private set; }
+
         /// <summary>Raised whenever Unsecured or Banked changes (for the HUD).</summary>
         public event Action Changed;
 
@@ -76,12 +84,16 @@ namespace PointClear.Operations
         {
             CurrencyPickup.ClearAll();
             Unsecured = 0;
+            LastSecured = 0;       // Sprint 2.8: reset last-run results for the new run
+            LastLost = 0;
             Changed?.Invoke();
         }
 
         private void HandleOperationSucceeded()
         {
-            Banked += Unsecured;   // OperationSucceeded fires exactly once → banks once
+            LastSecured = Unsecured;   // Sprint 2.8: capture before clearing
+            LastLost = 0;
+            Banked += Unsecured;       // OperationSucceeded fires exactly once → banks once
             Unsecured = 0;
             CurrencyPickup.ClearAll();
             Changed?.Invoke();
@@ -89,7 +101,9 @@ namespace PointClear.Operations
 
         private void HandleOperationFailed()
         {
-            Unsecured = 0;         // lost; Banked untouched
+            LastLost = Unsecured;      // Sprint 2.8: capture before clearing
+            LastSecured = 0;
+            Unsecured = 0;             // lost; Banked untouched
             CurrencyPickup.ClearAll();
             Changed?.Invoke();
         }

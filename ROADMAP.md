@@ -105,6 +105,7 @@ Exists to answer: does Mission Risk create meaningful tension and player decisio
 - Out of scope: Equipment/itemization, rarity tiers, drop-table tuning, inventory UI.
 
 **Sprint 2.8 — Minimal Results Summary**
+- Status: **DONE (PC-012, playtest-approved 2026-07-12).** The `OperationHud` terminal states expand into a minimal results summary: **Secured this run** (Success) / **Lost this run** (Failure), **Banked total** (cumulative, safe), and **Character Progress Retained** (Level / Skill Points, read-only) — making DEC-019's secure/lose/retain distinction legible. Reuses `CurrencyWallet` (read-only `LastSecured`/`LastLost`) + existing Operation events; no lifecycle change. Approved after hands-on review + two extra regressions (terminal race, repeat-run stability). **Cluster B is now complete; a whole-cluster review precedes the Cluster B Decision Gate.**
 - Question: Can the player actually see what happened — secured, lost, retained — so "improve the build → enter harder content" has something to act on?
 - Dependencies: Sprint 2.7.
 - Why before Cluster C: Cluster C validates the integration of Build + Mission Risk + Progression — unobservable without a way to see a loop's outcome.

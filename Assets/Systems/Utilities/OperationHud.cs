@@ -1,5 +1,7 @@
 using UnityEngine;
 using PointClear.Operations;
+using PointClear.Progression;
+using PointClear.Skills;
 
 namespace PointClear.Utilities
 {
@@ -10,8 +12,11 @@ namespace PointClear.Utilities
     /// SkillAllocationHud; not production UI.
     ///
     /// Sprint 2.7: also shows the CurrencyWallet — Unsecured (at risk this run)
-    /// vs. Banked (secured) — so Success (Unsecured → Banked) and Failure
-    /// (Unsecured lost) read clearly.
+    /// vs. Banked (secured).
+    ///
+    /// Sprint 2.8: the terminal states (Succeeded/Failed) expand into a minimal
+    /// results summary — Secured/Lost this run, Banked total, and Character
+    /// Progress Retained (Level / Skill Points, read-only). No separate panel.
     /// </summary>
     public class OperationHud : MonoBehaviour
     {
@@ -21,7 +26,15 @@ namespace PointClear.Utilities
         [SerializeField]
         private CurrencyWallet wallet;
 
+        [Tooltip("Read-only, for the retained-progress line of the results summary.")]
+        [SerializeField]
+        private PlayerLevel playerLevel;
+
+        [SerializeField]
+        private SkillPoints skillPoints;
+
         private GUIStyle titleStyle;
+        private GUIStyle headerStyle;
 
         private void Awake()
         {
@@ -32,6 +45,14 @@ namespace PointClear.Utilities
             if (wallet == null)
             {
                 wallet = FindFirstObjectByType<CurrencyWallet>();
+            }
+            if (playerLevel == null)
+            {
+                playerLevel = FindFirstObjectByType<PlayerLevel>();
+            }
+            if (skillPoints == null)
+            {
+                skillPoints = FindFirstObjectByType<SkillPoints>();
             }
         }
 
@@ -45,12 +66,13 @@ namespace PointClear.Utilities
             if (titleStyle == null)
             {
                 titleStyle = new GUIStyle(GUI.skin.label) { fontSize = 16, fontStyle = FontStyle.Bold };
+                headerStyle = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold };
             }
 
             // Right column, stacked BELOW the Skills panel (which occupies
             // Screen.width-320 .. y 10-270) so the two prototype HUDs don't overlap.
             const float width = 310f;
-            GUILayout.BeginArea(new Rect(Screen.width - width - 10f, 285f, width, 220f), GUI.skin.box);
+            GUILayout.BeginArea(new Rect(Screen.width - width - 10f, 285f, width, 260f), GUI.skin.box);
 
             GUILayout.Label($"OPERATION: {operation.State}", titleStyle);
 
@@ -72,23 +94,18 @@ namespace PointClear.Utilities
                     break;
 
                 case OperationState.Succeeded:
-                    GUILayout.Label("SUCCESS — extracted.");
-                    if (GUILayout.Button("Return to Ready"))
-                    {
-                        operation.ReturnToReady();
-                    }
+                    DrawResultsSummary(true);
                     break;
 
                 case OperationState.Failed:
-                    GUILayout.Label("FAILED — you died.");
-                    if (GUILayout.Button("Return to Ready"))
-                    {
-                        operation.ReturnToReady();
-                    }
+                    DrawResultsSummary(false);
                     break;
             }
 
-            if (wallet != null)
+            // Live currency read-out only OUTSIDE the terminal summary
+            // (in the terminal states the summary carries the currency values).
+            if (wallet != null
+                && (operation.State == OperationState.Ready || operation.State == OperationState.InProgress))
             {
                 GUILayout.Space(6f);
                 GUILayout.Label($"Unsecured (at risk): {wallet.Unsecured}");
@@ -96,6 +113,34 @@ namespace PointClear.Utilities
             }
 
             GUILayout.EndArea();
+        }
+
+        // Sprint 2.8: the minimal end-of-run results summary, rendered in the
+        // terminal states inside this same panel. Secured/Lost = this run's
+        // result; Banked = cumulative currency already safe; Character Progress
+        // Retained = run-persistent progression that was not removed.
+        private void DrawResultsSummary(bool success)
+        {
+            GUILayout.Label(success ? "SUCCESS — Extracted" : "FAILED — You Died", titleStyle);
+
+            if (wallet != null)
+            {
+                GUILayout.Label(success
+                    ? $"Secured this run: +{wallet.LastSecured}"
+                    : $"Lost this run: {wallet.LastLost}");
+                GUILayout.Label($"Banked total: {wallet.Banked}");
+            }
+
+            GUILayout.Space(4f);
+            GUILayout.Label("Character Progress Retained", headerStyle);
+            GUILayout.Label($"Level: {(playerLevel != null ? playerLevel.CurrentLevel.ToString() : "-")}");
+            GUILayout.Label($"Skill Points: {(skillPoints != null ? skillPoints.Available.ToString() : "-")}");
+
+            GUILayout.Space(4f);
+            if (GUILayout.Button("Return to Ready"))
+            {
+                operation.ReturnToReady();
+            }
         }
     }
 }
