@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using PointClear.Combat;
 using PointClear.Player;
 
 namespace PointClear.Enemies
@@ -58,6 +61,16 @@ namespace PointClear.Enemies
         public int TargetActiveCount => targetActiveCount;
         public float SpawnInterval => spawnInterval;
         public int CurrentTarget => currentTarget;
+        public bool SpawningEnabled => spawningEnabled;
+        public int KillCount => killCount;
+
+        /// <summary>
+        /// Sprint 2.6: raised exactly once for each genuine death of an enemy
+        /// this spawner instantiated (a player kill, via the enemy's existing
+        /// Health.Died). Enemies removed by an Operation reset/clear are
+        /// destroyed, which does NOT fire Health.Died, so they are never counted.
+        /// </summary>
+        public event Action EnemyKilled;
 
         private float nextSpawnTime;
         private int nextSpawnPointIndex;
@@ -65,6 +78,79 @@ namespace PointClear.Enemies
         private bool warnedNoSpawnPoints;
         private int currentTarget;
         private float nextRampTime;
+        private bool spawningEnabled;
+        private int killCount;
+        private readonly Dictionary<Health, Action> trackedEnemies = new Dictionary<Health, Action>();
+
+        /// <summary>
+        /// Sprint 2.6: enable spawning and reset the population ramp to its
+        /// initial target — called when an Operation begins. Until this is
+        /// called, the spawner is idle (the arena stays calm in the neutral
+        /// Ready state).
+        /// </summary>
+        public void BeginSpawning()
+        {
+            UnsubscribeAllTracked();
+            killCount = 0;
+            spawningEnabled = true;
+            currentTarget = Mathf.Clamp(initialActiveTarget, 0, targetActiveCount);
+            nextRampTime = Time.time + targetIncreaseInterval;
+            nextSpawnTime = Time.time;
+        }
+
+        /// <summary>Sprint 2.6: stop spawning — called when an Operation ends.
+        /// Defensively unsubscribes from any surviving tracked enemies so no
+        /// kill can be counted after the encounter has stopped.</summary>
+        public void StopSpawning()
+        {
+            spawningEnabled = false;
+            UnsubscribeAllTracked();
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeAllTracked();
+        }
+
+        /// <summary>Sprint 2.6: begin tracking one spawned enemy — subscribe to
+        /// its existing Health.Died so a genuine death raises EnemyKilled once.</summary>
+        private void TrackEnemy(GameObject enemy)
+        {
+            if (enemy == null || !enemy.TryGetComponent(out Health health))
+            {
+                return;
+            }
+
+            Action handler = null;
+            handler = () => HandleTrackedEnemyDied(health, handler);
+            health.Died += handler;
+            trackedEnemies[health] = handler;
+        }
+
+        private void HandleTrackedEnemyDied(Health health, Action handler)
+        {
+            if (health != null)
+            {
+                health.Died -= handler;
+            }
+
+            trackedEnemies.Remove(health);
+            killCount++;
+            EnemyKilled?.Invoke();
+        }
+
+        private void UnsubscribeAllTracked()
+        {
+            foreach (KeyValuePair<Health, Action> pair in trackedEnemies)
+            {
+                if (pair.Key != null)
+                {
+                    pair.Key.Died -= pair.Value;
+                }
+            }
+
+            trackedEnemies.Clear();
+        }
 
         private void Awake()
         {
@@ -74,6 +160,12 @@ namespace PointClear.Enemies
 
         private void Update()
         {
+            // Sprint 2.6: the Operation lifecycle owns when the arena is live.
+            if (!spawningEnabled)
+            {
+                return;
+            }
+
             if (player == null)
             {
                 player = PlayerReference.Instance;
@@ -123,7 +215,8 @@ namespace PointClear.Enemies
                 return;
             }
 
-            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject spawned = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            TrackEnemy(spawned);
         }
 
         /// <summary>
