@@ -38,6 +38,15 @@ namespace PointClear.Skills
         [SerializeField]
         private float[] damagePerLevel = { 40f, 55f, 70f };
 
+        [Header("Volatile Fracture passive (Sprint 2.5)")]
+        [Tooltip("Player-side passive reader. When Volatile Fracture is allocated, shards apply a Detonation Mark.")]
+        [SerializeField]
+        private PassiveEffects passiveEffects;
+
+        [Tooltip("The player's Detonation Field, whose CURRENT-rank mark parameters the shards use. Required for the interaction to work.")]
+        [SerializeField]
+        private DetonationField detonationField;
+
         public float Cooldown => cooldown;
         public bool IsReady => Time.time >= nextReadyTime;
         public float CooldownRemaining => Mathf.Max(0f, nextReadyTime - Time.time);
@@ -46,6 +55,7 @@ namespace PointClear.Skills
         private InputAction activateAction;
         private float nextReadyTime;
         private float currentDamage;
+        private bool warnedMissingDetonation;
 
         private void Awake()
         {
@@ -53,6 +63,14 @@ namespace PointClear.Skills
             if (progression == null)
             {
                 progression = GetComponent<SkillProgression>();
+            }
+            if (passiveEffects == null)
+            {
+                passiveEffects = GetComponent<PassiveEffects>();
+            }
+            if (detonationField == null)
+            {
+                detonationField = GetComponent<DetonationField>();
             }
         }
 
@@ -124,8 +142,43 @@ namespace PointClear.Skills
             if (bolt.TryGetComponent(out FractureBoltProjectile projectile))
             {
                 projectile.SetDamage(currentDamage);
+                projectile.SetMarkPayload(ResolveMarkPayload());
                 projectile.Launch(direction);
             }
+        }
+
+        /// <summary>
+        /// Sprint 2.5 (Volatile Fracture): resolves the mark payload the primary
+        /// forwards to its shards. Only when the passive is allocated AND a
+        /// Detonation Field is available do shards apply a mark, using Detonation
+        /// Field's CURRENT-rank parameters (resolved here, at spawn time). If the
+        /// passive is active but no Detonation Field is available, no mark is
+        /// applied, no fallback values are invented, and a single development
+        /// warning is emitted (guarded, not per shot).
+        /// </summary>
+        private MarkPayload ResolveMarkPayload()
+        {
+            if (passiveEffects == null || !passiveEffects.VolatileFractureActive)
+            {
+                return MarkPayload.None;
+            }
+
+            if (detonationField == null)
+            {
+                if (!warnedMissingDetonation)
+                {
+                    Debug.LogWarning(
+                        "[FractureBolt] Volatile Fracture is allocated but no Detonation Field is available — shards will not apply marks. Check the Player prefab configuration.",
+                        this);
+                    warnedMissingDetonation = true;
+                }
+                return MarkPayload.None;
+            }
+
+            return MarkPayload.Of(
+                detonationField.CurrentMarkDuration,
+                detonationField.CurrentExplosionRadius,
+                detonationField.CurrentExplosionDamage);
         }
     }
 }

@@ -18,14 +18,9 @@ namespace PointClear.Skills
     /// </summary>
     public class SkillProgression : MonoBehaviour
     {
-        [Tooltip("Skills the player has access to this run. Each starts at startingLevel.")]
+        [Tooltip("Skills the player has access to this run. Each begins at its own SkillDefinition.StartingLevel.")]
         [SerializeField]
         private List<SkillDefinition> registeredSkills = new List<SkillDefinition>();
-
-        [Tooltip("Level every registered skill begins at. Sprint 2.4: the two Active Skills start at 1 (immediately usable).")]
-        [Min(0)]
-        [SerializeField]
-        private int startingLevel = 1;
 
         [SerializeField]
         private SkillPoints skillPoints;
@@ -44,11 +39,17 @@ namespace PointClear.Skills
                 skillPoints = GetComponent<SkillPoints>();
             }
 
+            // Sprint 2.5: each skill starts at its OWN SkillDefinition.StartingLevel
+            // (the former single global starting level was removed — a passive must
+            // be able to start locked at 0 while active starters start at 1).
+            // StartingLevel is already clamped to [0, MaxLevel] by the definition;
+            // clamp again here defensively. Null and duplicate entries are skipped,
+            // matching the existing registry safeguards.
             foreach (SkillDefinition definition in registeredSkills)
             {
                 if (definition != null && !levels.ContainsKey(definition))
                 {
-                    levels[definition] = Mathf.Clamp(startingLevel, 0, definition.MaxLevel);
+                    levels[definition] = Mathf.Clamp(definition.StartingLevel, 0, definition.MaxLevel);
                 }
             }
         }

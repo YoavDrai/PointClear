@@ -44,7 +44,7 @@ namespace PointClear.Utilities
 
                 int level = progression.GetLevel(definition);
                 GUILayout.BeginHorizontal();
-                GUILayout.Label($"{definition.DisplayName}  Lv {level}/{definition.MaxLevel}", rowStyle, GUILayout.Width(210));
+                GUILayout.Label($"{definition.DisplayName} ({definition.SkillType})  Lv {level}/{definition.MaxLevel}", rowStyle, GUILayout.Width(210));
 
                 bool canAllocate = progression.CanAllocate(definition);
                 GUI.enabled = canAllocate;

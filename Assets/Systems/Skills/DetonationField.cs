@@ -56,6 +56,14 @@ namespace PointClear.Skills
         public bool IsReady => Time.time >= nextReadyTime;
         public float CooldownRemaining => Mathf.Max(0f, nextReadyTime - Time.time);
 
+        // Sprint 2.5: read-only current-rank mark parameters, so a coordinator
+        // (e.g. FractureBolt, for the Volatile Fracture passive) can apply a
+        // mark identical to what this field would apply right now. Behavior is
+        // unchanged — these just expose the same values Activate() already uses.
+        public float CurrentMarkDuration => markDuration;
+        public float CurrentExplosionRadius => currentExplosionRadius;
+        public float CurrentExplosionDamage => explosionDamage;
+
         private static readonly Collider[] MarkBuffer = new Collider[64];
 
         private InputAction activateAction;

@@ -33,9 +33,19 @@ namespace PointClear.Skills
         [SerializeField]
         private int maxLevel = 3;
 
+        [Tooltip("Rank this skill begins at in a fresh run. 0 = locked (must be allocated). Active starter skills use 1; passives typically 0.")]
+        [Min(0)]
+        [SerializeField]
+        private int startingLevel = 0;
+
         public string Id => id;
         public string DisplayName => string.IsNullOrEmpty(displayName) ? name : displayName;
         public SkillType SkillType => skillType;
         public int MaxLevel => Mathf.Max(1, maxLevel);
+
+        // Sprint 2.5: initial progression state only — not a gameplay value.
+        // Read-only at runtime and always clamped to [0, MaxLevel], so an
+        // asset misconfigured above MaxLevel can never produce an invalid rank.
+        public int StartingLevel => Mathf.Clamp(startingLevel, 0, MaxLevel);
     }
 }

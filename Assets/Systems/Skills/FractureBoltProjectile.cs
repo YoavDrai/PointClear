@@ -37,6 +37,7 @@ namespace PointClear.Skills
 
         private Vector3 direction;
         private float despawnTime;
+        private MarkPayload markPayload;
 
         /// <summary>
         /// Sprint 2.4: lets the firing FractureBolt override this bolt's damage
@@ -46,6 +47,18 @@ namespace PointClear.Skills
         public void SetDamage(float value)
         {
             damage = value;
+        }
+
+        /// <summary>
+        /// Sprint 2.5: receives the resolved Volatile Fracture mark payload at
+        /// spawn time. The primary bolt forwards it to its shards; a shard
+        /// consumes it on hit. This projectile never queries the passive,
+        /// progression, definition, or Detonation Field systems — it only uses
+        /// the values handed to it here.
+        /// </summary>
+        public void SetMarkPayload(MarkPayload payload)
+        {
+            markPayload = payload;
         }
 
         public void Launch(Vector3 travelDirection)
@@ -72,7 +85,7 @@ namespace PointClear.Skills
                 if (target != null && !target.IsDead)
                 {
                     target.TakeDamage(damage);
-                    OnEnemyHit(hit.point);
+                    OnEnemyHit(target, hit.point);
                     return;
                 }
             }
@@ -80,12 +93,30 @@ namespace PointClear.Skills
             transform.position = origin + direction * step;
         }
 
-        private void OnEnemyHit(Vector3 point)
+        private void OnEnemyHit(Health target, Vector3 point)
         {
-            if (canSplit && shardPrefab != null)
+            if (canSplit)
             {
-                SpawnShard(Quaternion.Euler(0f, splitAngle, 0f) * direction, point);
-                SpawnShard(Quaternion.Euler(0f, -splitAngle, 0f) * direction, point);
+                // Primary bolt: split into shards, forwarding the mark payload.
+                // The primary itself never applies a mark — only shards do.
+                if (shardPrefab != null)
+                {
+                    SpawnShard(Quaternion.Euler(0f, splitAngle, 0f) * direction, point);
+                    SpawnShard(Quaternion.Euler(0f, -splitAngle, 0f) * direction, point);
+                }
+            }
+            else if (markPayload.ApplyMark && target != null)
+            {
+                // Shard: apply a Detonation Mark using the resolved payload,
+                // reusing DetonationMark.Apply's refresh/replace semantics
+                // (same get-or-add path DetonationField.Activate uses).
+                DetonationMark mark = target.GetComponent<DetonationMark>();
+                if (mark == null)
+                {
+                    mark = target.gameObject.AddComponent<DetonationMark>();
+                }
+
+                mark.Apply(markPayload.Duration, markPayload.Radius, markPayload.Damage);
             }
 
             Destroy(gameObject);
@@ -97,6 +128,7 @@ namespace PointClear.Skills
             GameObject shard = Instantiate(shardPrefab, spawnPoint, Quaternion.LookRotation(shardDirection.normalized));
             if (shard.TryGetComponent(out FractureBoltProjectile projectile))
             {
+                projectile.SetMarkPayload(markPayload);
                 projectile.Launch(shardDirection.normalized);
             }
         }

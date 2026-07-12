@@ -67,7 +67,8 @@ Exists to answer: can Point Clear create meaningful Build Identity at all?
 - Out of scope: Second build layer, disk persistence, respec, UI polish.
 
 **Sprint 2.5 — Second Build Layer**
-- Question: Does a second build layer deepen player expression and the interaction space — and which of the seven DEC-013 layers is the right one to build second? Passives is the leading candidate (already named in the Loadout MVP scope) but the choice is made at sprint kickoff, not fixed here.
+- Status: **DONE (PC-009, playtest-approved 2026-07-12).** Second layer = **Passives** (reusing the Sprint 2.4 skill architecture). Flagship interaction **Volatile Fracture**: while allocated, Fracture Bolt shards apply a Detonation Mark using Detonation Field's current-rank data — the first real cross-skill interaction. A per-skill `StartingLevel` was added mid-sprint (discovered blocker, GD-approved) so passives can start locked at 0 while actives start at 1. This is the last Cluster A sprint; the Cluster A Decision Gate is now evaluable.
+- Question: Does a second build layer deepen player expression and the interaction space — and which of the seven DEC-013 layers is the right one to build second? Passives is the leading candidate (already named in the Loadout MVP scope) but the choice is made at sprint kickoff, not fixed here. (Answered: Passives, interaction-first.)
 - Dependencies: Sprint 2.4 (reuses Skill Points as the spend-currency, avoiding a premature second currency system).
 - Why before Cluster B: the "improve the build" loop leg needs more than one lever to pull, or the loop will feel thin when tested end-to-end.
 - Playable loop at end: a second build layer exists, with at least one piece of content that creates a genuine interaction with the Sprint 2.3 skills — the first proof that Expanding the Interaction Space (CORE_PHILOSOPHY § Build Philosophy) isn't just theoretical.

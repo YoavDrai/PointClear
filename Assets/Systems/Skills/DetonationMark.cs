@@ -14,17 +14,34 @@ namespace PointClear.Skills
     /// chains (an explosion killing another marked enemy, which detonates in
     /// turn) are intended and always terminate: Health.TakeDamage ignores
     /// damage once IsDead, so Died fires at most once per enemy.
+    ///
+    /// Sprint 2.5 (review feedback): added minimal prototype visuals so the
+    /// interaction is legible in normal play — a small marker orb above a
+    /// marked enemy, and a short-lived burst sphere sized to the detonation
+    /// radius at the death position. Both are collider-less primitives that
+    /// clean themselves up (the marker with the mark, the burst on a timer),
+    /// so nothing accumulates. Because both the Detonation Field cast and the
+    /// Volatile Fracture shards create a DetonationMark and call Apply, they
+    /// share these visuals automatically. Not final art — no VFX system, no
+    /// shake, no audio.
     /// </summary>
     [RequireComponent(typeof(Health))]
     public class DetonationMark : MonoBehaviour
     {
         private static readonly Collider[] ExplosionBuffer = new Collider[64];
+        private static readonly Color MarkColor = new Color(1f, 0.45f, 0.05f);      // hot orange = "primed"
+        private static readonly Color BurstColor = new Color(1f, 0.85f, 0.2f);      // bright yellow burst
+        private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+        private static readonly int LegacyColorId = Shader.PropertyToID("_Color");
+
+        private static Material sharedVfxMaterial;
 
         private Health health;
         private float expiryTime;
         private float explosionRadius;
         private float explosionDamage;
         private bool subscribed;
+        private GameObject markIndicator;
 
         private void Awake()
         {
@@ -42,6 +59,12 @@ namespace PointClear.Skills
             {
                 health.Died += HandleDeath;
                 subscribed = true;
+            }
+
+            if (markIndicator == null)
+            {
+                markIndicator = CreateVisual("DetonationMarkIndicator", transform, 0.5f, MarkColor);
+                markIndicator.transform.localPosition = new Vector3(0f, 1.4f, 0f);
             }
         }
 
@@ -92,11 +115,22 @@ namespace PointClear.Skills
                     target.TakeDamage(explosionDamage);
                 }
             }
+
+            SpawnBurst(transform.position, explosionRadius);
         }
 
         private void OnDestroy()
         {
             Unsubscribe();
+
+            // The marker is a child of this enemy, so it is normally destroyed
+            // with the enemy; destroy it explicitly too so an expired mark on a
+            // still-living enemy leaves nothing behind.
+            if (markIndicator != null)
+            {
+                Destroy(markIndicator);
+                markIndicator = null;
+            }
         }
 
         private void Unsubscribe()
@@ -106,6 +140,62 @@ namespace PointClear.Skills
                 health.Died -= HandleDeath;
                 subscribed = false;
             }
+        }
+
+        /// <summary>Short-lived burst sphere sized to the detonation radius so
+        /// the player can read the affected area. Unparented (the enemy is being
+        /// destroyed) and auto-removed on a timer.</summary>
+        private void SpawnBurst(Vector3 position, float radius)
+        {
+            GameObject burst = CreateVisual("DetonationBurst", null, radius * 2f, BurstColor);
+            burst.transform.position = position;
+            Destroy(burst, 0.35f);
+        }
+
+        /// <summary>Creates a collider-less, uniformly-scaled sphere primitive
+        /// tinted via a MaterialPropertyBlock on a shared material. Collider is
+        /// removed so it never interferes with overlaps, raycasts, or enemy
+        /// separation.</summary>
+        private static GameObject CreateVisual(string name, Transform parent, float diameter, Color color)
+        {
+            GameObject go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            go.name = name;
+
+            Collider col = go.GetComponent<Collider>();
+            if (col != null)
+            {
+                Destroy(col);
+            }
+
+            if (parent != null)
+            {
+                go.transform.SetParent(parent, false);
+            }
+            go.transform.localScale = Vector3.one * diameter;
+
+            Renderer renderer = go.GetComponent<Renderer>();
+            renderer.sharedMaterial = GetSharedMaterial();
+            MaterialPropertyBlock block = new MaterialPropertyBlock();
+            block.SetColor(BaseColorId, color);
+            block.SetColor(LegacyColorId, color);
+            renderer.SetPropertyBlock(block);
+
+            return go;
+        }
+
+        private static Material GetSharedMaterial()
+        {
+            if (sharedVfxMaterial == null)
+            {
+                Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+                if (shader == null)
+                {
+                    shader = Shader.Find("Sprites/Default");
+                }
+                sharedVfxMaterial = new Material(shader) { name = "DetonationVfx (runtime shared)" };
+            }
+
+            return sharedVfxMaterial;
         }
     }
 }
