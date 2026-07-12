@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 549865425391447240}
   - component: {fileID: 5105293245788915795}
   - component: {fileID: 3460743454181759343}
+  - component: {fileID: 2020793373995687812}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -307,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Player.PlayerRespawn
   spawnPoint: {fileID: 0}
   respawnDelay: 2
+  operationControlled: 0
 --- !u!114 &4933664626822266210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +435,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a5404ae6929247d093a3726a91b27da, type: 2}
   - {fileID: 11400000, guid: 925f1bea81c8b4ff2b286d1e50b6d580, type: 2}
   - {fileID: 11400000, guid: 4a674a01bb2a24753bb4c8c992c96581, type: 2}
-  startingLevel: 1
   skillPoints: {fileID: 549865425391447240}
 --- !u!114 &3460743454181759343
 MonoBehaviour:
@@ -449,6 +450,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.PassiveEffects
   progression: {fileID: 5105293245788915795}
   volatileFracture: {fileID: 11400000, guid: 4a674a01bb2a24753bb4c8c992c96581, type: 2}
+--- !u!114 &2020793373995687812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3733edcadbf7945f489ab7eecd6f43e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Operations.CurrencyWallet
+  operation: {fileID: 0}
 --- !u!1 &9172251034777289193
 GameObject:
   m_ObjectHideFlags: 0

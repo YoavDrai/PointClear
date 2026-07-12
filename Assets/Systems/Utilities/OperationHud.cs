@@ -8,11 +8,18 @@ namespace PointClear.Utilities
     /// shows the current state, the objective/timer, the outcome, and dev
     /// Start / Return-to-Ready controls. Prototype only, matching DebugHud and
     /// SkillAllocationHud; not production UI.
+    ///
+    /// Sprint 2.7: also shows the CurrencyWallet — Unsecured (at risk this run)
+    /// vs. Banked (secured) — so Success (Unsecured → Banked) and Failure
+    /// (Unsecured lost) read clearly.
     /// </summary>
     public class OperationHud : MonoBehaviour
     {
         [SerializeField]
         private OperationController operation;
+
+        [SerializeField]
+        private CurrencyWallet wallet;
 
         private GUIStyle titleStyle;
 
@@ -21,6 +28,10 @@ namespace PointClear.Utilities
             if (operation == null)
             {
                 operation = FindFirstObjectByType<OperationController>();
+            }
+            if (wallet == null)
+            {
+                wallet = FindFirstObjectByType<CurrencyWallet>();
             }
         }
 
@@ -36,8 +47,10 @@ namespace PointClear.Utilities
                 titleStyle = new GUIStyle(GUI.skin.label) { fontSize = 16, fontStyle = FontStyle.Bold };
             }
 
-            const float width = 300f;
-            GUILayout.BeginArea(new Rect(Screen.width - width - 12f, 12f, width, 160f), GUI.skin.box);
+            // Right column, stacked BELOW the Skills panel (which occupies
+            // Screen.width-320 .. y 10-270) so the two prototype HUDs don't overlap.
+            const float width = 310f;
+            GUILayout.BeginArea(new Rect(Screen.width - width - 10f, 285f, width, 220f), GUI.skin.box);
 
             GUILayout.Label($"OPERATION: {operation.State}", titleStyle);
 
@@ -73,6 +86,13 @@ namespace PointClear.Utilities
                         operation.ReturnToReady();
                     }
                     break;
+            }
+
+            if (wallet != null)
+            {
+                GUILayout.Space(6f);
+                GUILayout.Label($"Unsecured (at risk): {wallet.Unsecured}");
+                GUILayout.Label($"Banked (secured): {wallet.Banked}");
             }
 
             GUILayout.EndArea();

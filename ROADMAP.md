@@ -97,6 +97,7 @@ Exists to answer: does Mission Risk create meaningful tension and player decisio
 - Out of scope: Loot, currency, rewards of any kind; Operations/Zones formal structure; Lobby/Party UI; results polish.
 
 **Sprint 2.7 — Unsecured Rewards & Mission Risk**
+- Status: **DONE (PC-011, playtest-approved 2026-07-12).** Enemies **drop a physical currency pickup** on genuine death; collecting it (with a small configurable pickup radius) fills an **Unsecured** wallet; extraction **Success banks** it, **Failure loses** it, **Banked** persists across Operations (session, in-memory). Extraction opening while enemies keep spawning creates the first extract-now-vs-fight-more choice. XP retention already satisfied (immediate grant) — untouched. Attaches to the 2.6 Operation events without modifying the lifecycle. Next: Sprint 2.8 (minimal results summary) closes the Cluster B loop.
 - Question: Does DEC-019 (loot lost on failure, XP retained) hold up as a felt mechanic, not just a rule on paper?
 - Dependencies: Sprint 2.6; `PlayerXP` (already auto-retains per DEC-018, no change needed).
 - Why before 2.8: a results summary has nothing to summarize until secure/lose logic exists.

@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Utilities.OperationHud
   operation: {fileID: 0}
+  wallet: {fileID: 0}
 --- !u!114 &548563685
 MonoBehaviour:
   m_ObjectHideFlags: 0

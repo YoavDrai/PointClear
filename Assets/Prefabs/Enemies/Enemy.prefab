@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8547746936445654829}
   - component: {fileID: 2739655466789096794}
   - component: {fileID: 3482682666707247566}
+  - component: {fileID: 1929109447876287728}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -180,6 +181,9 @@ MonoBehaviour:
   separationRadius: 1.75
   separationWeight: 1.5
   seekWeight: 1
+  obstacleSkin: 0.2
+  avoidLookAhead: 1.6
+  stuckTimeout: 1.5
 --- !u!114 &3482682666707247566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,3 +197,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.EnemyXPReward
   xpValue: 1
+--- !u!114 &1929109447876287728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687431738212142635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb5be45a66f14704b80d4066f75cc92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Operations.EnemyCurrencyDrop
+  pickupPrefab: {fileID: 3194132029341636674, guid: 79ed01f6b54b847d6aaf087af91f23ab, type: 3}
+  amount: 5
+  dropHeight: 0.5
