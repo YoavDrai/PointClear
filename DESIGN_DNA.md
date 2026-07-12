@@ -45,6 +45,8 @@ Everything begins with combat. If combat is not satisfying, nothing else matters
 
 Combat must always feel: responsive, fast, dangerous, fair, rewarding. Every weapon must feel powerful. Every enemy must demand attention.
 
+The baseline mood is **competence** — players should feel capable; threat *challenges* that confidence, it does not replace it, and death should read as *"we pushed too far,"* never *"the game cheated."* The rhythm is **flow → threat → recovery**, tilting toward threat the deeper a run goes. Build legibility is **kinesthetic**: a player should feel their build every few seconds, and changing a build should change how combat *feels*, not just the numbers. Enemies threaten through **behavior**, not stat inflation. (Permanent rules and boundaries: [DECISIONS.md](DECISIONS.md) DEC-024, DEC-025.)
+
 ### 2. Builds Create Stories
 
 The purpose of progression is not bigger numbers — it is changing gameplay. Players should constantly discover interactions they have never seen before. The ideal player reaction is: "Wait... what just happened?"
@@ -133,6 +135,22 @@ Whenever a new feature is discussed, ask:
 - Does it encourage experimentation? If not, why are we building it?
 - Does it improve co-op? If not, why are we building it?
 - Would players tell their friends about it? If not, why are we building it?
+
+## Design Methodology
+
+Point Clear is designed **emotion-first**: mechanics are downstream of feelings. Every design discussion follows seven steps (a loop, not a waterfall):
+
+1. **Emotion** — what should the player *feel*? (Not what happens, not what mechanic.)
+2. **Philosophy** — why does that emotion matter; which higher emotion does it serve; resolve conflicts with other emotions *before* mechanics.
+3. **Mechanic** — the *smallest* mechanic that consistently produces the emotion, not the most impressive.
+4. **Validation** — a *pre-registered, falsifiable* playtest signal that players genuinely felt it. (A failed signal can send you back to the mechanic — or back to the *emotion*.)
+5. **Constraints** — verify it respects everything locked (finite budget, soft counters, readability, build identity, curiosity, co-op, engineering).
+6. **Kill / Defer** — permission to shelve a real, good emotion when no affordable, legible mechanic exists yet. Do not solve a problem before it is ready to be solved.
+7. **Identity Filter** — *does this deepen Point Clear's soul* (its locked philosophy), not merely resemble its surface? Invoking it requires naming the specific principle it serves or violates.
+
+The **emotional hierarchy** breaks ties: **Attachment** (terminal) ← **Identity** ← **solving problems through your build** (the activity) ← **Curiosity** (the ignition). Curiosity starts every chain; attachment is what it is all for.
+
+Two standing cautions: an *intended* emotion is only real once a real player *felt* it (validate, don't assert); and the emotional layer is designed emotion-first while foundational plumbing (netcode, persistence, integrity) is engineering-first — do not emotion-wash the foundations. (Adoption recorded as [DECISIONS.md](DECISIONS.md) DEC-029.)
 
 ## The MVP Rule
 

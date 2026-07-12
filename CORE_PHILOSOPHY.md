@@ -37,12 +37,25 @@ This document defines the permanent design principles of Point Clear — the rul
 14. There should never be only one intended way to play.
 15. Every Season should expand build diversity — new weapons, skills, mechanics, and items that create new viable ways to play — not simply larger numbers.
 
+The following sharpen the rules above into permanent principles (approval and boundaries in [DECISIONS.md](DECISIONS.md)):
+
+15a. **Identity comes from finite, scarce investment** (DEC-021). Long-term progression is a finite budget, not a fillable checklist: a build can travel toward almost any direction but can only own a small part of the space at once. This is the mechanism behind point 10 — it is what keeps builds from converging on one generalist.
+15b. **The world asks the questions** (DEC-024). Combat, missions, environments, routes, and depth all pose *"how does your build solve me?"* Enemies threaten through *behavior*, not stat inflation; difficulty deepens through *demand*, not bigger numbers. Matchup texture is **soft — never a hard gate** (a finite build must be viable everywhere without being optimal everywhere).
+15c. **Readability governs growth** (DEC-024). Complexity may grow only as fast as it remains readable; the battlefield itself must explain its interactions. If an interaction needs a wiki, it has outrun readability.
+15d. **Content grows by expanding questions, not numbers** (DEC-026). New content earns its place by adding new interactions — authored, readable *categories* of challenge wrapped around generated, hidden *instances* — so the space of interesting questions keeps expanding without replacing what exists.
+
 ### Player Agency & Divergent Journeys
 
 - Players should constantly feel they are making meaningful choices, not following a predefined path.
 - A player should feel *"this is my build,"* never *"this is the build."*
 - This is the deeper reason there are no predefined classes, why identity is driven by equipment and skill choices, and why seasonal experimentation, loot priorities, and progression paths are allowed to differ from player to player — these systems all exist in service of this principle, not by coincidence.
 - The test: two players who started the same Season on the same day should be able to compare characters later and discover genuinely different journeys, shaped by the choices each of them made.
+- **Solo and co-op are both first-class** (DEC-022). Builds are self-sufficient — players *want* each other because together they create experiences that cannot exist alone (*want, not need*), never because survival requires a role. There is no co-op-exclusive content; parity is *experience* parity — the efficiency gap between modes must stay small enough that players choose a mode for its experience, not because the game pressures them into the efficient one.
+- **Diversity comes from identity, and the world validates it rather than dictating it** (DEC-023). Players identify with their build first; the world's job is to keep giving many different, beloved identities opportunities to feel special — not to force a composition. Diversity is seduced, never enforced; a party of four identical builds always remains viable.
+
+### Onboarding — Directional Possibility
+
+The first hours must bridge a beginner (who has no attachment, mastery, or build-curiosity yet) to the long arc that makes Point Clear special. The bridge emotion is **possibility** — but *directional* possibility ("a direction you're excited to become"), honest about the finite budget, never "you can be anything." Ownership is planted by the first moment a choice is *validated in gameplay*, not by a selection screen. Onboarding's job is to convince the player the journey of building their character is worth taking — not to teach the whole game. (Approval and boundaries: [DECISIONS.md](DECISIONS.md) DEC-027.)
 
 ### The Player Mindset
 
@@ -77,7 +90,8 @@ These principles form a chain, not a list of unrelated rules. Build identity (po
 ## Persistence Philosophy
 
 21. Characters persist. Level, experience, equipment, weapons, and skills carry forward from mission to mission — so a build can be developed, tested, and refined over time, not rebuilt from scratch every session.
-22. Only a new Season resets character progression. No individual mission resets a character.
+22. **[UNDER REVISION — see [DECISIONS.md](DECISIONS.md) DEC-028]** ~~Only a new Season resets character progression.~~ No individual mission resets a character. What a Season resets vs. carries is deferred to a future Seasons workshop. What is locked: **a character never disappears** — whatever a Season does, it never deletes a player's character.
+22a. **Character attachment is a core pillar.** Players are meant to become attached to a character they develop over hundreds of hours; the game must never betray that attachment. (This is the terminal value the build-identity chain serves — see *How These Ideas Connect*.)
 
 ## Mission Risk Philosophy
 
@@ -86,7 +100,7 @@ These principles form a chain, not a list of unrelated rules. Build identity (po
 
 ## Seasons
 
-25. Seasons last approximately four months. Each Season begins with a fresh character progression and economy. Exactly what resets and what (if anything) carries between Seasons is recorded in [DECISIONS.md](DECISIONS.md), not here — see Long-Term Vision, above, for why Seasons exist beyond the reset itself.
+25. Seasons last approximately four months. **[UNDER REVISION — see [DECISIONS.md](DECISIONS.md) DEC-028]** ~~Each Season begins with a fresh character progression and economy.~~ What a Season resets vs. carries is intentionally deferred to a future Seasons workshop and must not be assumed; the one locked constraint is that a Season never deletes a character (point 22). See Long-Term Vision, above, for why Seasons exist beyond the reset itself.
 
 ## How These Principles Are Used
 

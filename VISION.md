@@ -17,7 +17,9 @@ Point Clear is an original, persistent, seasonal cooperative Action ARPG designe
 - Active combat abilities
 - Large groups of enemies
 - Deep build creation through a layered build system (weapon, active skills, passives, mutations, relics, team synergies, temporary Operation effects)
-- Persistent character progression carried across missions — level, experience, equipment, weapons, and skills all persist; only a new Season resets them (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Persistence Philosophy)
+- Persistent character progression carried across missions — level, experience, equipment, weapons, and skills all persist. **[Seasonal reset UNDER REVISION — see [DECISIONS.md](DECISIONS.md) DEC-028]**: what a Season resets vs. carries is deferred to a future Seasons workshop; the locked constraint is that **a character never disappears** (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Persistence Philosophy)
+- Build identity from a **finite** progression budget — a character can travel toward almost any direction but owns only a small part of the space at once (DEC-021)
+- Solo and co-op both first-class, with *experience parity* — co-op multiplies possibilities, not damage, and never gates content behind grouping (DEC-022, DEC-023)
 - Mission-scoped risk on top of that persistence — loot and gold earned during a mission are not secured until it is completed successfully (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Mission Risk Philosophy)
 - Skill and passive progression systems
 - Weapons, items, abilities, and build combinations

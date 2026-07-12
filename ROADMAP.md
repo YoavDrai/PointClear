@@ -8,6 +8,8 @@ This roadmap describes phase intent, not detailed production promises. Later pha
 
 This roadmap is intentionally iterative — a research plan, not a fixed production schedule (see [PROJECT_BIBLE.md](PROJECT_BIBLE.md) § Workflow). Each cluster below exists to answer a specific question. If playtesting does not confirm the answer, sprints may be repeated, expanded, split, or reordered — returning to an earlier sprint is a valid, expected outcome, not a deviation from the plan.
 
+**Vision-consolidation note (2026-07-12):** the vision workshops ([Documentation/Vision/](Documentation/Vision/)) **validated** the cluster structure below rather than overturning it; the refinements are folded in, not a rewrite. Specifically: mission risk is the **Operation greed-vs-safety loop** (rewards accumulate unsecured as a run pushes deeper through Zones — DEC-009/010, DEC-019, DEC-025 attrition); enemy variety means **behavioral questions**, not stat variety (DEC-024); progression trends toward a **finite build budget**, not "max everything" (DEC-021); content is **authored questions / generated answers** (DEC-026); onboarding's bridge emotion is **directional possibility** (DEC-027). The large deferred systems (economy, trading, seasons, crafting, live-service, and all networking/persistence) remain **future phases** and are not pulled forward. See [DECISIONS.md](DECISIONS.md) DEC-021 through DEC-029. Per the Game Director, further design workshops open only when implementation surfaces a real question — the priority is a playable game whose documentation evolves with it.
+
 ---
 
 ## Phase 0 — Foundation and Pre-Production
@@ -87,6 +89,7 @@ Exists to answer: does Mission Risk create meaningful tension and player decisio
 
 **Sprint 2.6 — Minimal Mission Wrapper**
 - Question: Can a "mission" exist as a bounded session with explicit start/success/failure conditions, wrapping the existing combat loop — proving the full Operation/Zone system (still largely `[UNRESOLVED]` per DEC-011) doesn't need to exist yet to test mission risk?
+- Vision note: the intended emotional core is the **greed-vs-safety** decision — rewards found during a run stay *unsecured* until the player banks them, so pushing deeper raises both the reward and the cost of failure (DEC-019, DEC-025). Even the minimal wrapper should express "secure what I have, or risk more?", not just a win/lose flag.
 - Dependencies: Existing `PrototypeScene`/combat loop (Sprint 1.x). Sequenced after Cluster A by priority, not by hard technical dependency.
 - Why before 2.7: rewards can't be meaningfully secured or lost without a mission boundary to secure/lose them at.
 - Playable loop at end: enter a bounded mission → fight with the Cluster A build → mission ends in explicit success (placeholder win condition) or failure (player death) → return to neutral state. No rewards yet.
@@ -133,6 +136,7 @@ Exists to answer: would players actually want to repeat this gameplay loop?
 
 **Sprint 2.11 — First Meaningful Enemy Variety**
 - Question: Does a second enemy archetype create a genuine new combat/skill-validation need — not variety for its own sake?
+- Vision note: enemies are **questions the world asks the build** — a new enemy must threaten through *behavior* (a new problem to solve), not through more health/damage, and must be readable at a glance (DEC-024). "Justify your existence": if it doesn't force players to think differently, it doesn't belong.
 - Dependencies: Cluster A's build content (the new enemy must specifically challenge something that exists); Sprint 2.10 passed.
 - Why before 2.12: a boss drawing on an already-proven enemy mechanic is more coherent than one invented from nothing.
 - Playable loop at end: at least one new enemy type that tests something the current build space doesn't already test.

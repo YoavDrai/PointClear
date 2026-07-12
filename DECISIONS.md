@@ -78,9 +78,9 @@ Point Clear's genre is a persistent, seasonal, cooperative Action ARPG — not a
 **Important boundaries:** This is a label and identity decision, not a mechanical specification. It does not itself define any system's rules.
 
 ### DEC-016 — Character Persistence
-A player's character — level, Experience, equipped Weapons, Skills, and owned Equipment — persists across missions. No individual mission resets a character. Only a new Season resets character progression.
+A player's character — level, Experience, equipped Weapons, Skills, and owned Equipment — persists across missions. No individual mission resets a character. ~~Only a new Season resets character progression.~~ **[UNDER REVISION — see DEC-028]:** the "only a new Season resets character progression" clause is under revision; what a Season resets vs. carries is deferred to a future Seasons workshop. What is locked: **characters never disappear.**
 
-**Important boundaries:** Exact save/persistence technical implementation is not specified here — it is a future technical requirement, not yet in scope for any current sprint.
+**Important boundaries:** Exact save/persistence technical implementation is not specified here — it is a future technical requirement, not yet in scope for any current sprint. The seasonal reset boundary is under revision (DEC-028).
 
 ### DEC-017 — No Fixed Classes
 Point Clear has no predefined gameplay classes (no Warrior/Mage/Rogue-style archetypes). Character creation is cosmetic only — appearance, not gameplay. Gameplay identity is created entirely through build: equipment, skills, passives, and upgrades.
@@ -102,6 +102,51 @@ Character Level, total Experience, and earned Skill Points are persistent charac
 
 **Important boundaries:** This does not specify exact Skill-Point-to-Skill/Passive mechanics, acquisition rate, or respec rules — remain **[UNRESOLVED]** pending a future Skill Point Allocation sprint. This does not resolve whether Mutations, Relics, or Temporary Operation Effects persist between missions once found — those individual layer persistence rules remain **[UNRESOLVED]** (see [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md)). This does not imply any save system has been implemented — persistence of Level, Experience, and Skill Points is the approved design model; the actual technical save/persistence implementation remains a separate, not-yet-scoped requirement (same boundary as DEC-016).
 
+### DEC-021 — Finite Build Budget
+A character's long-term progression (the skill tree layer) is a **finite** budget of permanent trade-offs, not an eventually-fillable checklist. A character can travel toward almost any direction, but can only own a small part of the total space at once; choosing one direction necessarily means giving up others. This is the mechanism behind [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) point 10 (meaningful choices close paths), and it is what makes build identity durable rather than converging on a single generalist. The starting archetype is a *starting vector*, not a class (extends DEC-017). Respec exists as *costly reinvention* (never a free meta-switch), and is more forgiving during early onboarding.
+
+**Important boundaries:** The exact point budget, tree shape, respec cost curve, and archetype starting positions remain **[UNRESOLVED]**. The current prototype's "accumulate points, eventually max everything" trend is superseded by this decision as a design direction, not as an urgent implementation change.
+
+### DEC-022 — Solo/Co-op Experience Parity and "Want, Not Need"
+Solo and co-op are both first-class ways to play. Builds are self-sufficient — players **want** each other because together they create experiences that cannot exist alone, not because survival *requires* teammates (no mandatory roles; extends DESIGN_DNA § Multiplayer Philosophy). There is **no co-op-exclusive content or progression** — all content belongs to every player regardless of mode; co-op's distinct value is experiential (stories, interactions, moments). Parity is *experience* parity, not identical efficiency: **the efficiency gap between solo and co-op must stay small enough that players choose their mode for the experience they want, not because the game pressures them into the more efficient option.** A small, earned co-op delta is acceptable; players who cannot group must still reach all content, build any identity, and enjoy the full progression journey.
+
+**Important boundaries:** Exact reward/scaling numbers, loot-sharing rules, and the push-or-bank *disagreement* resolution remain **[UNRESOLVED]** and are expected to be informed by playtesting. This constrains future Economy and Trading design (they must not push players into one mode).
+
+### DEC-023 — Build Diversity Comes From Identity
+Build diversity comes primarily from players identifying with their own build, not from party-composition incentives. The world's role is to **validate** the identities players have chosen, not to **dictate** them. Diversity is seduced, never enforced — a party of four identical builds always remains viable. The health target is **continued emotional validation** (every identity periodically feels special), not equal representation; no attach-able identity is permitted to *permanently* disappear. Division of responsibility: **Build Design** creates identities worth loving; **the World** continually expands the space of meaningful questions; **Live Service** ensures no identity quietly disappears.
+
+**Important boundaries:** The identity-health mechanisms (metrics, thresholds, feedback loops, spotlight rotation) are **[UNRESOLVED]** and intentionally deferred until the game is live with real player data.
+
+### DEC-024 — The World Asks the Questions (Soft Counters, Readability Governor)
+Build diversity is validated by a diverse *problem-space*: enemies, mission objectives, environment, route, depth, and modifiers all pose "how does your build solve me?" Difficulty deepens primarily through *demand* (compositions, objectives, hazards, fewer recovery opportunities), not bigger numbers; enemies threaten through **behavior**, not stats. Matchup texture is **soft — never hard gates** (forced by DEC-021: a finite build must be viable everywhere without being optimal everywhere). **Readability is the governor on growth**: complexity may grow only as fast as it remains readable — if an interaction needs a wiki, it has outrun readability. Every new enemy/question must introduce a genuinely new problem; every new build option must solve problems *differently*, not just bigger.
+
+**Important boundaries:** Specific enemy behaviors, modifier catalogs, and difficulty curves remain **[UNRESOLVED]**.
+
+### DEC-025 — Combat Feel
+Combat's baseline mood is **competence** (players feel capable; threat challenges confidence, it does not replace it; death reads as "we pushed too far," never "the game cheated"). The rhythm is **flow → threat → recovery**, tilting toward threat with depth. An expedition/Operation should generate **attrition** — a felt sense of increasing exposure the deeper a run goes (mechanism open). Build legibility is **kinesthetic**: players feel their build every few seconds, and changing a build changes how combat *feels*, not just the numbers.
+
+**Important boundaries:** The attrition mechanism (health/resources/hazards/other) and all tuning remain **[UNRESOLVED]**.
+
+### DEC-026 — Content Model: Authored Questions, Generated Answers
+Refines DEC-011. The world presents **authored, readable categories** (which give the player agency to choose and let veterans imagine their build against a known kind of challenge) wrapped around **generated, hidden instances** (which preserve curiosity and wonder): *reveal the category, hide the instance.* Long-term novelty is sustained by an **expanding, seasonally-refreshed vocabulary of problem-primitives that combine**, not by hand-authoring every encounter. The object of player curiosity is expected to migrate over a character's life from the world ("what's out there?") to the build×world interaction ("what happens if I bring *this* build out there?").
+
+**Important boundaries:** Authored-vs-generated boundaries, generation guardrails (honoring the category, respecting soft-counters), and tooling remain **[UNRESOLVED]** (see DEC-011).
+
+### DEC-027 — Onboarding: Directional Possibility
+The bridge emotion for a new player's first hours is **possibility** (supported by competence, driven by curiosity, seeded by ownership). It is **directional** possibility ("a direction you're excited to become"), not unlimited possibility — honest about the finite budget (DEC-021). A new player's sense of ownership comes primarily from the **first moment a choice is validated in gameplay**, not from the selection screen. Onboarding's purpose is to convince the player that the journey of building their character is worth taking — not to teach the entire game.
+
+**Important boundaries:** Concrete first-session flow, tutorialization, and pacing remain **[UNRESOLVED]**.
+
+### DEC-028 — Character Permanence Across Seasons; Season Reset Under Revision
+**Characters never disappear.** Character attachment is a core pillar of Point Clear. Whatever a Season resets, it never *deletes* a player's character. **This places DEC-016's clause "Only a new Season resets character progression" — and the identical statements in [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) (points 22, 25) and [VISION.md](VISION.md) — UNDER REVISION.** The exact seasonal model (what resets vs. carries, seasonal vs. permanent character, economy reset) is intentionally **[UNRESOLVED]** and deferred to a dedicated Seasons workshop; only "characters never disappear" is locked now. Per methodology, this problem is not to be solved before it is ready to be solved.
+
+**Important boundaries:** No seasonal reset/carry model is approved by this decision. Do not implement or assume one.
+
+### DEC-029 — Emotion-First Design Methodology Adopted
+Point Clear's design process is emotion-first: **Emotion → Philosophy → Mechanic (smallest that produces it) → Validation (pre-registered, falsifiable) → Constraints → Kill/Defer → Identity Filter** ("does this deepen Point Clear's soul?"). It is a loop, not a waterfall. The full method and its guardrails live in [DESIGN_DNA.md](DESIGN_DNA.md) § Design Methodology.
+
+**Important boundaries:** This is a process decision; it does not itself specify any game system.
+
 ---
 
 ## Unresolved Decisions
@@ -115,7 +160,7 @@ Character Level, total Experience, and earned Skill Points are persistent charac
 - Exact number of simultaneous enemies
 - Exact progression structure — high-level model now resolved (persistent character, XP/Loot separation, mission risk, Level-Up grants persistent build potential only — DEC-016 through DEC-020); exact skill trees, Skill Point acquisition/spend rules, XP curve, and loot tables remain open
 - Whether Mutations, Relics, or Temporary Operation Effects persist between missions once found (DEC-013, DEC-020) — individual layer persistence rules remain unresolved
-- Exact season rules — cadence resolved (DEC-004/005); exactly what (if anything) carries over between Seasons remains open
+- Exact season rules — cadence resolved (DEC-004/005); the reset/carry model is **under revision** and deferred to a future Seasons workshop; only "characters never disappear" is locked (DEC-028). Exactly what (if anything) carries over between Seasons remains open
 - Exact primary leaderboard metric
 - Monetization model
 - Initial release platform and store
