@@ -41,6 +41,17 @@ namespace PointClear.Skills
         [SerializeField]
         private float fieldVfxDuration = 0.4f;
 
+        [Header("Skill Progression")]
+        [SerializeField]
+        private SkillDefinition definition;
+
+        [SerializeField]
+        private SkillProgression progression;
+
+        [Tooltip("Explosion radius at each rank (index 0 = Level 1). Prototype tuning, not final balance.")]
+        [SerializeField]
+        private float[] explosionRadiusPerLevel = { 3f, 4f, 5f };
+
         public float Cooldown => cooldown;
         public bool IsReady => Time.time >= nextReadyTime;
         public float CooldownRemaining => Mathf.Max(0f, nextReadyTime - Time.time);
@@ -49,10 +60,57 @@ namespace PointClear.Skills
 
         private InputAction activateAction;
         private float nextReadyTime;
+        private float currentExplosionRadius;
+
+        private void Awake()
+        {
+            if (progression == null)
+            {
+                progression = GetComponent<SkillProgression>();
+            }
+        }
 
         private void OnEnable()
         {
             activateAction = InputSystem.actions.FindAction("DetonationField");
+            if (progression != null)
+            {
+                progression.SkillLevelChanged += HandleSkillLevelChanged;
+            }
+            RecalculateFromLevel();
+        }
+
+        private void OnDisable()
+        {
+            if (progression != null)
+            {
+                progression.SkillLevelChanged -= HandleSkillLevelChanged;
+            }
+        }
+
+        private void HandleSkillLevelChanged(SkillDefinition changed, int newLevel)
+        {
+            if (changed == definition)
+            {
+                RecalculateFromLevel();
+            }
+        }
+
+        private void RecalculateFromLevel()
+        {
+            int level = progression != null && definition != null ? progression.GetLevel(definition) : 1;
+            currentExplosionRadius = RadiusForLevel(level);
+        }
+
+        private float RadiusForLevel(int level)
+        {
+            if (explosionRadiusPerLevel == null || explosionRadiusPerLevel.Length == 0)
+            {
+                return explosionRadius;
+            }
+
+            int index = Mathf.Clamp(level - 1, 0, explosionRadiusPerLevel.Length - 1);
+            return explosionRadiusPerLevel[index];
         }
 
         private void Update()
@@ -92,7 +150,7 @@ namespace PointClear.Skills
                     mark = other.gameObject.AddComponent<DetonationMark>();
                 }
 
-                mark.Apply(markDuration, explosionRadius, explosionDamage);
+                mark.Apply(markDuration, currentExplosionRadius, explosionDamage);
             }
 
             ShowFieldVfx();

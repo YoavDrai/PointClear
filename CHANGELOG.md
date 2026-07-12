@@ -6,6 +6,24 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-11 — Task PC-008 (Sprint 2.4) approved and moved to DONE
+
+- Yoav completed the hands-on Play Mode review and approved: Skill Points awarded on level-up, [+] enable/disable correct, allocation spends one and ranks up, Fracture Bolt (Q) damage scales by rank, Detonation Field (E) radius scales by rank, max-level and zero-point rejections correct, existing systems intact, no unexpected console errors.
+- **Sprint 2.4 complete** — the second Phase 2 Cluster-A sprint. DEC-020 is realized in code: leveling grants a run-persistent, spendable Skill Point that produces a real in-run build choice. `ROADMAP.md` Sprint 2.4 marked DONE; **task PC-008 moved `Tasks/REVIEW/` → `Tasks/DONE/`**.
+- Technical-review box left unchecked (no Technical Director present); DONE on the Game Director's explicit authority, flagged.
+- Implementation details are in the entry below; nothing about the code changed at approval — this entry records the sign-off and status transition only.
+
+## 2026-07-11 — Task PC-008 (Sprint 2.4): Skill Points & Allocation (implementation, in review)
+
+- First Skill Point economy and data-driven skill allocation, realizing DEC-020 in code: kill → level up → earn a Skill Point → spend it to rank up an Active Skill → that skill measurably changes.
+- **Architecture (approved in the Sprint 2.4 design review):** shared `SkillDefinition` ScriptableObject holds **only** metadata + progression (stable Id, name, `SkillType`, `MaxLevel`); each skill's typed per-rank upgrade data lives with its own behavior — no universal stat struct. `SkillPoints` wallet earns 1 point per level gained (via `PlayerLevel.LevelUp`, correct across multi-level XP awards) and never goes negative. `SkillProgression` is a reference-keyed registry that validates + performs allocation and fires `SkillLevelChanged`; it is fully skill-agnostic — no per-skill names, no string switches. Event-driven throughout.
+- **Skills as rank consumers:** Fracture Bolt scales primary-bolt damage per rank (40/55/70); Detonation Field scales explosion radius per rank (3/4/5). Both **start at Level 1 and stay immediately usable** (Q/E unchanged from Sprint 2.3); Skill Points raise them toward MaxLevel 3. Values are prototype tuning, not final balance.
+- Added a minimal prototype allocation UI (`SkillAllocationHud`, OnGUI): available points + per-skill rank + allocate button (disabled at 0 points / MAX). Two `SkillDefinition` assets under `Assets/ScriptableObjects/Skills/`. `Player.prefab` wired with the wallet + registry.
+- **"Persistent" = run-persistent** (in-memory for the session). Disk save/load, cross-restart persistence, and meta-progression are explicitly out of scope; the architecture is designed to accept them later without a rewrite (respec would be free — resetting levels refunds points).
+- `PlayerXP`, `PlayerLevel`, `PlayerStats`, `Health`, `EnemyAI` were **not** modified. No Sprint 2.5 features (passives, trees, synergies, save/load, respec).
+- Play-Mode verified: single + multi-level point grants, allocation spends exactly one / raises exactly one, max-level and zero-point rejections (never negative), both skills' per-rank values change, full regression (weapon, XP-on-kill, level, pursuit, obstacle avoidance, both skills) — zero console errors. A hands-on Q/E playtest remains for Yoav.
+- Task file: [Tasks/REVIEW/PC-008_sprint-2.4-skill-points-and-allocation.md](Tasks/REVIEW/PC-008_sprint-2.4-skill-points-and-allocation.md). Not committed — awaiting Game Director playtest and approval.
+
 ## 2026-07-11 — BUG-001: Enemy obstacle blocking and local avoidance (fixed, approved)
 
 - Found during the extended gameplay review of the Sprint 2.3 build (PC-007): enemies passed straight through arena obstacles and walls, while the player (correctly) collided with them.

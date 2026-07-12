@@ -113,6 +113,8 @@ GameObject:
   - component: {fileID: 1739692223307529184}
   - component: {fileID: 6772949840303927135}
   - component: {fileID: 7102381199682803074}
+  - component: {fileID: 549865425391447240}
+  - component: {fileID: 5105293245788915795}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -368,6 +370,12 @@ MonoBehaviour:
   boltPrefab: {fileID: 7559165517573655961, guid: f86184f074f30409b94807c930aea450, type: 3}
   muzzle: {fileID: 7152544408276369385}
   cooldown: 1.5
+  definition: {fileID: 11400000, guid: 6a5404ae6929247d093a3726a91b27da, type: 2}
+  progression: {fileID: 5105293245788915795}
+  damagePerLevel:
+  - 40
+  - 55
+  - 70
 --- !u!114 &7102381199682803074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +395,42 @@ MonoBehaviour:
   cooldown: 6
   fieldVfxPrefab: {fileID: 4236607451165933359, guid: deaa5e8c69f984960a792f40a58d5a2a, type: 3}
   fieldVfxDuration: 0.4
+  definition: {fileID: 11400000, guid: 925f1bea81c8b4ff2b286d1e50b6d580, type: 2}
+  progression: {fileID: 5105293245788915795}
+  explosionRadiusPerLevel:
+  - 3
+  - 4
+  - 5
+--- !u!114 &549865425391447240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf1b1093915846289afa5a8f73674ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.SkillPoints
+  pointsPerLevel: 1
+--- !u!114 &5105293245788915795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74cca02fbb464af5baa82ea60fe9a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.SkillProgression
+  registeredSkills:
+  - {fileID: 11400000, guid: 6a5404ae6929247d093a3726a91b27da, type: 2}
+  - {fileID: 11400000, guid: 925f1bea81c8b4ff2b286d1e50b6d580, type: 2}
+  startingLevel: 1
+  skillPoints: {fileID: 549865425391447240}
 --- !u!1 &9172251034777289193
 GameObject:
   m_ObjectHideFlags: 0

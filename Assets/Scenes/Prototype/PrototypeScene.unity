@@ -737,6 +737,7 @@ GameObject:
   - component: {fileID: 1372351182}
   - component: {fileID: 1372351181}
   - component: {fileID: 1372351183}
+  - component: {fileID: 1372351184}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -864,6 +865,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Utilities.XPDiagnosticDisplay
   playerXP: {fileID: 3741096081050754560}
+--- !u!114 &1372351184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372351177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f8146b4dcd1498695c6908a5438a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Utilities.SkillAllocationHud
+  skillPoints: {fileID: 3741096081050754564}
+  progression: {fileID: 3741096081050754563}
 --- !u!1001 &1461876400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2241,6 +2256,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41470bcdbfa447cfb48bb9c43432b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.FractureBolt
+--- !u!114 &3741096081050754563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5105293245788915795, guid: ffa7168b36e5ae848b0a347b16765377, type: 3}
+  m_PrefabInstance: {fileID: 3741096081050754559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74cca02fbb464af5baa82ea60fe9a05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.SkillProgression
+--- !u!114 &3741096081050754564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 549865425391447240, guid: ffa7168b36e5ae848b0a347b16765377, type: 3}
+  m_PrefabInstance: {fileID: 3741096081050754559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf1b1093915846289afa5a8f73674ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.SkillPoints
 --- !u!1001 &8930377479868303069
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -59,8 +59,8 @@ Exists to answer: can Point Clear create meaningful Build Identity at all?
 - Playable loop at end: two or more Active Skills exist, demonstrably mechanically distinct from each other and from the existing weapon; both usable, no persistent choice yet.
 - Out of scope: Skill Points, selection screen, second build layer, stat-card systems, physical knockback, gamepad input, committing to specific skill identities beyond what's needed to prove the system works.
 
-**Sprint 2.4 — Persistent Skill Points & Allocation**
-- Question: Does leveling up grant a real, spendable, persistent resource that produces an actual build choice — is DEC-020 true in code, not just in a placeholder comment?
+**Sprint 2.4 — Persistent Skill Points & Allocation** — ✅ **DONE (PC-008, playtest-approved 2026-07-11).** Data-driven Skill Point wallet + allocation registry; both Active Skills are rank consumers (Fracture Bolt damage/rank, Detonation Field radius/rank). "Persistent" here = run-persistent (no disk save this sprint). DEC-020 is now realized in code.
+- Question: Does leveling up grant a real, spendable, persistent resource that produces an actual build choice — is DEC-020 true in code, not just in a placeholder comment? (Answered: yes, run-persistent.)
 - Dependencies: Sprint 2.3.
 - Why before 2.5: this is the first point two players' builds can actually diverge (CORE_PHILOSOPHY point 7) — a second layer has nothing to diverge from without it.
 - Playable loop at end: kill → level up → earn a Skill Point → spend it on one of the Sprint 2.3 skills → relative skill power is a real, in-session player choice.

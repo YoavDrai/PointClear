@@ -38,6 +38,16 @@ namespace PointClear.Skills
         private Vector3 direction;
         private float despawnTime;
 
+        /// <summary>
+        /// Sprint 2.4: lets the firing FractureBolt override this bolt's damage
+        /// from its per-rank data before launch. Shards keep their own prefab
+        /// damage (this is only called on the primary bolt).
+        /// </summary>
+        public void SetDamage(float value)
+        {
+            damage = value;
+        }
+
         public void Launch(Vector3 travelDirection)
         {
             direction = travelDirection.normalized;
