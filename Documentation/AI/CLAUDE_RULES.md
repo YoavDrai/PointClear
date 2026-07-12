@@ -69,6 +69,28 @@ A task is not DONE merely because code was written. It can only move to DONE aft
 - Technical review was completed
 - Relevant documentation was updated
 
+## Git Push Responsibility
+
+Permanent project workflow rule. Git **push** operations for this project are performed manually by Yoav through GitHub Desktop — not by Claude from the terminal.
+
+**Claude is responsible for:**
+- Reviewing the complete diff.
+- Verifying that only approved files are included.
+- Staging the correct files.
+- Creating the commit.
+- Reporting the commit hash.
+- Verifying repository status before and after the commit.
+
+**Yoav is responsible for:**
+- Performing the actual push using GitHub Desktop.
+- Confirming that the push completed successfully.
+
+**After Yoav confirms the push, Claude should:**
+- Verify that local HEAD and `origin` HEAD match.
+- Continue with the next workflow step.
+
+Claude must not attempt to perform Git pushes from the terminal unless Yoav explicitly requests it for that specific session. This is a permanent workflow rule, not a per-session preference.
+
 ## Content Identity Rule
 
 Point Clear must be described by its own systems and identity. Do not use other commercial games as implementation specifications. Do not directly copy another game's content, terminology, assets, progression structure, or user interface.
