@@ -147,6 +147,27 @@ Point Clear's design process is emotion-first: **Emotion → Philosophy → Mech
 
 **Important boundaries:** This is a process decision; it does not itself specify any game system.
 
+### DEC-030 — Build Divergence Has Two Timescales; Sprint 2.10 Is a Behavioral Divergence Check
+**[APPROVED — CURRENT EXPERIMENTAL INSTRUMENT, REVISABLE — not immutable doctrine]** (2026-07-12)
+
+**The model.** Build divergence is not one thing. It has **two kinds on two timescales**, and *both* world pressure and scarcity contribute to *both* — so the tempting split "world creates divergence, the finite budget creates commitment weight" is **rejected as inaccurate** (DEC-021's own text gives the finite budget an anti-generalist / divergence-preservation role). What is clean is the **timescale** separation, not a per-system responsibility split:
+- **Behavioral divergence (near-term):** *how* players engage the world's questions while progressing. Primarily **seduced by world pressure** (DEC-023/DEC-024), riding on in-moment friction (cooldowns, attention).
+- **Structural / terminal divergence (long-term):** whether *finished* builds avoid collapsing to one generalist. This is where the **finite budget (DEC-021)** does its work.
+
+**DEC-021 scope clarification (by reference; DEC-021's text is not changed):** the finite budget owns **commitment weight** and the **terminal/structural** convergence-prevention role. It is **not** the near-term behavioral-divergence mechanism and is **not** a prerequisite for the behavioral experiment.
+
+**Sprint 2.10 is redefined** from a terminal build-convergence check to a **Behavioral Divergence Check**: it measures *how players engage the world's questions*, not their unlocked or optimized loadouts. It requires ≥2 genuinely different world-questions, so **Sprint 2.11 now precedes it** (see [ROADMAP.md](ROADMAP.md)).
+
+**The instrument (current, revisable — the falsifiable core):**
+- **Probe A — within-subject (primary):** same player, two contrasting builds; does their engagement of the same enemies change? This isolates the build's effect from the player's personality and is the causal spine (it is DEC-025's "changing a build changes how combat feels" made testable).
+- **Probe B — between-subject (corroboration only):** several players, same start; record first tool reached for per enemy, hold-vs-reach, first investments, one-sentence self-described playstyle.
+- **Decision rule (pre-registered):** **PASS** (build-sensitive engagement + durable cross-situational spread) → proceed. **FAIL** (behavior flat across builds, or convergence on one approach as pure stimulus-response) → expand the interaction space among existing layers, re-run. **INCONCLUSIVE** (preconditions unmet: <2 real questions, a dominant approach, sample too small/short) → not yet runnable. **Trust a PASS more than a FAIL** — FAIL is provisional (identity may not have formed yet).
+- **Knowingly-accepted biases** (accepted because this is a design instrument for a solo developer, not an academic study): personality leaks into Probe B; small sample / no statistics; non-blind coding; loyalty-vs-not-yet-learned is ambiguous early; self-report is confabulation-prone; identity may form slower than the test or along unwatched axes. Mitigated — not eliminated — by the within-subject spine, the pre-registered rule, behavior-over-self-report, and the trust-PASS-over-FAIL asymmetry.
+
+**Relationship to CORE_PHILOSOPHY (scope note, no doc rewrite):** point 7 ("two players… end up with different builds") is the **terminal** claim, validated only by the later structural experiment; the behavioral check validates **DEC-023/DEC-024**, not point 7. A green behavioral result must not be reported as terminal validation.
+
+**Important boundaries:** This freezes the *current working instrument*, expected to evolve. It **reopens only if playtesting shows the instrument itself is misleading** — not for further abstract refinement. It does **not** schedule or design the terminal/structural experiment, does **not** implement the finite budget, and does **not** edit CORE_PHILOSOPHY or DEC-021 text (their scope is clarified here by reference). The terminal experiment remains a deferred, much-later milestone (requires DEC-021 implemented + a substantially larger build space).
+
 ---
 
 ## Unresolved Decisions

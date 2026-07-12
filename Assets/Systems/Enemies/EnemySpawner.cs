@@ -7,128 +7,182 @@ using PointClear.Player;
 namespace PointClear.Enemies
 {
     /// <summary>
-    /// PROTOTYPE-ONLY continuous enemy spawner for Sprint 1.3's crowd
-    /// scalability validation. Owns spawn timing, spawn-point selection, and
-    /// the configured population target. Does NOT own the active-enemy
-    /// count — that is authoritative on EnemyAI itself
-    /// (see EnemyAI.ActiveCount) so counting stays correct regardless of
-    /// how an enemy becomes inactive.
+    /// Sprint 2.11 — composition / pacing ramp. An Operation escalates through
+    /// kill-driven PHASES: each phase maintains a chaser population and, on entry,
+    /// injects a one-time group of special enemies. Enemy variety and density grow
+    /// over the run (weak opening → building → intense) instead of starting fully
+    /// active. Phase advance is driven by kills (earned, self-pacing, synced with
+    /// the player's XP/level ramp) with a per-phase time backstop.
     ///
-    /// Behavior: the allowed active-enemy target ramps up gradually from
-    /// initialActiveTarget to targetActiveCount (the configured maximum),
-    /// increasing by targetIncreaseAmount every targetIncreaseInterval
-    /// seconds — this is a population ceiling ramp, not a wave system.
-    /// Once at (or above) the current ramped target, the spawner holds
-    /// steady-state by spawning a replacement whenever the active count
-    /// drops below it. Never intentionally exceeds the current ramped
-    /// target. Never bulk-spawns — at most one enemy per interval tick.
-    ///
-    /// To reproduce Sprint 1.3's original fixed-target test methodology
-    /// (immediate 20/50/100 target, no ramp), set initialActiveTarget equal
-    /// to targetActiveCount — the ramp then starts already at the maximum
-    /// and every subsequent tick is a clamped no-op.
+    /// Kills are tracked (EnemyKilled → OperationController quota) exactly as before.
+    /// Chasers (EnemyAI) are cleared by OperationController.ClearEnemies; injected
+    /// specials (their own AI) are cleared here on StopSpawning. Not a wave system —
+    /// chasers are maintained continuously to the current phase's target.
     /// </summary>
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject enemyPrefab;
+        [Serializable]
+        public class Phase
+        {
+            public string name = "Phase";
+            [Tooltip("Kills required to ENTER this phase (kill-driven escalation).")]
+            public int killsToEnter = 0;
+            [Tooltip("Active chaser population maintained during this phase.")]
+            public int chaserTarget = 3;
+            [Tooltip("One-time special enemies injected when this phase begins.")]
+            public int chargersToInject = 0;
+            public int empowerersToInject = 0;
+            public int surroundersToInject = 0;
+            [Tooltip("Advance to the next phase after this many seconds even without enough kills (safety backstop).")]
+            public float timeBackstop = 45f;
+        }
 
-        [SerializeField]
-        private Transform[] spawnPoints;
+        [SerializeField] private GameObject enemyPrefab;   // the chaser
+        [SerializeField] private GameObject chargerPrefab;
+        [SerializeField] private GameObject empowererPrefab;
+        [SerializeField] private GameObject surrounderPrefab;
+        [SerializeField] private Transform[] spawnPoints;
+        [SerializeField] private float spawnInterval = 0.5f;
+        [SerializeField] private Transform player;
+        [SerializeField] private float playerSafetyDistance = 8f;
 
-        [SerializeField]
-        private int targetActiveCount = 20;
+        [Header("Composition Ramp (Sprint 2.11) — leave empty to use code defaults")]
+        [SerializeField] private Phase[] phases;
 
-        [SerializeField]
-        private float spawnInterval = 0.5f;
-
-        [SerializeField]
-        private Transform player;
-
-        [SerializeField]
-        private float playerSafetyDistance = 8f;
-
-        [Header("Population Ramp")]
-        [SerializeField]
-        private int initialActiveTarget = 5;
-
-        [SerializeField]
-        private int targetIncreaseAmount = 5;
-
-        [SerializeField]
-        private float targetIncreaseInterval = 25f;
-
-        public int TargetActiveCount => targetActiveCount;
         public float SpawnInterval => spawnInterval;
-        public int CurrentTarget => currentTarget;
         public bool SpawningEnabled => spawningEnabled;
         public int KillCount => killCount;
+        public int CurrentTarget => CurrentPhase != null ? CurrentPhase.chaserTarget : 0;
+        public int TargetActiveCount { get { int m = 0; if (phases != null) foreach (var p in phases) m = Mathf.Max(m, p.chaserTarget); return m; } }
+        public int CurrentPhaseIndex => currentPhaseIndex;
+        public string CurrentPhaseName => CurrentPhase != null ? CurrentPhase.name : "-";
 
-        /// <summary>
-        /// Sprint 2.9: world position of the most recently killed tracked enemy,
-        /// captured immediately before EnemyKilled fires. Lets a subscriber (the
-        /// WeaponModuleDropper) drop loot where the enemy died without changing the
-        /// parameterless EnemyKilled signature that OperationController consumes.
-        /// </summary>
+        /// <summary>Sprint 2.9: world position of the most recently killed tracked enemy,
+        /// captured before EnemyKilled fires (for loot drops without changing the event).</summary>
         public Vector3 LastKillPosition { get; private set; }
 
-        /// <summary>
-        /// Sprint 2.6: raised exactly once for each genuine death of an enemy
-        /// this spawner instantiated (a player kill, via the enemy's existing
-        /// Health.Died). Enemies removed by an Operation reset/clear are
-        /// destroyed, which does NOT fire Health.Died, so they are never counted.
-        /// </summary>
+        /// <summary>Sprint 2.6: raised once per genuine death of a spawned enemy (drives the quota).</summary>
         public event Action EnemyKilled;
 
         private float nextSpawnTime;
         private int nextSpawnPointIndex;
-        private bool warnedMissingPrefab;
-        private bool warnedNoSpawnPoints;
-        private int currentTarget;
-        private float nextRampTime;
         private bool spawningEnabled;
         private int killCount;
+        private int currentPhaseIndex;
+        private float phaseEnterTime;
+        private bool warnedMissingPrefab;
+        private bool warnedNoSpawnPoints;
         private readonly Dictionary<Health, Action> trackedEnemies = new Dictionary<Health, Action>();
+        private readonly List<GameObject> spawnedSpecials = new List<GameObject>();
 
-        /// <summary>
-        /// Sprint 2.6: enable spawning and reset the population ramp to its
-        /// initial target — called when an Operation begins. Until this is
-        /// called, the spawner is idle (the arena stays calm in the neutral
-        /// Ready state).
-        /// </summary>
+        private Phase CurrentPhase => (phases != null && currentPhaseIndex >= 0 && currentPhaseIndex < phases.Length) ? phases[currentPhaseIndex] : null;
+
+        private void Awake() { EnsurePhases(); }
+
+        private void EnsurePhases()
+        {
+            if (phases != null && phases.Length > 0) return;
+            phases = new Phase[]
+            {
+                new Phase { name = "Opening",   killsToEnter = 0,  chaserTarget = 3,  timeBackstop = 30f },
+                new Phase { name = "Charger",   killsToEnter = 4,  chaserTarget = 5,  chargersToInject = 1, timeBackstop = 40f },
+                new Phase { name = "Empowerer", killsToEnter = 10, chaserTarget = 7,  chargersToInject = 1, empowerersToInject = 1, timeBackstop = 45f },
+                new Phase { name = "Peak",      killsToEnter = 18, chaserTarget = 10, chargersToInject = 1, empowerersToInject = 1, surroundersToInject = 2, timeBackstop = 999f },
+            };
+        }
+
         public void BeginSpawning()
         {
             UnsubscribeAllTracked();
+            ClearSpecials();
+            EnsurePhases();
             killCount = 0;
             spawningEnabled = true;
-            currentTarget = Mathf.Clamp(initialActiveTarget, 0, targetActiveCount);
-            nextRampTime = Time.time + targetIncreaseInterval;
             nextSpawnTime = Time.time;
+            EnterPhase(0);
         }
 
-        /// <summary>Sprint 2.6: stop spawning — called when an Operation ends.
-        /// Defensively unsubscribes from any surviving tracked enemies so no
-        /// kill can be counted after the encounter has stopped.</summary>
         public void StopSpawning()
         {
             spawningEnabled = false;
             UnsubscribeAllTracked();
+            ClearSpecials();
         }
 
-        private void OnDisable()
+        private void EnterPhase(int index)
         {
-            UnsubscribeAllTracked();
+            currentPhaseIndex = index;
+            phaseEnterTime = Time.time;
+            Phase p = CurrentPhase;
+            if (p == null) return;
+            InjectSpecial(chargerPrefab, p.chargersToInject);
+            InjectSpecial(empowererPrefab, p.empowerersToInject);
+            InjectSpecial(surrounderPrefab, p.surroundersToInject);
         }
 
-        /// <summary>Sprint 2.6: begin tracking one spawned enemy — subscribe to
-        /// its existing Health.Died so a genuine death raises EnemyKilled once.</summary>
-        private void TrackEnemy(GameObject enemy)
+        private void InjectSpecial(GameObject prefab, int count)
         {
-            if (enemy == null || !enemy.TryGetComponent(out Health health))
+            if (prefab == null || count <= 0 || spawnPoints == null || spawnPoints.Length == 0) return;
+            for (int i = 0; i < count; i++)
             {
+                Transform sp = SelectSpawnPoint();
+                if (sp == null) break;
+                GameObject e = Instantiate(prefab, sp.position, sp.rotation);
+                TrackEnemy(e);
+                spawnedSpecials.Add(e);
+            }
+        }
+
+        private void Update()
+        {
+            if (!spawningEnabled) return;
+            if (player == null) player = PlayerReference.Instance;
+
+            AdvancePhaseIfReady();
+
+            if (Time.time < nextSpawnTime) return;
+            Phase p = CurrentPhase;
+            if (p == null) return;
+
+            // Only chasers use EnemyAI, so ActiveCount is the current chaser population.
+            if (EnemyAI.ActiveCount >= p.chaserTarget) return;
+
+            if (enemyPrefab == null)
+            {
+                if (!warnedMissingPrefab) { Debug.LogWarning("EnemySpawner: no chaser prefab assigned.", this); warnedMissingPrefab = true; }
+                return;
+            }
+            if (spawnPoints == null || spawnPoints.Length == 0)
+            {
+                if (!warnedNoSpawnPoints) { Debug.LogWarning("EnemySpawner: no spawn points configured.", this); warnedNoSpawnPoints = true; }
                 return;
             }
 
+            nextSpawnTime = Time.time + spawnInterval;
+            Transform spawnPoint = SelectSpawnPoint();
+            if (spawnPoint == null) return;
+            GameObject spawned = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            TrackEnemy(spawned);
+        }
+
+        // Kill-driven, with a per-phase time backstop. Cascades if kills already
+        // clear several thresholds (each entered phase injects its specials once).
+        private void AdvancePhaseIfReady()
+        {
+            if (phases == null) return;
+            while (currentPhaseIndex < phases.Length - 1)
+            {
+                Phase next = phases[currentPhaseIndex + 1];
+                bool byKills = killCount >= next.killsToEnter;
+                bool byTime = Time.time - phaseEnterTime >= CurrentPhase.timeBackstop;
+                if (byKills || byTime) EnterPhase(currentPhaseIndex + 1);
+                else break;
+            }
+        }
+
+        private void TrackEnemy(GameObject enemy)
+        {
+            if (enemy == null || !enemy.TryGetComponent(out Health health)) return;
             Action handler = null;
             handler = () => HandleTrackedEnemyDied(health, handler);
             health.Died += handler;
@@ -142,7 +196,6 @@ namespace PointClear.Enemies
                 health.Died -= handler;
                 LastKillPosition = health.transform.position;
             }
-
             trackedEnemies.Remove(health);
             killCount++;
             EnemyKilled?.Invoke();
@@ -151,130 +204,29 @@ namespace PointClear.Enemies
         private void UnsubscribeAllTracked()
         {
             foreach (KeyValuePair<Health, Action> pair in trackedEnemies)
-            {
-                if (pair.Key != null)
-                {
-                    pair.Key.Died -= pair.Value;
-                }
-            }
-
+                if (pair.Key != null) pair.Key.Died -= pair.Value;
             trackedEnemies.Clear();
         }
 
-        private void Awake()
+        private void ClearSpecials()
         {
-            currentTarget = Mathf.Clamp(initialActiveTarget, 0, targetActiveCount);
-            nextRampTime = Time.time + targetIncreaseInterval;
+            for (int i = 0; i < spawnedSpecials.Count; i++)
+                if (spawnedSpecials[i] != null) Destroy(spawnedSpecials[i]);
+            spawnedSpecials.Clear();
         }
 
-        private void Update()
-        {
-            // Sprint 2.6: the Operation lifecycle owns when the arena is live.
-            if (!spawningEnabled)
-            {
-                return;
-            }
+        private void OnDisable() { UnsubscribeAllTracked(); }
 
-            if (player == null)
-            {
-                player = PlayerReference.Instance;
-            }
-
-            UpdateRamp();
-
-            if (Time.time < nextSpawnTime)
-            {
-                return;
-            }
-
-            if (EnemyAI.ActiveCount >= currentTarget)
-            {
-                return;
-            }
-
-            if (enemyPrefab == null)
-            {
-                if (!warnedMissingPrefab)
-                {
-                    Debug.LogWarning("EnemySpawner: no enemy prefab assigned — spawning disabled.", this);
-                    warnedMissingPrefab = true;
-                }
-
-                return;
-            }
-
-            if (spawnPoints == null || spawnPoints.Length == 0)
-            {
-                if (!warnedNoSpawnPoints)
-                {
-                    Debug.LogWarning("EnemySpawner: no spawn points configured — spawning disabled.", this);
-                    warnedNoSpawnPoints = true;
-                }
-
-                return;
-            }
-
-            nextSpawnTime = Time.time + spawnInterval;
-
-            Transform spawnPoint = SelectSpawnPoint();
-            if (spawnPoint == null)
-            {
-                // No valid (safe-distance) spawn point this tick — skip,
-                // try again next interval. Do not force a spawn.
-                return;
-            }
-
-            GameObject spawned = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-            TrackEnemy(spawned);
-        }
-
-        /// <summary>
-        /// Advances the current ramped target toward targetActiveCount by
-        /// targetIncreaseAmount every targetIncreaseInterval seconds.
-        /// Monotonically increasing and clamped to the configured maximum
-        /// — never decreases, never exceeds it.
-        /// </summary>
-        private void UpdateRamp()
-        {
-            if (currentTarget >= targetActiveCount)
-            {
-                return;
-            }
-
-            if (Time.time < nextRampTime)
-            {
-                return;
-            }
-
-            currentTarget = Mathf.Min(currentTarget + targetIncreaseAmount, targetActiveCount);
-            nextRampTime = Time.time + targetIncreaseInterval;
-        }
-
-        /// <summary>
-        /// Round-robin selection with a safe skip for null entries and
-        /// entries too close to the player. Bounded to spawnPoints.Length
-        /// attempts so a fully-invalid list can't loop forever.
-        /// </summary>
         private Transform SelectSpawnPoint()
         {
             for (int attempts = 0; attempts < spawnPoints.Length; attempts++)
             {
                 Transform candidate = spawnPoints[nextSpawnPointIndex];
                 nextSpawnPointIndex = (nextSpawnPointIndex + 1) % spawnPoints.Length;
-
-                if (candidate == null)
-                {
-                    continue;
-                }
-
-                if (player != null && Vector3.Distance(candidate.position, player.position) < playerSafetyDistance)
-                {
-                    continue;
-                }
-
+                if (candidate == null) continue;
+                if (player != null && Vector3.Distance(candidate.position, player.position) < playerSafetyDistance) continue;
                 return candidate;
             }
-
             return null;
         }
     }

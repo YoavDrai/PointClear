@@ -377,7 +377,7 @@ MonoBehaviour:
   playerRespawn: {fileID: 0}
   playerHealth: {fileID: 0}
   extractionPoint: {fileID: 0}
-  killQuota: 8
+  killQuota: 25
 --- !u!4 &548563686
 Transform:
   m_ObjectHideFlags: 0
@@ -1747,6 +1747,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.EnemySpawner
   enemyPrefab: {fileID: 4687431738212142635, guid: 67d1b1549c678af42b16f77c1f2f9726, type: 3}
+  chargerPrefab: {fileID: 3531207836221997060, guid: dd5beb424f26b4459949ca59b9db817e, type: 3}
+  empowererPrefab: {fileID: 6126086984995987279, guid: d5fe70d0aef8a4acfaee7f3c8ee66f7f, type: 3}
+  surrounderPrefab: {fileID: 6697840029671130784, guid: 0cf637b8eb004436fa7b21ae8b90bc1d, type: 3}
   spawnPoints:
   - {fileID: 492504386}
   - {fileID: 1582910410}
@@ -1756,13 +1759,10 @@ MonoBehaviour:
   - {fileID: 559009455}
   - {fileID: 476250325}
   - {fileID: 1925768453}
-  targetActiveCount: 20
   spawnInterval: 0.5
   player: {fileID: 2862981006317607149}
   playerSafetyDistance: 8
-  initialActiveTarget: 5
-  targetIncreaseAmount: 5
-  targetIncreaseInterval: 25
+  phases: []
 --- !u!4 &1700942417
 Transform:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using UnityEngine;
 using PointClear.Operations;
 using PointClear.Progression;
 using PointClear.Skills;
+using PointClear.Enemies;
 
 namespace PointClear.Utilities
 {
@@ -25,6 +26,10 @@ namespace PointClear.Utilities
 
         [SerializeField]
         private CurrencyWallet wallet;
+
+        [Tooltip("Sprint 2.11: for the composition-ramp phase readout.")]
+        [SerializeField]
+        private EnemySpawner spawner;
 
         [Tooltip("Sprint 2.9: the Detonator Module — for the EQUIPPED/SECURED status line and the secured/lost-this-run summary.")]
         [SerializeField]
@@ -53,6 +58,10 @@ namespace PointClear.Utilities
             if (weaponModule == null)
             {
                 weaponModule = FindFirstObjectByType<WeaponModule>();
+            }
+            if (spawner == null)
+            {
+                spawner = FindFirstObjectByType<EnemySpawner>();
             }
             if (playerLevel == null)
             {
@@ -96,6 +105,10 @@ namespace PointClear.Utilities
 
                 case OperationState.InProgress:
                     GUILayout.Label($"Kills: {operation.CurrentKills} / {operation.KillQuota}");
+                    if (spawner != null)
+                    {
+                        GUILayout.Label($"Phase {spawner.CurrentPhaseIndex + 1}: {spawner.CurrentPhaseName}");
+                    }
                     GUILayout.Label(operation.ExtractionOpen
                         ? "EXTRACTION: OPEN — reach the exit!"
                         : "EXTRACTION: LOCKED — clear the quota");
