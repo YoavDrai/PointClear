@@ -158,6 +158,16 @@ Two standing cautions: an *intended* emotion is only real once a real player *fe
 
 The MVP exists to answer one question: is Point Clear fun? Nothing else matters until this question is answered.
 
+## Gameplay Prototype Philosophy
+
+**Gameplay roles are permanent. Prototype implementations are disposable.**
+
+The current skills, enemies, weapons, modules, visuals, and even some mechanics are **greybox gameplay prototypes**. They exist only to validate the gameplay philosophy — they are not final content, and their names, visuals, animations, attacks, and even behaviors may all change or be replaced. What is canonical is the **role** each fulfills — the question an enemy teaches, the role a skill plays in combat pacing and build identity — never the specific implementation carrying it.
+
+Therefore, future gameplay reviews and proposals **optimize for validating the gameplay philosophy, not for preserving prototype implementations.** Invest only enough greybox legibility to make a role's question land; a weak prototype means the *implementation* is wrong, never the role or the philosophy. A prototype may be freely renamed, reskinned, re-behaved, or replaced whenever that better serves its role.
+
+This is a development philosophy — it changes no gameplay decision.
+
 ## The Golden Rule
 
 Before implementing any feature, ask one question: will this make players excited to start another run?

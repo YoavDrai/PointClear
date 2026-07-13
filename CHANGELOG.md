@@ -6,6 +6,11 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-13 — Development philosophy: Gameplay Prototype Philosophy added to DESIGN_DNA (docs-only)
+
+- Added a short **"Gameplay Prototype Philosophy"** section to [DESIGN_DNA.md](DESIGN_DNA.md) (after § The MVP Rule): **gameplay roles are permanent; prototype implementations are disposable.** Current skills, enemies, weapons, modules, visuals, and some mechanics are greybox prototypes that exist only to validate the gameplay philosophy — not final content; what is canonical is the *role* each fulfills (the question an enemy teaches, the role a skill plays), never the specific implementation. Future gameplay reviews optimize for validating the philosophy, not preserving prototypes.
+- **Deliberately a development philosophy, not a DEC** (Game-Director call: it is not a gameplay decision and changes none). Placed in DESIGN_DNA (dev methodology/mindset) rather than CORE_PHILOSOPHY (permanent game-design rules).
+
 ## 2026-07-13 — Gameplay Vision Sync + Freeze: Long-Term Vision vs Current Prototype Scope (DEC-034/035/036/037, docs-only)
 
 - **Documentation-only synchronization** (no code/assets) re-establishing the docs as single source of truth after the recent progression work. Introduces a clear, permanent distinction between the **Long-Term Game Vision** (kept fully intact) and the **Current Prototype / Proving Scope** — a deliberately compressed version built to prove the core loop is fun before expanding the world.
