@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 3460743454181759343}
   - component: {fileID: 2020793373995687812}
   - component: {fileID: 399155430798791500}
+  - component: {fileID: 2529742465131571736}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -420,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Skills.SkillPoints
   pointsPerLevel: 1
+  startingPoints: 2
 --- !u!114 &5105293245788915795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +480,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Operations.WeaponModule
   operation: {fileID: 0}
   weapon: {fileID: 0}
+--- !u!114 &2529742465131571736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887898723466991911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d47033c8d683499f83edebde9cdb85a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Progression.DeathXPPenalty
+  penaltyFraction: 0.2
+  operation: {fileID: 0}
 --- !u!1 &9172251034777289193
 GameObject:
   m_ObjectHideFlags: 0

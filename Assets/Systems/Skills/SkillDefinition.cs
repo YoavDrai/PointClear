@@ -38,10 +38,17 @@ namespace PointClear.Skills
         [SerializeField]
         private int startingLevel = 0;
 
+        [Tooltip("PC-016: if true, this skill is offered in the character-start allocation step (the player spends their starting Skill Points on it before the first run). DATA-DRIVEN — add or remove starting skills by toggling this flag, no code change. Skills left false are simply not offered at start; they are still reached later through normal progression.")]
+        [SerializeField]
+        private bool availableAtCharacterStart = false;
+
         public string Id => id;
         public string DisplayName => string.IsNullOrEmpty(displayName) ? name : displayName;
         public SkillType SkillType => skillType;
         public int MaxLevel => Mathf.Max(1, maxLevel);
+
+        // PC-016: whether this skill appears in the character-start allocation step.
+        public bool AvailableAtCharacterStart => availableAtCharacterStart;
 
         // Sprint 2.5: initial progression state only — not a gameplay value.
         // Read-only at runtime and always clamped to [0, MaxLevel], so an

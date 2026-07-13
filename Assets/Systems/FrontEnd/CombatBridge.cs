@@ -40,6 +40,7 @@ namespace PointClear.FrontEnd
         private CurrencyWallet wallet;
         private PlayerLevel playerLevel;
         private SkillPoints skillPoints;
+        private SkillProgression progression;
         private bool subscribed;
 
         // Read-only run-result / progression values, owned entirely by the
@@ -49,6 +50,45 @@ namespace PointClear.FrontEnd
         public int Banked => wallet != null ? wallet.Banked : 0;
         public int Level => playerLevel != null ? playerLevel.CurrentLevel : 0;
         public int SkillPointsAvailable => skillPoints != null ? skillPoints.Available : 0;
+
+        // PC-016: the character-start allocation step reaches SkillProgression only
+        // through these accessors — the front-end never touches the skill system
+        // directly, and no second allocation system is introduced. The offered set
+        // is data-driven (SkillDefinition.AvailableAtCharacterStart).
+        public IReadOnlyList<SkillDefinition> CharacterStartSkills()
+        {
+            Resolve();
+            var list = new List<SkillDefinition>();
+            if (progression != null)
+            {
+                foreach (SkillDefinition def in progression.RegisteredSkills)
+                {
+                    if (def != null && def.AvailableAtCharacterStart)
+                    {
+                        list.Add(def);
+                    }
+                }
+            }
+            return list;
+        }
+
+        public int SkillLevel(SkillDefinition def)
+        {
+            Resolve();
+            return progression != null ? progression.GetLevel(def) : 0;
+        }
+
+        public bool CanAllocateSkill(SkillDefinition def)
+        {
+            Resolve();
+            return progression != null && progression.CanAllocate(def);
+        }
+
+        public bool TryAllocateSkill(SkillDefinition def)
+        {
+            Resolve();
+            return progression != null && progression.TryAllocate(def);
+        }
 
         private void Resolve()
         {
@@ -86,6 +126,7 @@ namespace PointClear.FrontEnd
                     wallet = player.GetComponent<CurrencyWallet>();
                     playerLevel = player.GetComponent<PlayerLevel>();
                     skillPoints = player.GetComponent<SkillPoints>();
+                    progression = player.GetComponent<SkillProgression>();
                 }
             }
 

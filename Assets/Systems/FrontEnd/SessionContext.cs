@@ -55,8 +55,15 @@ namespace PointClear.FrontEnd
         /// <summary>True once Character Creation has confirmed a character.</summary>
         public static bool HasCharacter { get; set; }
 
-        /// <summary>True once the single starting node/direction is confirmed.</summary>
-        public static bool StartingNodeConfirmed { get; set; }
+        /// <summary>
+        /// PC-016: true once the character-start Skill Point allocation step has
+        /// been explicitly confirmed. It gates entry into the first run's flow.
+        /// FUTURE SAVE/LOAD SEAM: a loaded (existing) character sets this true so
+        /// the forced initial-allocation step is not shown again — the same
+        /// future-safe idea as SkillPoints.LoadSavedBalance. Reset to false for a
+        /// new character.
+        /// </summary>
+        public static bool InitialAllocationConfirmed { get; set; }
 
         /// <summary>The screen the flow currently considers active.</summary>
         public static FrontEndScreen CurrentScreen { get; set; }
@@ -77,7 +84,7 @@ namespace PointClear.FrontEnd
             CharacterName = string.Empty;
             Preset = CharacterPreset.GreenA;
             HasCharacter = false;
-            StartingNodeConfirmed = false;
+            InitialAllocationConfirmed = false;
             CurrentScreen = FrontEndScreen.MainMenu;
         }
 

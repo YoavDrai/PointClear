@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PointClear.Skills;
 
 namespace PointClear.FrontEnd
 {
@@ -38,11 +39,19 @@ namespace PointClear.FrontEnd
         private CharacterPreset selectedPreset;
         private bool confirmInProgress;
 
-        // --- Starting Direction working state ---
-        private Button startingNodeButton;
+        // --- Starting Direction / initial Skill allocation working state (PC-016) ---
+        private RectTransform skillColumn;
+        private Text startingPointsLabel;
         private Text directionHint;
-        private bool startingNodeSelected;
         private bool directionConfirmInProgress;
+        private bool startingSkillsBuilt;
+        private readonly List<StartingSkillRow> startingSkillRows = new List<StartingSkillRow>();
+
+        private sealed class StartingSkillRow
+        {
+            public SkillDefinition Skill;
+            public Button Button;
+        }
 
         // --- World Map / Operation hand-off state ---
         private Button mapNodeButton;
@@ -136,11 +145,7 @@ namespace PointClear.FrontEnd
             }
             if (next == FrontEndScreen.StartingDirection)
             {
-                RefreshStartingNodeUi();
-                if (directionHint != null)
-                {
-                    directionHint.gameObject.SetActive(false);
-                }
+                RefreshStartingSkills();
             }
             if (next == FrontEndScreen.WorldMap)
             {
@@ -367,75 +372,129 @@ namespace PointClear.FrontEnd
             flow.ShowScreen(FrontEndScreen.MainMenu);
         }
 
+        // PC-016: the Starting Direction screen IS the character-start Skill Point
+        // allocation step. It reuses SkillProgression through CombatBridge (no
+        // second skill system); the offered skills are data-driven
+        // (SkillDefinition.AvailableAtCharacterStart). The player may spend the 2
+        // starting points now or confirm with them unspent (a weapon-only start is
+        // valid) — Confirm is always allowed but must be pressed explicitly.
         private void BuildStartingDirection()
         {
             GameObject panel = NewScreen(FrontEndScreen.StartingDirection, "Starting Direction", null);
-            RectTransform column = UIFactory.CreateColumn(panel.transform, 840f, 18f, TextAnchor.MiddleCenter);
+            RectTransform column = UIFactory.CreateColumn(panel.transform, 840f, 16f, TextAnchor.MiddleCenter);
 
             UIFactory.CreateLabel(column, "Choose where your build begins.", 32,
                 UIFactory.TextPrimary, TextAnchor.MiddleCenter, FontStyle.Bold);
             UIFactory.CreateLabel(column,
-                "This is where your character starts — not where they are stuck.\n" +
-                "More paths and nodes open up as you progress.\n" +
-                "A starting vector, not a permanent class.",
-                26, UIFactory.TextMuted, TextAnchor.MiddleCenter, FontStyle.Normal);
+                "Spend your starting Skill Points to shape your first build —\n" +
+                "a starting vector, not a permanent class. You can also begin with\n" +
+                "points unspent and invest them later as you level.",
+                24, UIFactory.TextMuted, TextAnchor.MiddleCenter, FontStyle.Normal);
 
-            startingNodeButton = UIFactory.CreateButton(column, "Vanguard — Starting Node", 92f,
-                UIFactory.ButtonBg, SelectStartingNode);
+            startingPointsLabel = UIFactory.CreateLabel(column, "Skill Points: -", 28,
+                UIFactory.TextPrimary, TextAnchor.MiddleCenter, FontStyle.Bold);
 
-            UIFactory.CreateLabel(column, "(the only path open for now — more will branch from here)", 22,
+            // Skills are built lazily on first entry (SkillProgression is resolved
+            // from the player at runtime); this empty column reserves their slot
+            // between the points readout and the Confirm/Back buttons.
+            skillColumn = UIFactory.CreateColumn(column, 820f, 10f, TextAnchor.MiddleCenter);
+
+            directionHint = UIFactory.CreateLabel(column, string.Empty, 22,
                 UIFactory.TextMuted, TextAnchor.MiddleCenter, FontStyle.Italic);
-
-            directionHint = UIFactory.CreateLabel(column, "Select the starting node to continue.", 24,
-                UIFactory.WarnText, TextAnchor.MiddleCenter, FontStyle.Bold);
             directionHint.gameObject.SetActive(false);
 
             UIFactory.CreateButton(column, "Confirm", 76f, UIFactory.AccentBg, OnConfirmStartingDirection);
             UIFactory.CreateButton(column, "Back", 60f, UIFactory.ButtonBg, OnBackFromStartingDirection);
-
-            // The un-confirmed node selection lives in this field (widget-level),
-            // preserved across Back like the character draft. Seed it from the
-            // session so an already-confirmed direction shows as selected.
-            startingNodeSelected = SessionContext.StartingNodeConfirmed;
-            RefreshStartingNodeUi();
         }
 
-        private void SelectStartingNode()
+        // Builds the per-skill allocate buttons once, then refreshes rank/points/
+        // interactable state. Called on entry to the screen and after each spend.
+        private void RefreshStartingSkills()
         {
-            startingNodeSelected = true;
+            if (combat == null)
+            {
+                return;
+            }
+
+            IReadOnlyList<SkillDefinition> skills = combat.CharacterStartSkills();
+
+            if (!startingSkillsBuilt && skillColumn != null)
+            {
+                foreach (SkillDefinition def in skills)
+                {
+                    SkillDefinition captured = def; // per-iteration capture for the closure
+                    Button b = UIFactory.CreateButton(skillColumn, captured.DisplayName, 72f,
+                        UIFactory.ButtonBg, () => OnAllocateStartingSkill(captured));
+                    startingSkillRows.Add(new StartingSkillRow { Skill = captured, Button = b });
+                }
+                startingSkillsBuilt = true;
+            }
+
+            if (startingPointsLabel != null)
+            {
+                startingPointsLabel.text = "Skill Points: " + combat.SkillPointsAvailable;
+            }
+
+            foreach (StartingSkillRow row in startingSkillRows)
+            {
+                int level = combat.SkillLevel(row.Skill);
+                bool atMax = level >= row.Skill.MaxLevel;
+                SetButtonText(row.Button,
+                    row.Skill.DisplayName + "   Lv " + level + "/" + row.Skill.MaxLevel + (atMax ? "   MAX" : "   +"));
+                if (row.Button != null)
+                {
+                    row.Button.interactable = combat.CanAllocateSkill(row.Skill);
+                }
+            }
+
+            // A gentle, non-blocking note when points remain — Confirm is still allowed.
             if (directionHint != null)
             {
-                directionHint.gameObject.SetActive(false);
+                bool hasUnspent = combat.SkillPointsAvailable > 0;
+                directionHint.text = hasUnspent
+                    ? "You can spend your points now, or confirm and invest them later."
+                    : string.Empty;
+                directionHint.gameObject.SetActive(hasUnspent);
             }
-            RefreshStartingNodeUi();
         }
 
-        private void RefreshStartingNodeUi()
+        private void OnAllocateStartingSkill(SkillDefinition def)
         {
-            SetSelectableButtonState(startingNodeButton, "Vanguard — Starting Node", startingNodeSelected);
+            if (flow.Current != FrontEndScreen.StartingDirection || combat == null)
+            {
+                return;
+            }
+            combat.TryAllocateSkill(def);
+            RefreshStartingSkills();
         }
 
         private void OnConfirmStartingDirection()
         {
             // Guard duplicate confirms: act only while on this screen and not
             // already mid-confirm (the flow's transition guard is the backstop).
+            // Per the design, Confirm is always allowed — spending is optional.
             if (directionConfirmInProgress || flow.Current != FrontEndScreen.StartingDirection)
             {
                 return;
             }
-            if (!startingNodeSelected)
-            {
-                if (directionHint != null)
-                {
-                    directionHint.gameObject.SetActive(true);
-                }
-                return;
-            }
 
             directionConfirmInProgress = true;
-            SessionContext.StartingNodeConfirmed = true;
+            SessionContext.InitialAllocationConfirmed = true;
             flow.ShowScreen(FrontEndScreen.WorldMap);
             directionConfirmInProgress = false;
+        }
+
+        private static void SetButtonText(Button button, string text)
+        {
+            if (button == null)
+            {
+                return;
+            }
+            Text label = button.GetComponentInChildren<Text>();
+            if (label != null)
+            {
+                label.text = text;
+            }
         }
 
         private void OnBackFromStartingDirection()

@@ -181,6 +181,32 @@ The first complete player journey (Main Menu → Character Creation → Starting
 
 **Important boundaries:** This is a **greybox** slice — not final UI/art, settings, localization, or platform integration, and **not** save/load, accounts, character slots, run history, or a real map/skill-tree. Persistence and **basic-weapon-only start** (Active Skills earned later rather than available from Level 1) are recorded as **deferred follow-ups**, not decided here. This decision governs front-end architecture only; it changes no gameplay or design rule.
 
+### DEC-032 — Death XP Penalty: Flat % of the Current Level Bar, Never De-Levels
+**[APPROVED FACT]** (2026-07-13, PC-016 — Game-Director directed; playtest-approved 2026-07-13)
+
+Resolves the number left open by DEC-019 ("exact retained-Experience amount on mission failure"). On Operation **failure by player death**, the character loses only **progress into the current level**, by a **configurable flat fraction of that level's XP bar** (default **20%** — `DeathXPPenalty.penaltyFraction`); the amount is capped at the current progress so the total can **never drop below the current level's floor**. **Levels, total earned Skill Points, Skill Tree allocations, and Banked rewards are never lost.** Example at 0.2: Level 10 at 40% → Level 10 at 20%.
+
+This **supersedes the prior "XP fully retained on failure"** behaviour that was live since Sprint 2.7 (a plain reading of DEC-019's placeholder). It remains consistent with [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) points 21–24: characters persist, no mission removes a level, and failure never erases *all* long-term progression — a real but bounded cost. The design is drawn from the extraction/ARPG genre's convention of losing sub-level progress on death; it is Point Clear's own rule, not a copy of any specific game's numbers.
+
+**Architecture:** implemented as a run-scoped rule (`DeathXPPenalty`) that subscribes to the existing `OperationController.OperationFailed` event and never modifies the Operation lifecycle — the same secure/lose pattern as `CurrencyWallet` and `WeaponModule`. `PlayerXP` gains a level-agnostic `RemoveXP`; the "never de-level" cap lives in `DeathXPPenalty`, which reads `PlayerLevel`'s current-level boundaries. Single-player scope: it penalises the local player only; a future party-wipe rule changes only this component.
+
+**Important boundaries:** The **fraction is prototype tuning, not a balance decision** — the exact value is expected to move with playtesting. This decides the *failure* penalty only; it does not change XP gain, the XP curve, or any reward-securing rule. Death **outside** an Operation (the prototype respawn loop) is intentionally **not** penalised. This is off the pre-existing roadmap sequence (inserted at Game-Director direction) and is **playtest-approved (2026-07-13)**. This resolves a number, not the whole persistence model: no save system is implied (DEC-016/020 boundary stands).
+
+### DEC-033 — Player-Driven Character-Start Skill Allocation (Data-Driven Starting Skills)
+**[APPROVED FACT]** (2026-07-13, PC-016 — Game-Director directed; playtest-approved 2026-07-13)
+
+A new character no longer begins with its Active skills pre-selected. Instead, before the first run the **Starting Direction screen becomes the initial Skill Point allocation step**: the player spends their starting Skill Points (DEC-020 / 2 by default) on **starting skills**, then explicitly confirms to proceed. This realises [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) build-identity intent (the build is *chosen*, a "starting vector, not a class" — DEC-021) and closes the starting-skill item PC-015 explicitly deferred.
+
+Rules (all Game-Director-decided this task):
+- **Data-driven starting set.** Which skills are offered at start is a per-asset flag, `SkillDefinition.AvailableAtCharacterStart` — **not hardcoded**. Add/remove starting skills by toggling the flag, no code change. Current starting set: Fracture Bolt + Detonation Field (both `StartingLevel` moved 1 → 0); the Volatile Fracture passive is **not** a starting skill.
+- **Active skills are gated on rank ≥ 1.** Each Active skill only activates once allocated — an unallocated skill genuinely cannot be used (previously it fired at rank-0 tuning, the gap PC-015 noted). So a fresh character is **basic-weapon-only** until they invest.
+- **Spending is optional; confirmation is explicit.** The player may begin with points unspent (a valid weapon-only start) but must press Confirm — the first run cannot begin until that confirmation (`SessionContext.InitialAllocationConfirmed`). This is the *character-start* step only; auto-opening the tree on every in-run level-up is a separate future flow.
+- **Non-start skills stay reachable through normal progression** (this task **does not** introduce a hard unlock lock — that would regress the already-approved Volatile Fracture passive). A future "hard unlock through progression nodes" mechanism is left as a seam, not built.
+
+**Architecture:** reuses the existing `SkillProgression` allocation core through the `CombatBridge` seam only — **no second skill-tree system** (constraint honoured). The front-end never touches the skill system directly. Future save/load is seam-ready: a loaded character sets `InitialAllocationConfirmed` (skipping the forced step) — same idea as `SkillPoints.LoadSavedBalance` (DEC-016/020 boundary stands; no save system implemented).
+
+**Important boundaries:** Greybox UI (reuses the front-end's button pattern; not final skill-tree UI). The starting-skill *set*, point count, and node/tree shape remain prototype choices, not balance/DEC-021-budget decisions. **Playtest-approved (2026-07-13).**
+
 ---
 
 ## Unresolved Decisions
@@ -205,7 +231,7 @@ The first complete player journey (Main Menu → Character Creation → Starting
 - Build layer exact rules, slot counts, acquisition methods, balance and rarity systems (DEC-013)
 - Whether "Mission" replaces, splits from, or is another name for "Operation" (raised by recent design discussion; not resolved by DEC-014 through DEC-019)
 - Loot tables, drop rates, rarity tiers, and itemization (DEC-018)
-- Exact retained-Experience amount on mission failure, and the exact definition of "mission failure" (DEC-019)
+- ~~Exact retained-Experience amount on mission failure~~ — **resolved by DEC-032** (flat % of the current level bar, default 20%, never de-levels; the *value* remains prototype tuning). The exact definition of "mission failure" beyond player death (DEC-019) is still open
 - Character persistence save/technical implementation (DEC-016, DEC-020) — no save system exists yet; persistence is the approved design model only, not an implemented feature
 
 ---

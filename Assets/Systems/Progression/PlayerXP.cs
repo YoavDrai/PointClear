@@ -24,5 +24,24 @@ namespace PointClear.Progression
             CurrentXP += amount;
             XPChanged?.Invoke(CurrentXP);
         }
+
+        /// <summary>
+        /// Removes XP from the cumulative total (used by the death penalty).
+        /// This class stays deliberately level-agnostic — it clamps only at zero
+        /// and never at a level boundary. The "never de-level" rule is enforced by
+        /// the caller (DeathXPPenalty), which knows the current level's floor and
+        /// caps the amount accordingly. Symmetric to AddXP: re-fires XPChanged so
+        /// PlayerLevel recomputes the derived level from the new total.
+        /// </summary>
+        public void RemoveXP(float amount)
+        {
+            if (amount <= 0f)
+            {
+                return;
+            }
+
+            CurrentXP = Mathf.Max(0f, CurrentXP - amount);
+            XPChanged?.Invoke(CurrentXP);
+        }
     }
 }

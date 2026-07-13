@@ -17,3 +17,4 @@ MonoBehaviour:
   skillType: 1
   maxLevel: 1
   startingLevel: 0
+  availableAtCharacterStart: 0

@@ -16,4 +16,5 @@ MonoBehaviour:
   displayName: Detonation Field
   skillType: 0
   maxLevel: 3
-  startingLevel: 1
+  startingLevel: 0
+  availableAtCharacterStart: 1

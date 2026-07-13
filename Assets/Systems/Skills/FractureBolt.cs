@@ -119,11 +119,26 @@ namespace PointClear.Skills
 
         private void Update()
         {
-            if (activateAction != null && activateAction.WasPressedThisFrame() && IsReady)
+            if (activateAction != null && activateAction.WasPressedThisFrame() && IsReady && IsUnlocked())
             {
                 Activate();
                 nextReadyTime = Time.time + cooldown;
             }
+        }
+
+        // PC-016: an Active skill only fires once allocated to rank >= 1 — so a
+        // character that has not invested in it (StartingLevel 0, unallocated)
+        // genuinely cannot use it, making the character-start choice real. When
+        // progression/definition are unresolved we treat it as usable (level 1),
+        // matching RecalculateFromLevel's existing fallback so a misconfigured
+        // prototype still fires rather than going silently dead.
+        private bool IsUnlocked()
+        {
+            if (progression == null || definition == null)
+            {
+                return true;
+            }
+            return progression.GetLevel(definition) >= 1;
         }
 
         private void Activate()

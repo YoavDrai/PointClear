@@ -42,6 +42,10 @@ namespace PointClear.Utilities
         [SerializeField]
         private SkillPoints skillPoints;
 
+        [Tooltip("Sprint 2.12 (DEC-032): read-only, for the 'XP progress lost' line of the failure summary.")]
+        [SerializeField]
+        private DeathXPPenalty deathXPPenalty;
+
         private GUIStyle titleStyle;
         private GUIStyle headerStyle;
 
@@ -70,6 +74,10 @@ namespace PointClear.Utilities
             if (skillPoints == null)
             {
                 skillPoints = FindFirstObjectByType<SkillPoints>();
+            }
+            if (deathXPPenalty == null)
+            {
+                deathXPPenalty = FindFirstObjectByType<DeathXPPenalty>();
             }
         }
 
@@ -171,6 +179,14 @@ namespace PointClear.Utilities
             GUILayout.Label("Character Progress Retained", headerStyle);
             GUILayout.Label($"Level: {(playerLevel != null ? playerLevel.CurrentLevel.ToString() : "-")}");
             GUILayout.Label($"Skill Points: {(skillPoints != null ? skillPoints.Available.ToString() : "-")}");
+
+            // Sprint 2.12 (DEC-032): on failure the level and Skill Points above are
+            // retained; only progress into the current level is reduced. Show that
+            // loss so the penalty is felt, not silent.
+            if (!success && deathXPPenalty != null && deathXPPenalty.LastPenaltyApplied > 0f)
+            {
+                GUILayout.Label($"XP progress lost: -{deathXPPenalty.LastPenaltyApplied:0.#}");
+            }
 
             GUILayout.Space(4f);
             if (GUILayout.Button("Return to Ready"))
