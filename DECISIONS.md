@@ -207,11 +207,73 @@ Rules (all Game-Director-decided this task):
 
 **Important boundaries:** Greybox UI (reuses the front-end's button pattern; not final skill-tree UI). The starting-skill *set*, point count, and node/tree shape remain prototype choices, not balance/DEC-021-budget decisions. **Playtest-approved (2026-07-13).**
 
+**Clarification (2026-07-13, folded in by DEC-034 sync):** the Skill Tree is part of the character's **long-term identity**, not a per-run Loadout choice. The intended flow is Character Creation → **Initial Skill Tree Allocation** → Operation Loop, and a player may inspect/allocate earned Skill Points later during gameplay through the Skill Tree (e.g. via a dedicated input such as Tab). The exact in-game skill-tree UI behaviour is not locked. This supersedes any prior framing of a pre-run "Starting Skill" that is simply handed to the player from a Loadout.
+
+### DEC-034 — Current Prototype Proving Scope (The Arena Loop)
+**[APPROVED FACT]** (2026-07-13, Game-Director directed)
+
+The current prototype is intentionally a **compressed version of the full game**, built to prove one thing: **is the Arena gameplay loop fun enough that players immediately want to play another Run?** Everything else waits on that answer.
+
+**Prototype terminology (current scope only — these do not replace the long-term Operation/Zone/Map terms):**
+- **Arena** — the physical combat space. **The Arena is NOT infinite** — it is one bounded space.
+- **Run** — one complete visit to the Arena (enter → fight → extract → results).
+- **Cycle** — five Runs.
+- **Difficulty Tier** — the progression level reached after completing a Boss Cycle.
+
+**What is infinite is the sequence of Runs and Difficulty Tiers, not the Arena.** The proving-target loop:
+
+**Character Creation → Initial Skill Tree Allocation → Enter Arena → Fight → Extraction → Results → Re-enter Arena → Repeat**, with every 5th Run a Boss Run and the Difficulty Tier rising each completed Cycle (DEC-035, DEC-036).
+
+Until this loop is proven fun, the prototype **deliberately does not build**: multiple Operations, **multiple Arenas**, connected Zones, semi-procedural generation, dynamic objective variety, the Lobby/Party hubs, world/campaign progression, or **story**. The current Arena has a simple objective (currently a kill target) that ends at the Extraction Point.
+
+**This does NOT delete or downgrade the long-term vision.** The full multi-Operation, multi-Zone, dynamic-objective, Lobby/Party, boss-per-Operation, world-progression, seasonal game (DEC-009 through DEC-013, DEC-022 through DEC-026, and [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md)) **remains the approved long-term target**; those decisions stand and are simply **out of current prototype scope**. The long-term terms **Map, Zone, and Operation are unchanged** and continue to describe the final game; "Arena" is a prototype-scope term only. Canonical docs now distinguish **Long-Term Game Vision** from **Current Prototype / Proving Scope** rather than presenting the full vision as the immediate definition.
+
+**Important boundaries:** This is a *scope-sequencing* decision, not a change to any long-term rule. What "proven fun" means is the Game Director's call (playtest-driven). No new gameplay systems are approved by this entry.
+
+### DEC-035 — Five-Run Boss Cadence (Prototype Loop)
+**[APPROVED FACT]** (2026-07-13, Game-Director directed)
+
+Within the current prototype loop (DEC-034), a **boss recurs on a five-run cadence**:
+- **Runs 1–4:** normal escalating runs, each ending in a successful **Extraction** that secures the run's rewards.
+- **Run 5 — Boss Run:** the boss is the run's **main objective**. Flow: enter the Boss Run → reach/fight the boss → defeat it → **boss reward drops** → the Extraction Point becomes available → **extract successfully**.
+- Defeating the boss **does not replace Extraction** — the player must still extract to secure the run. The permanent principle **"the boss is not the finish line — Extraction is"** ([DESIGN_DNA.md](DESIGN_DNA.md) § Extraction) therefore remains true.
+- After a successful boss extraction, the **difficulty tier increases** and the five-run cycle begins again.
+
+**Important boundaries:** The **boss reward system is future work — documented as *intended*, not designed or implemented here.** The number "5", the boss's exact encounter design, and its rewards are prototype targets subject to playtesting, not locked values. Relationship to the long-term vision: the full game's "one Mini Boss → Boss per Operation, before Extraction" (DEC-009, [CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md)) is a *different, later* structure; this cadence is the prototype's way of proving boss pacing inside the compressed loop and does not overwrite it.
+
+### DEC-036 — Gentle Onboarding & Cross-Cycle Difficulty Escalation
+**[APPROVED FACT]** (2026-07-13, Game-Director directed)
+
+The prototype loop's difficulty is governed by these **permanent design rules** (not locked numbers):
+- The **first runs must be gentle and easy to understand** (learn controls, small objective, simple enemies).
+- **Early runs introduce mechanics gradually** — one new idea at a time.
+- **Enemy density, behavioural variety, and objective pressure increase across the cycle.**
+- **The fifth run is the boss checkpoint** (DEC-035).
+- **Each completed boss cycle increases difficulty** (a new, harder tier).
+
+Illustrative curve (an **example** of the desired shape — **NOT locked tuning**): Run 1 — simple enemies, small kill target, learn controls; Run 2 — more enemies; Run 3 — a new enemy behaviour; Run 4 — higher intensity; Run 5 — boss. This complements the existing **within-run** escalation (the kill-driven phase ramp in `EnemySpawner`) with a **cross-run** escalation axis, and it operationalises the onboarding principle in DEC-027 / [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Onboarding (ownership is still *validated in gameplay* during the first runs — the initial allocation screen only sets the choice up).
+
+**Important boundaries:** **Exact enemy counts, kill thresholds, phase timings, and scaling values remain configurable and subject to playtesting** — example figures discussed in design (e.g. 10 / 25 / 30 / 50 / 100) are illustrations of a curve *shape*, never permanent values. This entry owns the difficulty-shape rule only; specific tier-scaling formulas are unresolved.
+
+### DEC-037 — Canonical Gameplay Direction Frozen
+**[APPROVED FACT]** (2026-07-13, Game-Director directed)
+
+The gameplay direction established by the 2026-07-13 Gameplay Vision Sync is **frozen as the project's canonical gameplay direction.** Specifically, the following now stand as settled canon and are not to be re-opened casually:
+- The **two-layer model** — Long-Term Game Vision vs Current Prototype / Proving Scope (DEC-034).
+- The **prototype Arena loop, five-Run boss cadence, and gentle-onboarding / cross-Cycle escalation** (DEC-034, DEC-035, DEC-036) and the terminology **Arena / Run / Cycle / Difficulty Tier**.
+- The **canonical gameplay loop** as documented in [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md), and the permanent rules in [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md), [GAME_PILLARS.md](GAME_PILLARS.md), and [DESIGN_DNA.md](DESIGN_DNA.md).
+
+**Evaluation rule (binding):** future gameplay proposals must be **evaluated against this vision, not used to redefine it.** A new proposal is assessed by how well it serves the frozen direction (does it help prove the Arena loop is fun? does it create/improve/reward/expand build diversity? does it respect the two-layer scope?) — it is **not** an occasion to restate or replace the direction. Any change to the frozen direction itself is a deliberate act that requires explicit Game-Director approval and a **new DEC entry that supersedes the relevant one(s)** — it must never happen silently or as a side effect of a feature proposal. This mirrors how [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) and [GAME_PILLARS.md](GAME_PILLARS.md) are already treated.
+
+**Important boundaries:** "Frozen" means *stable and canonical*, not *forbidden to ever revisit* — playtest evidence remains the legitimate trigger for a future, explicit, GD-approved revision. Freezing the *direction* does not lock *tuning* (enemy counts, thresholds, tier scaling, exact boss/reward design remain open and playtest-driven per DEC-035/036). This entry adds no gameplay system; it is a governance decision about how the direction is used.
+
 ---
 
 ## Unresolved Decisions
 
 **[UNRESOLVED]** — none of the items below have been decided. Do not implement or assume a default for any of these without explicit Game Director approval.
+
+**Scope note (DEC-034):** several items below concern **long-term-vision systems that are intentionally out of the current prototype's proving scope** — notably multiple Operations, Zones and Zone transitions, procedural generation, dynamic-objective variety, and the Lobby/Party hubs. These remain genuinely unresolved *as future design*, but they are **deferred, not actively open questions for the current prototype** (which uses a single repeating **Arena** — DEC-034). Do not treat them as near-term work.
 
 - Networking solution
 - Hosting model
@@ -233,6 +295,7 @@ Rules (all Game-Director-decided this task):
 - Loot tables, drop rates, rarity tiers, and itemization (DEC-018)
 - ~~Exact retained-Experience amount on mission failure~~ — **resolved by DEC-032** (flat % of the current level bar, default 20%, never de-levels; the *value* remains prototype tuning). The exact definition of "mission failure" beyond player death (DEC-019) is still open
 - Character persistence save/technical implementation (DEC-016, DEC-020) — no save system exists yet; persistence is the approved design model only, not an implemented feature
+- **Reward Philosophy [FUTURE DESIGN — backlog, 2026-07-13].** The project still needs to define its Reward Philosophy, answering the primary question: **"What is the primary reason the player wants to immediately begin another Run?"** This future design work must define the long-term relationship between **Loot, Character Progression, Build Growth, Boss Rewards, and Endgame Motivation**. It underpins the Golden Rule ([Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md)) and the boss-reward system left open by DEC-035. No implementation or further documentation is requested yet — this is a recorded backlog item only.
 
 ---
 

@@ -35,6 +35,14 @@ Point Clear is an original, persistent, seasonal cooperative Action ARPG designe
 
 See [DECISIONS.md](DECISIONS.md) DEC-009 through DEC-013 for the approved boundaries of Operation, Zone, objective, and build-layer structure, and [GLOSSARY.md](GLOSSARY.md) for term definitions.
 
+## Current Prototype Scope
+
+**[APPROVED FACT] — DEC-034.** The features above are the **Long-Term Game Vision** and remain the destination. The **current prototype is a deliberately compressed version** built to prove one thing: **is the Arena gameplay loop fun enough that players immediately want to play another Run?** Its proving target is a single, repeating **Arena** (a bounded combat space — the Arena itself is *not* infinite; the **sequence of Runs and Difficulty Tiers** is):
+
+**Character Creation → Initial Skill Tree Allocation → Enter Arena → Fight → Extraction → Results → Re-enter Arena → Repeat**, with **every 5th Run a Boss Run** (DEC-035) and **gentle onboarding that escalates across each Cycle** (DEC-036).
+
+Deliberately deferred until the loop is proven fun: multiple Operations, **multiple Arenas**, connected Zones, semi-procedural generation, dynamic-objective variety, the Lobby/Party hubs, world/campaign progression, and **story**. None of these are cancelled — they are the long-term target, sequenced after the loop is validated. The long-term **Map/Zone/Operation** terms are unchanged; **Arena/Run/Cycle/Difficulty Tier** are prototype-scope terms. See [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md) for the Long-Term-Vision vs Current-Prototype split.
+
 ## Possible Leaderboard Statistics
 
 **[PROPOSAL]** — these are candidate leaderboard statistics, **not final and not permanently approved game rules**:

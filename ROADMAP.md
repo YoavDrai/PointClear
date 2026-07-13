@@ -61,6 +61,20 @@ A milestone **orthogonal to Clusters A/B/C**: it does not advance any cluster's 
 
 **Current position (2026-07-13):** Cluster A + B DONE; Cluster C in progress — Sprint 2.9 DONE, Sprint 2.11 has a committed greybox enemy-prototype WIP checkpoint (f30cb06), Sprint 2.10 not yet started. The Front-End Vertical Slice (PC-015) now wraps the loop end to end. **Off-sequence insert (2026-07-13, Game-Director-directed, DONE — playtest-approved):** PC-016 added the **Death XP Penalty** (DEC-032, resolving DEC-019's open retained-XP number) and **player-driven character-start skill allocation** (DEC-033: data-driven starting skills, active-skill rank-gate, weapon-only start until allocated). Both are long-term-progression foundation pieces that land outside the Cluster sequence; the penalty touches a mechanic the still-open Cluster B gate judges (flagged). **Next planned work: resume Cluster C** — close **Sprint 2.11** (First Meaningful Enemy Variety) by validating/selecting from the greybox enemy prototypes, then run **Sprint 2.10** (Behavioral Divergence Check, DEC-030).
 
+**Gameplay-direction reframing (2026-07-13, DEC-034/035/036).** The Game Director has set the near-term proving target explicitly: **prove the Arena gameplay loop is fun enough that players immediately want another Run, before expanding the world** (`Character → Skill allocation → Enter Arena → Fight → Extraction → Results → Re-enter → Repeat`; every 5th Run a Boss Run; Difficulty Tier rises each Cycle). The Arena is bounded; the Run/Tier sequence is infinite (DEC-034 terminology). This does not discard the cluster research questions — it *focuses* them onto making the Arena loop fun.
+
+**Immediate gameplay priorities (Game-Director-set, in order):**
+1. **Enemy Variety**
+2. **Combat Feel**
+3. **Skill Variety**
+4. **Build Identity**
+5. **Loot Foundations**
+6. **Boss Encounter**
+
+**Sequencing decision — the Run-Cycle / Tier Controller is a LATER enabling sprint, NOT the immediate next one.** Although DEC-035/036 define the five-Run boss cadence and cross-Cycle escalation, the Game Director has decided it is **premature to build the controller that automates boss cadence + Difficulty-Tier progression before the Arena gameplay itself is enjoyable**. The controller is scheduled **after** the Arena loop consistently feels fun — it *enables* the automated loop rather than proving it. Until then, boss cadence and tier progression may be exercised manually/for testing without a dedicated controller.
+
+Mapping to existing sprints: Sprint 2.11 (enemy variety) and 2.10 (behavioral divergence) serve priorities 1–4; the planned **Sprint 2.12 boss** serves priority 6 and is reframed from a one-per-Operation finale into the **five-Run boss checkpoint** (DEC-035). Zones, multiple Operations/Arenas, dynamic objectives, Lobby/Party, story, and world progression remain **deferred** out of the current proving scope (DEC-034).
+
 ---
 
 ### Cluster A — First Real Build

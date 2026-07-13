@@ -91,6 +91,8 @@ Difficulty should reward mastery, not patience.
 
 Players should lose because they made mistakes, they took risks, or they failed to adapt — never because the game cheated.
 
+*(Prototype structure: difficulty escalates both within a run and across a five-run boss cycle — see [DECISIONS.md](DECISIONS.md) DEC-036 and [CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md) § Difficulty Curve. This is the shape; the feel above is the rule.)*
+
 ## Death
 
 Death is not punishment. Death is feedback.

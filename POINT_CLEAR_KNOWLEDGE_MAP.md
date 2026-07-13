@@ -4,6 +4,8 @@
 
 This is not a design document. It contains no gameplay decisions. It is the blueprint of the documentation system itself — which knowledge domains exist, which document currently (or will) own each one, how they depend on each other, and which documents are sources of truth versus derived, living, or temporary. Every other document in this repository is downstream of the structure described here.
 
+**Scope note (2026-07-13, DEC-034):** several domains below (KD-03 Operation/Zones/Semi-Procedural, KD-08 Death/Extraction, boss/objective structure) are marked "RESOLVED via DEC-009…012" at the **long-term-vision** level. Those decisions still stand as the destination, but the project now distinguishes **Long-Term Game Vision** from a **Current Prototype / Proving Scope** (a single repeating Operation, boss on a five-run cadence, no Zones/Lobby/dynamic objectives). Read "RESOLVED" here as "resolved for the long-term vision"; for what the *current prototype* actually builds, see [DECISIONS.md](DECISIONS.md) DEC-034/035/036 and [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md).
+
 ## Purpose
 
 Point Clear's documentation is a knowledge base, not a pile of files. A *domain* owns a question the design needs a permanent, unambiguous answer to. A *document* is a container that currently holds part or all of one or more domains' answers. This map exists so that:

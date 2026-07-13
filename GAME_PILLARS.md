@@ -18,6 +18,7 @@ These pillars are the standard every design proposal, task, and implementation d
 ## How to Use These Pillars
 
 - Any new feature proposal should be checked against these pillars before it reaches Game Director approval.
+- Gameplay proposals are also checked against the **frozen canonical gameplay direction** ([DECISIONS.md](DECISIONS.md) DEC-037 → DEC-034/035/036 and [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md)): a proposal is evaluated by how well it serves that direction, never used to silently redefine it.
 - If a proposed system conflicts with a pillar, that conflict must be raised explicitly rather than resolved silently.
 - These pillars are approved facts; they are not expected to change casually. Any change to this list is a decision in its own right and should be recorded in [DECISIONS.md](DECISIONS.md).
 

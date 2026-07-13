@@ -57,6 +57,8 @@ The following sharpen the rules above into permanent principles (approval and bo
 
 The first hours must bridge a beginner (who has no attachment, mastery, or build-curiosity yet) to the long arc that makes Point Clear special. The bridge emotion is **possibility** — but *directional* possibility ("a direction you're excited to become"), honest about the finite budget, never "you can be anything." Ownership is planted by the first moment a choice is *validated in gameplay*, not by a selection screen. Onboarding's job is to convince the player the journey of building their character is worth taking — not to teach the whole game. (Approval and boundaries: [DECISIONS.md](DECISIONS.md) DEC-027.)
 
+The concrete onboarding *shape* in the current prototype — gentle early runs that introduce one mechanic at a time, escalating across a five-run cycle to a boss checkpoint — is **DEC-036**. Note the starting Skill allocation screen (DEC-033) only *sets up* the first choice; ownership is still validated in the run that follows, consistent with the principle above.
+
 ### The Player Mindset
 
 Point Clear should constantly provoke a specific kind of curiosity:
@@ -95,8 +97,8 @@ These principles form a chain, not a list of unrelated rules. Build identity (po
 
 ## Mission Risk Philosophy
 
-23. Missions exist to challenge builds. They create meaningful risk: rewards earned during a mission are not permanently owned until the mission is completed successfully.
-24. Failure has a real cost: loot, gold, and other in-mission rewards are lost. Failure must not erase all long-term progression — some earned experience is retained regardless of outcome.
+23. Missions exist to challenge builds. They create meaningful risk: rewards earned during a mission are not permanently owned until the mission is completed successfully. (This is the permanent principle behind the run-vs-permanent progression split; the current mechanic is secure-on-Extraction / lose-on-failure — see [DECISIONS.md](DECISIONS.md) DEC-018, DEC-032, DEC-033.)
+24. Failure has a real cost: loot, gold, and other in-mission rewards are lost. Failure must not erase all long-term progression — some earned experience is retained regardless of outcome. (The exact current rule is **DEC-032**: on death only a fraction of progress *within the current level* is lost, floored so a **Level is never lost** — Levels, Skill Points, and allocations always persist.)
 
 ## Seasons
 
