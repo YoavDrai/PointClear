@@ -45,4 +45,4 @@ PointClear/ (repo root = Unity project root)
 
 ## Status
 
-Phase 0 is **in progress**. No gameplay systems, networking solution, or production commitments exist yet. See [ROADMAP.md](ROADMAP.md) and [DECISIONS.md](DECISIONS.md) for what is and is not decided.
+Phase 0 is **in progress**. Single-player **greybox prototype** systems exist and are being iterated — combat, progression (XP / Level / Skill Points), the Operation loop (secure-or-lose mission risk), Active Skills + Passives, a Weapon Module, first enemy-variety prototypes, and a **first complete front-end player journey** (Main Menu → Character Creation → Starting Direction → World Map → Operation → Results, PC-015). Networking, persistence, production art, and production commitments do **not** yet exist. See [ROADMAP.md](ROADMAP.md) and [DECISIONS.md](DECISIONS.md) for what is and is not decided.

@@ -49,6 +49,20 @@ This roadmap is intentionally iterative — a research plan, not a fixed product
 
 Deferred out of all three clusters: cosmetic character creation, networking/co-op implementation, leaderboards, production art/UI, seasonal infrastructure, full itemization/crafting/economy/endgame-map systems. None of the sprints below are blocked by these.
 
+### Front-End Vertical Slice — First Complete Player Journey (PC-015)
+
+**Status: DONE (PC-015, playtest-approved 2026-07-13).**
+
+A milestone **orthogonal to Clusters A/B/C**: it does not advance any cluster's research question — it wraps the existing gameplay loop in the smallest complete front-end so the game feels like a real game from launch instead of dropping straight into the combat prototype. Greybox only (functional flow + readable placeholder UI; not final art, settings, localization, or persistence).
+
+- **Implemented journey (end to end):** Main Menu (Play / Options-placeholder / Credits) → New Character → Character Creation (name + two greybox presets, validation, live preview) → Starting Direction (single prototype skill-tree node; "a starting vector, not a class prison") → World Map (one node with name / objective / danger / reward) → **the existing Operation** (combat/progression reused unchanged) → Results (Secured / Lost / Banked / retained Level + Skill Points) → Return to World Map (re-enterable) → Return to Main Menu (discards the temporary character).
+- **Architecture (see [DECISIONS.md](DECISIONS.md) DEC-031):** single-scene layered Canvas over the resident arena; the World-Map↔Operation loop reuses the existing non-reloading Operation lifecycle (progression preserved untouched, DEC-016); a scene reload is the New-Character reset boundary; `SessionContext` holds temporary session state; `CombatBridge` is the sole seam to gameplay (existing public API only). New scripts under `Assets/Systems/FrontEnd/`; `PrototypeScene` gained a single `FrontEnd` GameObject; no combat/progression code changed.
+- **Deferred follow-ups:** persistence / Continue / save / character slots; final UI, art, settings, localization; the full skill tree, procedural map, multiple operations; and **basic-weapon-only start** (Active Skills earned later) — flagged as a separate progression task because Active Skills are currently input-activated ungated by level.
+
+**Current position (2026-07-13):** Cluster A + B DONE; Cluster C in progress — Sprint 2.9 DONE, Sprint 2.11 has a committed greybox enemy-prototype WIP checkpoint (f30cb06), Sprint 2.10 not yet started. The Front-End Vertical Slice (PC-015) now wraps the loop end to end. **Next planned work: resume Cluster C** — close **Sprint 2.11** (First Meaningful Enemy Variety) by validating/selecting from the greybox enemy prototypes, then run **Sprint 2.10** (Behavioral Divergence Check, DEC-030).
+
+---
+
 ### Cluster A — First Real Build
 
 Exists to answer: can Point Clear create meaningful Build Identity at all?
@@ -140,7 +154,7 @@ Exists to answer: would players actually want to repeat this gameplay loop?
 - **Deferred sibling:** the **terminal/structural convergence** experiment ("do *finished* builds avoid collapsing to one generalist?") is a distinct, *much-later* experiment that requires the finite build budget (DEC-021) implemented and a substantially larger build space. It is **not** this sprint and is not yet scheduled.
 
 **Sprint 2.11 — First Meaningful Enemy Variety** *(now precedes Sprint 2.10 — see below)*
-- Status: **IMPLEMENTATION IN REVIEW (PC-014, 2026-07-12).** The **Stalker** — a distance-keeping harasser designed experience-first — is built and deterministically Play-Mode verified; awaiting Yoav's hands-on playtest. Denies passive closure (holds a distance band outside the Detonation Field), never committed closure (speed < player; any hit finishes it); teeth are incompleteness (counts toward the quota), not damage. `StalkerAI` + `Stalker.prefab` + additive `EnemySpawner`; chaser/lifecycle/`Health`/Skills untouched. Cover + ranged attack cut from scope.
+- Status: **Re-pivoted — WIP checkpoint committed (f30cb06, 2026-07-12), not yet closed.** The original **Stalker (PC-014) was superseded** after its hands-on playtest (its distance-keeping read as a false "ranged enemy" promise with no felt purpose; the design vision was confirmed sound, the implementation replaced). PC-014 is archived; `StalkerAI`/`Stalker.prefab` remain but are no longer spawned. In its place, **three greybox enemy prototypes** were rapid-prototyped so gameplay can decide — **Charger** (telegraphed dash → dodge → punish), **Empowerer** (hangs back, buffs nearby chasers), **Surrounder** (spread-angle attacker) — plus a **kill-driven composition ramp** in `EnemySpawner` (phased escalation; extraction quota raised 8→25). Greybox and pre-tuning; the ramp feel is to be validated in playtest. Detail: [CHANGELOG.md](CHANGELOG.md) 2026-07-12.
 - Question: Does a second enemy archetype create a genuine new combat/skill-validation need — not variety for its own sake?
 - Vision note: enemies are **questions the world asks the build** — a new enemy must threaten through *behavior* (a new problem to solve), not through more health/damage, and must be readable at a glance (DEC-024). "Justify your existence": if it doesn't force players to think differently, it doesn't belong. *(A non-canonical design lead from the 2026-07-12 architecture review proposes the second enemy reveal a boundary through **incompleteness, not lethality** — recorded in [Documentation/Vision/DESIGN_ARCHITECTURE_REVIEW_2026-07-12.md](Documentation/Vision/DESIGN_ARCHITECTURE_REVIEW_2026-07-12.md); not yet promoted to canon.)*
 - **Elevated role (2026-07-12):** 2.11 is no longer just content — it is the **measuring instrument Sprint 2.10 requires.** The Behavioral Divergence Check needs a second, genuinely different world-question to be runnable at all.

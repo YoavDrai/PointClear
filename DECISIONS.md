@@ -168,6 +168,19 @@ Point Clear's design process is emotion-first: **Emotion → Philosophy → Mech
 
 **Important boundaries:** This freezes the *current working instrument*, expected to evolve. It **reopens only if playtesting shows the instrument itself is misleading** — not for further abstract refinement. It does **not** schedule or design the terminal/structural experiment, does **not** implement the finite budget, and does **not** edit CORE_PHILOSOPHY or DEC-021 text (their scope is clarified here by reference). The terminal experiment remains a deferred, much-later milestone (requires DEC-021 implemented + a substantially larger build space).
 
+### DEC-031 — Front-End Vertical Slice Architecture (Single-Scene Layered Canvas)
+**[APPROVED FACT]** (2026-07-13, PC-015 — playtest-approved)
+
+The first complete player journey (Main Menu → Character Creation → Starting Direction → World Map → Operation → Results → World Map → Main Menu) is implemented as a **greybox front-end that wraps the existing gameplay loop**, under these durable architectural decisions:
+
+- **Single scene, layered Canvas.** All front-end screens are uGUI Canvas layers inside the existing `PrototypeScene` (a multi-scene design was evaluated and rejected). The scene footprint is a single `FrontEnd` GameObject; the UI is built in code (`UIFactory`/`FrontEndUI`). Rationale: the World-Map↔Operation loop then reuses the **existing non-reloading Operation lifecycle** (`StartOperation`/`ReturnToReady` + events), so Level / XP / Skill Points / Banked currency / secured Weapon Module are preserved with **no changes to progression or combat code** (consistent with DEC-016).
+- **Scene reload = the only New-Character reset boundary.** Starting a new character reloads the active scene once, producing a fresh Level-1 progression state, rather than adding manual reset APIs across the progression systems.
+- **`SessionContext` is a single static seam** for temporary, in-session state (character name, preset, confirmed node, navigation) — deliberately **not** a save system, dependency-injection container, service locator, or account model. It is designed not to block future up-to-four-player support (DEC-002).
+- **`CombatBridge` is the single seam** between front-end and gameplay: it touches combat only through existing public surfaces (never duplicating `OperationController` logic), gates player input + combat HUDs, applies the character (preset color + name), and begins/returns the Operation.
+- **Entry is via the New Character flow.** Pressing Play starts a fresh temporary character; there is no Continue/persistence yet.
+
+**Important boundaries:** This is a **greybox** slice — not final UI/art, settings, localization, or platform integration, and **not** save/load, accounts, character slots, run history, or a real map/skill-tree. Persistence and **basic-weapon-only start** (Active Skills earned later rather than available from Level 1) are recorded as **deferred follow-ups**, not decided here. This decision governs front-end architecture only; it changes no gameplay or design rule.
+
 ---
 
 ## Unresolved Decisions
