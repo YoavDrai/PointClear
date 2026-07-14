@@ -362,6 +362,7 @@ MonoBehaviour:
   weaponModule: {fileID: 0}
   playerLevel: {fileID: 0}
   skillPoints: {fileID: 0}
+  deathXPPenalty: {fileID: 0}
 --- !u!114 &548563685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +379,7 @@ MonoBehaviour:
   playerRespawn: {fileID: 0}
   playerHealth: {fileID: 0}
   extractionPoint: {fileID: 0}
-  killQuota: 25
+  killQuota: 10
 --- !u!4 &548563686
 Transform:
   m_ObjectHideFlags: 0
@@ -1820,7 +1821,8 @@ MonoBehaviour:
   spawnInterval: 0.5
   player: {fileID: 2862981006317607149}
   playerSafetyDistance: 8
-  phases: []
+  runPlans: []
+  startRunNumber: 1
 --- !u!4 &1700942417
 Transform:
   m_ObjectHideFlags: 0

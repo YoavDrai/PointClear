@@ -658,7 +658,15 @@ namespace PointClear.FrontEnd
             {
                 combat.ReturnToNeutral();
             }
-            flow.ShowScreen(FrontEndScreen.WorldMap);
+
+            // Block 1 iteration (PC-017): the improve-and-test beat —
+            // Fight → Level Up → Extraction → Results → SPEND points → next Run.
+            // After a SUCCESSFUL run, if the player has unspent Skill Points, route
+            // through the existing allocation screen (StartingDirection) so they can
+            // strengthen the build before re-entering. Shown ONLY when there are
+            // points to spend (never empty friction); skipped on failure and at 0.
+            bool offerAllocation = lastRunSuccess && combat != null && combat.SkillPointsAvailable > 0;
+            flow.ShowScreen(offerAllocation ? FrontEndScreen.StartingDirection : FrontEndScreen.WorldMap);
             returnInProgress = false;
         }
 

@@ -267,6 +267,19 @@ The gameplay direction established by the 2026-07-13 Gameplay Vision Sync is **f
 
 **Important boundaries:** "Frozen" means *stable and canonical*, not *forbidden to ever revisit* — playtest evidence remains the legitimate trigger for a future, explicit, GD-approved revision. Freezing the *direction* does not lock *tuning* (enemy counts, thresholds, tier scaling, exact boss/reward design remain open and playtest-driven per DEC-035/036). This entry adds no gameplay system; it is a governance decision about how the direction is used.
 
+### DEC-038 — Player Abilities Never Damage the Player by Default
+**[APPROVED FACT]** (2026-07-13, PC-017 — Game-Director directed, playtest-approved)
+
+**The player's own abilities never damage the player.** Player weapons, active skills, explosions, area effects, and chain reactions are safe to use — no self-damage, no friendly fire from the player's own build. **Enemy attacks remain fully dangerous.** The intent is to encourage aggressive, confident use of one's build rather than punishing the player for using it.
+
+The **only** exception is a future ability that is **explicitly designed around self-damage as a gameplay mechanic** — such an ability opts out deliberately; it is never an accident.
+
+**Why:** playtesting showed the self-centred Detonation Field made marked enemies detonate next to the player, so the player's own explosions/chains were hurting them — which discourages exactly the aggressive build-expression the game wants. This serves Combat Feel and the "I feel powerful" fantasy (GAME_PILLARS, DESIGN_DNA § Combat Is King).
+
+**Implementation (greybox, disposable):** a single shared guard, `PointClear.Combat.PlayerAbilityDamage` (`IsPlayer` / `Apply`), that every current player-damage source routes through (the hitscan weapon, Fracture Bolt, and the Detonation Mark explosion). The player is identified by the `Player` tag. A self-damage skill would call `Health.TakeDamage` directly to bypass the guard. It is a two-method guard, not a damage framework.
+
+**Important boundaries:** This governs **player-dealt** ability damage only; it changes nothing about enemy damage, and it is not a factions/teams system. Exact damage numbers remain playtest tuning.
+
 ---
 
 ## Unresolved Decisions

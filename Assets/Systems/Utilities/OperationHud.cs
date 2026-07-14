@@ -115,6 +115,7 @@ namespace PointClear.Utilities
                     GUILayout.Label($"Kills: {operation.CurrentKills} / {operation.KillQuota}");
                     if (spawner != null)
                     {
+                        GUILayout.Label($"{spawner.CurrentRunName}");
                         GUILayout.Label($"Phase {spawner.CurrentPhaseIndex + 1}: {spawner.CurrentPhaseName}");
                     }
                     GUILayout.Label(operation.ExtractionOpen

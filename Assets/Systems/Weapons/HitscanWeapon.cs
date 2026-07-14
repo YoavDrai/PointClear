@@ -110,7 +110,9 @@ namespace PointClear.Weapons
             {
                 endPoint = hit.point;
                 Health targetHealth = hit.collider.GetComponentInParent<Health>();
-                if (targetHealth != null)
+                // No self-damage from player abilities (PC-017): the player's own
+                // shot never hurts the player.
+                if (targetHealth != null && !PlayerAbilityDamage.IsPlayer(targetHealth))
                 {
                     targetHealth.TakeDamage(stats.GetValue(StatType.Damage));
                     EnemyHit?.Invoke(targetHealth);

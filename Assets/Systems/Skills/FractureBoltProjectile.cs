@@ -82,7 +82,9 @@ namespace PointClear.Skills
             if (Physics.Raycast(origin, direction, out RaycastHit hit, step, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
                 Health target = hit.collider.GetComponentInParent<Health>();
-                if (target != null && !target.IsDead)
+                // No self-damage from player abilities (PC-017): pass through the
+                // player rather than damaging/splitting on them.
+                if (target != null && !target.IsDead && !PlayerAbilityDamage.IsPlayer(target))
                 {
                     target.TakeDamage(damage);
                     OnEnemyHit(target, hit.point);

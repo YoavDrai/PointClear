@@ -19,6 +19,15 @@ namespace PointClear.Enemies
         [SerializeField]
         private float moveSpeed = 3.5f;
 
+        /// <summary>
+        /// Block 1 (PC-017): lets the Empowerer buff/restore this enemy's move
+        /// speed through a public surface instead of reaching into this private
+        /// field via reflection. This is a single honest setter, NOT a buff
+        /// system — move speed is read live each FixedUpdate, so it takes effect
+        /// immediately.
+        /// </summary>
+        public void SetMoveSpeed(float value) => moveSpeed = Mathf.Max(0f, value);
+
         [SerializeField]
         private float attackRange = 2f;
 

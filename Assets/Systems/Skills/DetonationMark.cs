@@ -141,8 +141,11 @@ namespace PointClear.Skills
                 // target != health; anything already dead is excluded by
                 // !IsDead. A chained explosion on a killed marked neighbor
                 // fires through its own DetonationMark.HandleDeath, not here.
+                // No self-damage / friendly fire from player abilities (PC-017):
+                // the player is never hurt by their own explosion, even though the
+                // self-centred Detonation Field means marked enemies die nearby.
                 Health target = other.GetComponentInParent<Health>();
-                if (target != null && target != health && !target.IsDead)
+                if (target != null && target != health && !target.IsDead && !PlayerAbilityDamage.IsPlayer(target))
                 {
                     target.TakeDamage(explosionDamage);
                 }

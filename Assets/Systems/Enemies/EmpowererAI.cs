@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using PointClear.Combat;
 using PointClear.Player;
@@ -7,11 +6,15 @@ using PointClear.Player;
 namespace PointClear.Enemies
 {
     /// <summary>
-    /// PROTOTYPE (rapid test — throwaway, not final). Hangs back and empowers
-    /// nearby chasers (EnemyAI): faster + tinted while in its aura; reverts when
-    /// they leave or when it dies. Creates a "kill this one first" decision.
-    /// Uses reflection to nudge the chaser's private moveSpeed — throwaway hack,
-    /// deliberately not a real buff system.
+    /// PROTOTYPE (greybox — disposable vehicle for the "identify &amp; kill the
+    /// priority target" question; its final identity may become a shaman /
+    /// commander / ritualist). Hangs back and empowers nearby chasers (EnemyAI):
+    /// faster + tinted while in its aura; reverts when they leave or when it dies.
+    /// The visible buff is the whole lesson — kill the empowerer first.
+    ///
+    /// Block 1 (PC-017): the buff now goes through EnemyAI.SetMoveSpeed (a public
+    /// surface), replacing the earlier reflection hack. Still not a buff system —
+    /// just an honest speed set/restore.
     /// </summary>
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Rigidbody))]
@@ -28,7 +31,6 @@ namespace PointClear.Enemies
 
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
         private static readonly Collider[] Buffer = new Collider[64];
-        private static FieldInfo moveSpeedField;
 
         private Health health;
         private Rigidbody rb;
@@ -43,8 +45,6 @@ namespace PointClear.Enemies
             rb.isKinematic = true;
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             bodyRenderer = GetComponentInChildren<Renderer>();
-            if (moveSpeedField == null)
-                moveSpeedField = typeof(EnemyAI).GetField("moveSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
             Tint(bodyRenderer, bodyColor);
             BuildAura();
         }
@@ -93,7 +93,7 @@ namespace PointClear.Enemies
             if (aura != null) Destroy(aura);
         }
 
-        private void SetSpeed(EnemyAI e, float s) { if (moveSpeedField != null && e != null) moveSpeedField.SetValue(e, s); }
+        private void SetSpeed(EnemyAI e, float s) { if (e != null) e.SetMoveSpeed(s); }
 
         private void Tint(Renderer r, Color c)
         {
