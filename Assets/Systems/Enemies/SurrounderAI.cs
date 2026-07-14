@@ -12,7 +12,7 @@ namespace PointClear.Enemies
     /// </summary>
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Rigidbody))]
-    public class SurrounderAI : MonoBehaviour
+    public class SurrounderAI : MonoBehaviour, IEnemyBehaviour
     {
         [SerializeField] private float moveSpeed = 3.6f;
         [SerializeField] private float ringDistance = 2.2f;
@@ -44,8 +44,6 @@ namespace PointClear.Enemies
             Tint(bodyColor);
         }
 
-        private void OnEnable() { health.Died += Die; }
-        private void OnDisable() { health.Died -= Die; }
 
         private void FixedUpdate()
         {
@@ -100,6 +98,5 @@ namespace PointClear.Enemies
             bodyRenderer.SetPropertyBlock(b);
         }
 
-        private void Die() { Destroy(gameObject); }
     }
 }

@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 2583989595776563936}
   - component: {fileID: 728884485104238846}
   - component: {fileID: 1303454369653367375}
+  - component: {fileID: 4001354740365631069}
   m_Layer: 0
   m_Name: Empowerer
   m_TagString: Untagged
@@ -322,3 +323,18 @@ MonoBehaviour:
   bodyColor: {r: 1, g: 0.8, b: 0.1, a: 1}
   empoweredTint: {r: 1, g: 0.55, b: 0.1, a: 1}
   player: {fileID: 0}
+--- !u!114 &4001354740365631069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6126086984995987279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8850a1f62980b4b769a15c5168e58129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.EnemyDeathBeat
+  duration: 0.15
+  popScale: 1.2
+  flashColor: {r: 1, g: 1, b: 1, a: 1}

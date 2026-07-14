@@ -6,6 +6,13 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-13 — Milestone 1 / Block 2A: Kill Feedback — enemy death beat (PC-018, playtest-approved)
+
+- **Enemy deaths are no longer an instant `Destroy`.** A shared **`EnemyDeathBeat`** component (one per enemy) turns death into a brief greybox **death beat**: on `Health.Died` it disables the enemy's behaviour (its `IEnemyBehaviour` AI driver) and colliders so it can no longer move/attack/collide/be re-hit, plays a ~0.15s white-flash **pop→collapse**, then destroys the object. Restrained per the juice ceiling — no camera shake, hitstop, debris, or blocking effect; reads as *defeated*, not *vanished*, and stays legible with many simultaneous deaths.
+- **Small architectural change (why this is logged):** enemy death **teardown ownership moved** from each AI (which each called `Destroy`) to the shared `EnemyDeathBeat`; enemies now implement a 1-line marker interface **`IEnemyBehaviour`** so the beat can stop any AI generically. The four AIs (EnemyAI/Charger/Surrounder/Empowerer) no longer self-destruct; EmpowererAI keeps `OnDisable → RevertAll` so its buff clears the instant it dies.
+- **Rewards untouched / exactly once:** XP, currency, kill counter, Operation quota, and mark detonation still fire on `Health.Died` (raised once); `EnemyAI.ActiveCount` still decremented once. Validated in play (double-kill grants nothing extra) and hands-on playtest-approved.
+- Changed: `Enemies/EnemyDeathBeat.cs` (new), `Enemies/IEnemyBehaviour.cs` (new), `Enemies/EnemyAI.cs`, `ChargerAI.cs`, `SurrounderAI.cs`, `EmpowererAI.cs`; the four enemy prefabs. Task: [Tasks/DONE/PC-018_block-2a-kill-feedback.md](Tasks/DONE/PC-018_block-2a-kill-feedback.md).
+
 ## 2026-07-13 — Milestone 1 / Block 1: Enemy Variety, gentle onboarding, between-run allocation, no self-damage (PC-017, DEC-038, playtest-approved)
 
 - **Enemy Variety — one question per Run (Block 1).** The `EnemySpawner` now separates its two escalation axes: **enemy-type introduction is per-Run** (a `RunPlan[]` selected by a run index that advances each `BeginSpawning()`, clamped to the last Run) and **density is within-Run** (each Run's phases authored as a pressure→lull→build **Arena-Rhythm** curve). The onboarding introduces one new question per Run — **Run 1 Walker** (move & shoot) → **Run 2 +Charger** (read a telegraph) → **Run 3 +Surrounder** (keep moving) → **Run 4 +Empowerer** (priority target), each new type getting a clean low-density debut. Prototype vehicles are disposable (Gameplay Prototype Philosophy); the *questions* are the durable layer. A minimal per-Run **composition selector only** — NOT the deferred Run-Cycle/Tier Controller.

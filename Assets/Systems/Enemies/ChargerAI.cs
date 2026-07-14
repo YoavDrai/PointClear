@@ -12,7 +12,7 @@ namespace PointClear.Enemies
     /// </summary>
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Rigidbody))]
-    public class ChargerAI : MonoBehaviour
+    public class ChargerAI : MonoBehaviour, IEnemyBehaviour
     {
         private enum State { Chasing, Telegraph, Dashing, Recovering }
 
@@ -52,8 +52,6 @@ namespace PointClear.Enemies
             SetupIndicator();
         }
 
-        private void OnEnable() { health.Died += Die; }
-        private void OnDisable() { health.Died -= Die; }
 
         private void FixedUpdate()
         {
@@ -167,6 +165,5 @@ namespace PointClear.Enemies
 
         private void OnDestroy() { if (indicator != null) Destroy(indicator); }
 
-        private void Die() { Destroy(gameObject); }
     }
 }

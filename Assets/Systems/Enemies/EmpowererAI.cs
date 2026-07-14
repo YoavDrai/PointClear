@@ -18,7 +18,7 @@ namespace PointClear.Enemies
     /// </summary>
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Rigidbody))]
-    public class EmpowererAI : MonoBehaviour
+    public class EmpowererAI : MonoBehaviour, IEnemyBehaviour
     {
         [SerializeField] private float standoff = 8.5f;
         [SerializeField] private float moveSpeed = 4f;
@@ -49,8 +49,9 @@ namespace PointClear.Enemies
             BuildAura();
         }
 
-        private void OnEnable() { health.Died += Die; }
-        private void OnDisable() { health.Died -= Die; RevertAll(); }
+        // Block 2A: death teardown is owned by EnemyDeathBeat (disables this
+        // component on death, firing OnDisable -> RevertAll to un-buff walkers).
+        private void OnDisable() { RevertAll(); }
 
         private void FixedUpdate()
         {
@@ -117,6 +118,5 @@ namespace PointClear.Enemies
             r.SetPropertyBlock(b);
         }
 
-        private void Die() { Destroy(gameObject); }
     }
 }

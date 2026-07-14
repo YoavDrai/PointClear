@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2739655466789096794}
   - component: {fileID: 3482682666707247566}
   - component: {fileID: 1929109447876287728}
+  - component: {fileID: 5854690336029721741}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -212,3 +213,18 @@ MonoBehaviour:
   pickupPrefab: {fileID: 3194132029341636674, guid: 79ed01f6b54b847d6aaf087af91f23ab, type: 3}
   amount: 5
   dropHeight: 0.5
+--- !u!114 &5854690336029721741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687431738212142635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8850a1f62980b4b769a15c5168e58129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.EnemyDeathBeat
+  duration: 0.15
+  popScale: 1.2
+  flashColor: {r: 1, g: 1, b: 1, a: 1}

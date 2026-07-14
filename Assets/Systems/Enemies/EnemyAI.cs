@@ -14,7 +14,7 @@ namespace PointClear.Enemies
     /// </summary>
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Rigidbody))]
-    public class EnemyAI : MonoBehaviour
+    public class EnemyAI : MonoBehaviour, IEnemyBehaviour
     {
         [SerializeField]
         private float moveSpeed = 3.5f;
@@ -135,7 +135,6 @@ namespace PointClear.Enemies
 
         private void OnEnable()
         {
-            health.Died += HandleDeath;
             health.Damaged += HandleDamaged;
 
             avoiding = false;
@@ -151,7 +150,6 @@ namespace PointClear.Enemies
 
         private void OnDisable()
         {
-            health.Died -= HandleDeath;
             health.Damaged -= HandleDamaged;
 
             ActiveCount = Mathf.Max(0, ActiveCount - 1);
@@ -464,11 +462,6 @@ namespace PointClear.Enemies
         private void HandleDamaged(float amount)
         {
             PlayReaction(hitFlashDuration, 1.2f, Color.white);
-        }
-
-        private void HandleDeath()
-        {
-            Destroy(gameObject);
         }
 
         private void PlayReaction(float duration, float scaleMultiplier, Color flashColor)
