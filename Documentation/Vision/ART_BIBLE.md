@@ -10,6 +10,8 @@
 >
 > **Scope:** Milestone 2 pre-production · **Engine:** Unity 6 · URP · PC + Mobile · **View:** Top-down twin-stick.
 >
+> **Platform-status clarification (2026-07-16, GD ruling — governance note; not a change to the frozen visual rules):** *Windows PC* is the initial **release** platform. The **Mobile** references throughout this Bible — the 30 FPS target and the mobile visual tier (§6, §11) — are a **technical scalability and future-platform target** that enforces performance discipline and readability-preserving visual tiers. They are **not** an approved mobile launch: mobile release, controls, store scope, and supported devices remain **unapproved** ([DECISIONS.md](../../DECISIONS.md) DEC-039). The mobile tier is **retained in full**; only its status is clarified.
+>
 > *Exported verbatim from the frozen v1.0 Artifact on 2026-07-15; full approved content preserved. Documentation only — no Unity, assets, purchases, or Phase-0 production are implied or begun by this file.*
 
 ---

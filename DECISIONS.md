@@ -15,7 +15,11 @@ Point Clear is multiplayer-first.
 The game supports 1–4 players.
 
 ### DEC-003 — Camera Perspective
-The camera perspective is isometric.
+**[APPROVED FACT]** (updated 2026-07-16, Game-Director ruling — supersedes the original wording)
+
+The approved project camera is **top-down**: *"High top-down gameplay camera with a slight perspective tilt where useful for depth and material readability. It is not an isometric camera."* The frozen [Art Bible v1.0](Documentation/Vision/ART_BIBLE.md) and [Visual Benchmark Plan](Documentation/Vision/POINT_CLEAR_VISUAL_BENCHMARK_PLAN.md) are the source of truth for visual framing.
+
+**History (supersession):** the original DEC-003 read *"The camera perspective is isometric."* That wording is **superseded** as of 2026-07-16 — no active canonical document may describe the camera as isometric. This is a documentation correction to match the frozen visual direction; it changes no gameplay implementation.
 
 ### DEC-004 — Seasonal Competition
 The game is intended to support seasonal competition.
@@ -280,6 +284,20 @@ The **only** exception is a future ability that is **explicitly designed around 
 
 **Important boundaries:** This governs **player-dealt** ability damage only; it changes nothing about enemy damage, and it is not a factions/teams system. Exact damage numbers remain playtest tuning.
 
+### DEC-039 — Platform Scope: Windows PC Release; Mobile as a Scalability Target
+**[APPROVED FACT]** (2026-07-16, Game-Director ruling)
+
+**The initial release target is Windows PC. Mobile is not an approved launch platform.** Mobile is defined as *"a technical scalability and future-platform target used to enforce performance discipline and readability-preserving visual tiers. Mobile release, controls, store scope, and supported devices remain unapproved."*
+
+The three are distinct and must not be conflated in any document:
+- **Release platform:** Windows PC.
+- **Technical scalability target:** Mobile 30 FPS on a future approved reference device — this drives the [Art Bible](Documentation/Vision/ART_BIBLE.md)'s performance discipline and its readability-preserving mobile visual tier (§6/§11) and the [Visual Benchmark Plan](Documentation/Vision/POINT_CLEAR_VISUAL_BENCHMARK_PLAN.md)'s mobile profiling.
+- **Mobile release:** open / not approved (store scope, controls, and supported devices remain unresolved).
+
+**Why:** the frozen visual direction uses a mobile 30 FPS tier to force decoration-first, readability-preserving scalability. That performance *discipline* is retained in full; it is **not** a mobile launch commitment.
+
+**Important boundaries:** this resolves only the **release-platform** portion of the previously open "Initial release platform and store" question; **store/monetization and any mobile-release scope remain unresolved.** No gameplay or engine change; the Art Bible's and Benchmark's mobile tiers are retained (status clarified, not deleted).
+
 ---
 
 ## Unresolved Decisions
@@ -298,7 +316,7 @@ The **only** exception is a future ability that is **explicitly designed around 
 - Exact season rules — cadence resolved (DEC-004/005); the reset/carry model is **under revision** and deferred to a future Seasons workshop; only "characters never disappear" is locked (DEC-028). Exactly what (if anything) carries over between Seasons remains open
 - Exact primary leaderboard metric
 - Monetization model
-- Initial release platform and store
+- Store/storefront and any **mobile-release** scope (controls, store, supported devices) — *the release platform itself is resolved: **Windows PC**, with Mobile a technical scalability target only (DEC-039)*
 - Exact number and selection of Operations; Operation length/pacing targets (DEC-009)
 - Zone count and size targets; Zone transition mechanics (DEC-010)
 - Procedural-generation techniques and tooling (DEC-011)

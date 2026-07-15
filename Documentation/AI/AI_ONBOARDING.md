@@ -4,14 +4,14 @@ This document orients any AI collaborator (Claude, ChatGPT, or others) joining w
 
 ## What Point Clear Is
 
-**[APPROVED FACT]** Point Clear is an original, multiplayer-first, persistent, seasonal, cooperative isometric Action ARPG for 1–4 players, built in Unity 6000.5.3f1 with URP and the New Input System. See [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) for the full identity and design-principles statement. It is currently in **Phase 0 — Pre-Production and Foundation**, which is **in progress and not complete**.
+**[APPROVED FACT]** Point Clear is an original, multiplayer-first, persistent, seasonal, cooperative **top-down** Action ARPG for 1–4 players, built in Unity 6000.5.3f1 with URP and the New Input System. The camera is a high top-down gameplay camera with a slight perspective tilt where useful — **not** isometric (DEC-003). See [CORE_PHILOSOPHY.md](../../CORE_PHILOSOPHY.md) for the full identity and design-principles statement. **Current state:** Milestone 1 (Arena Loop Validation) is complete and playtest-approved; Milestone 2 (Visual Foundation) is in pre-production — see [ROADMAP.md](../../ROADMAP.md) for the live status (roadmap production Phase 0/1/2 numbering is a separate axis).
 
 Point Clear must be described by its own systems and identity — do not use other commercial games as implementation specifications, and do not copy another game's content, terminology, assets, progression structure, or UI.
 
 ## What Exists Right Now
 
-- A Unity project at the repository root with the default URP/New Input System template.
-- No gameplay code, no custom prefabs, no custom ScriptableObjects, and no networking solution yet.
+- A Unity project at the repository root (URP + New Input System).
+- A **single-player greybox prototype**: combat, progression (XP / Level / Skill Points), the Operation secure-or-lose loop, Active Skills + Passives, a Weapon Module, the tuned four-enemy roster (Walker / Charger / Surrounder / Empowerer), and a complete greybox front-end player journey. **No networking, persistence, or production art yet.** See [ROADMAP.md](../../ROADMAP.md) and [CHANGELOG.md](../../CHANGELOG.md) for the authoritative, live inventory — this list is a pointer, not a second source of truth.
 - A documentation foundation (this folder tree) establishing how work is proposed, tracked, and completed.
 
 Do not assume anything beyond what is recorded in the documents above and in [CHANGELOG.md](../../CHANGELOG.md) has been built or decided.

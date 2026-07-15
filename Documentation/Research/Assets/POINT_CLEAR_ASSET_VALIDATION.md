@@ -1,7 +1,7 @@
 # Point Clear — Asset Validation (Real Candidate Products)
 
-> ## ⚠️ STATUS: Preliminary Candidate Validation — live verification pending
-> The products, prices, dates, licences, render-pipeline support, and Unity compatibility in this document were **NOT live-verified against official store pages** — they are from prior knowledge (early-2026) and are **indicative only**. **This is not a final validated shopping list.** Live verification of the benchmark-scene shortlist is handled in `POINT_CLEAR_LIVE_ASSET_SHORTLIST.md`.
+> ## ⚠️ STATUS: SUPERSEDED FOR PURCHASING — retained as a methodology & historical candidate record
+> **For current purchasing evidence, use [`POINT_CLEAR_LIVE_ASSET_SHORTLIST.md`](POINT_CLEAR_LIVE_ASSET_SHORTLIST.md)** (live-verified 2026-07-15). The products, prices, dates, licences, render-pipeline support, and Unity compatibility in *this* document were **NOT live-verified against official store pages** — they are from prior knowledge (early-2026), are **indicative only**, and are **superseded for any purchasing decision** (for example, this document references *Character Creator 4*; the current Reallusion generation is **CC5** — see the Live Shortlist). **This is not a shopping list.** It is retained as a **methodology and historical candidate record** — how candidates are evaluated and what was considered — not as current purchasing evidence.
 >
 > **Milestone:** Research/validation. **Documentation only.** Nothing purchased, nothing committed, Unity untouched, Phase 0 not started.
 > **Companion to:** `POINT_CLEAR_ASSET_DISCOVERY.md` (sourcing strategy) · governed by *Art Bible v1.0* (frozen).

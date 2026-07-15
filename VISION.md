@@ -6,7 +6,7 @@ Status legend: **[APPROVED FACT]**, **[ASSUMPTION]**, **[PROPOSAL]**, **[UNRESOL
 
 **[APPROVED FACT]**
 
-Point Clear is an original, persistent, seasonal cooperative Action ARPG designed for solo play and online co-op for up to four players. The player controls a character manually from an isometric camera perspective. See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Identity for the full statement of what Point Clear is and is not.
+Point Clear is an original, persistent, seasonal cooperative Action ARPG designed for solo play and online co-op for up to four players. The player controls a character manually from a **high top-down gameplay camera** (with a slight perspective tilt where useful for depth and material readability — it is **not** an isometric camera; see [DECISIONS.md](DECISIONS.md) DEC-003 and the frozen [Art Bible](Documentation/Vision/ART_BIBLE.md)). See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Identity for the full statement of what Point Clear is and is not.
 
 ## Intended Features
 

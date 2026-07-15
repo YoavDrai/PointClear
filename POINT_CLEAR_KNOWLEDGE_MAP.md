@@ -1,6 +1,6 @@
 # Point Clear — Knowledge Map
 
-**Status: DRAFT — pending Game Director / Technical Director approval.**
+**Status: [APPROVED FACT], LIVING.** The document-architecture structure described here is the accepted, in-use governance model (Game-Director-accepted 2026-07-16; no longer a draft awaiting approval). As a **LIVING** index it keeps growing with the project. Individual rows still tagged **CONFLICT RISK** or **[UNRESOLVED]** remain genuinely open and are the only items awaiting resolution.
 
 This is not a design document. It contains no gameplay decisions. It is the blueprint of the documentation system itself — which knowledge domains exist, which document currently (or will) own each one, how they depend on each other, and which documents are sources of truth versus derived, living, or temporary. Every other document in this repository is downstream of the structure described here.
 
@@ -118,6 +118,7 @@ No cycles: knowledge flows strictly downward from philosophy/process toward cont
 | KD-11 | Performance & Scale Requirements | `PROJECT_BIBLE.md` §5 (one line today) | Will need its own document once KD-11 matures |
 | KD-12 | Classes / Skills / Weapons / Items / Enemies / Bosses / Maps / UI / Art / Audio | `Templates/*_TEMPLATE.md` instances | GENERATED, DEFERRED |
 | KD-12 | Visual Direction / Art Bible — global visual identity, the six readability laws, the saturation & semantic-colour locks, and the arena / player / enemy / VFX / skill / UI / audio visual language | [`Documentation/Vision/ART_BIBLE.md`](Documentation/Vision/ART_BIBLE.md) | **SOURCE OF TRUTH — FROZEN (v1.0).** The canonical frozen visual-direction document; every future arena, class, skill, and content instance conforms to it. The [rendered Artifact](https://claude.ai/code/artifact/99180619-c8d5-473b-ae71-ac4c8d068178) is a visual companion only, **not** the source of truth (this file wins on any divergence). Asset sourcing & purchase choices (`Documentation/Research/Assets/`) remain **non-canonical research** — indicative only until separately Game-Director-approved. |
+| KD-12 | Visual Benchmark — operational blueprint for the first visual benchmark scene (The Shattered Coast) | [`Documentation/Vision/POINT_CLEAR_VISUAL_BENCHMARK_PLAN.md`](Documentation/Vision/POINT_CLEAR_VISUAL_BENCHMARK_PLAN.md) | **APPROVED operational blueprint — governed by [`ART_BIBLE.md`](Documentation/Vision/ART_BIBLE.md).** Owns the *execution plan* for the first benchmark; **non-authoritative on global visual identity** (the Art Bible owns that). Execution is still gated by provisional-stack approval, live verification, purchase authorization, and an explicit GD go. Asset-sourcing research (`Documentation/Research/Assets/`) remains non-canonical. |
 
 ## Source of Truth Registry — Resolutions for Contested Knowledge
 
@@ -381,4 +382,5 @@ This is not the document graph from the Knowledge Map — it's the chain of *que
 - [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md) (in review)
 - [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md)
 - [Documentation/Vision/ART_BIBLE.md](Documentation/Vision/ART_BIBLE.md) — Art Bible v1.0, frozen visual direction (KD-12 Source of Truth for visual/art language)
+- [Documentation/Vision/POINT_CLEAR_VISUAL_BENCHMARK_PLAN.md](Documentation/Vision/POINT_CLEAR_VISUAL_BENCHMARK_PLAN.md) — approved benchmark blueprint (KD-12; governed by the Art Bible, non-authoritative on identity)
 - [DECISIONS.md](DECISIONS.md)

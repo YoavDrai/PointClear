@@ -13,15 +13,19 @@ This document is the top-level reference for what Point Clear is, who is respons
 | Field | Value |
 |---|---|
 | Project name | Point Clear |
-| Current phase | Phase 0 — Pre-Production and Foundation |
-| Genre | Multiplayer-first, persistent, seasonal, cooperative isometric Action ARPG (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Identity) |
+| Current state | **Milestone 1 (Arena Loop Validation): COMPLETE** (playtest-approved) · **Milestone 2 (Visual Foundation): IN PRE-PRODUCTION** — see [ROADMAP.md](ROADMAP.md). Roadmap production phases (Phase 0/1/2) and Sprint 2.x task numbering are unchanged; "Milestone" is a separate approval-gate axis (see below). |
+| Genre | Multiplayer-first, persistent, seasonal, cooperative top-down Action ARPG (see [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) § Identity) |
+| Camera | High top-down gameplay camera with a slight perspective tilt where useful for depth and material readability. It is **not** an isometric camera. (DEC-003; frozen [Art Bible](Documentation/Vision/ART_BIBLE.md)) |
 | Player count | 1–4 players |
-| Primary platform target | Windows PC |
+| Release platform | Windows PC (initial release target — DEC-039) |
+| Technical scalability target | Mobile 30 FPS on a future approved reference device — a performance-discipline / readability-tier target only. Mobile release, controls, store scope, and supported devices remain **unapproved** (DEC-039). |
 | Engine | Unity 6000.5.3f1 |
 | Render pipeline | Universal Render Pipeline (URP) |
 | Input | Unity New Input System only |
 
 Point Clear must be described by its own systems and identity. Do not use other commercial games as implementation specifications. Do not directly copy another game's content, terminology, assets, progression structure, or user interface.
+
+**Milestone vs Phase vs Sprint (terminology).** A **Milestone** is a cross-phase **approval gate** marking a proven capability (e.g. *Milestone 1 — Arena Loop Validation*, *Milestone 2 — Visual Foundation*). It is **distinct from** the roadmap's **Phase 0/1/2** production phases and from **Sprint 2.x** task numbering, and must **not** replace or be conflated with either. See [ROADMAP.md](ROADMAP.md) for how all three axes coexist.
 
 ---
 

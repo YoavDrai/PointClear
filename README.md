@@ -1,11 +1,12 @@
 # Point Clear
 
-Multiplayer-first, persistent, seasonal, cooperative isometric Action ARPG. See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) for the full identity statement.
+Multiplayer-first, persistent, seasonal, cooperative top-down Action ARPG. See [CORE_PHILOSOPHY.md](CORE_PHILOSOPHY.md) for the full identity statement.
 
-**Current phase:** Phase 0 — Pre-Production and Foundation
+**Current state:** Milestone 1 (Arena Loop Validation) — complete & playtest-approved · Milestone 2 (Visual Foundation) — in pre-production. (Roadmap production phases 0/1/2 and Sprint 2.x task numbering are unchanged — see [ROADMAP.md](ROADMAP.md).)
+**Camera:** High top-down (slight perspective tilt where useful) — not isometric (DEC-003)
 **Engine:** Unity 6000.5.3f1 (Universal Render Pipeline, Unity New Input System)
 **Player count target:** 1–4 players
-**Primary platform target:** Windows PC
+**Release platform:** Windows PC · **Technical scalability target:** Mobile 30 FPS on a future approved reference device (performance-discipline only; mobile release not approved — see [DECISIONS.md](DECISIONS.md) DEC-039)
 
 This repository root **is** the Unity project root (`Assets/`, `Packages/`, `ProjectSettings/`, etc. live here alongside the project documentation below).
 
@@ -45,6 +46,6 @@ PointClear/ (repo root = Unity project root)
 
 ## Status
 
-Phase 0 is **in progress**. Single-player **greybox prototype** systems exist and are being iterated — combat, progression (XP / Level / Skill Points), the Operation loop (secure-or-lose mission risk), Active Skills + Passives, a Weapon Module, first enemy-variety prototypes, and a **first complete front-end player journey** (Main Menu → Character Creation → Starting Direction → World Map → Operation → Results, PC-015). Networking, persistence, production art, and production commitments do **not** yet exist. See [ROADMAP.md](ROADMAP.md) and [DECISIONS.md](DECISIONS.md) for what is and is not decided.
+**Milestone 1 — Arena Loop Validation is complete and playtest-approved; Milestone 2 — Visual Foundation is in pre-production.** (Roadmap production phases 0/1/2 remain the phasing model — see [ROADMAP.md](ROADMAP.md).) Single-player **greybox prototype** systems exist and are being iterated — combat, progression (XP / Level / Skill Points), the Operation loop (secure-or-lose mission risk), Active Skills + Passives, a Weapon Module, the tuned four-enemy roster (Walker / Charger / Surrounder / Empowerer), and a **first complete front-end player journey** (Main Menu → Character Creation → Starting Direction → World Map → Operation → Results, PC-015). Networking, persistence, production art, and production commitments do **not** yet exist. The visual direction is captured in the frozen [Art Bible v1.0](Documentation/Vision/ART_BIBLE.md) and the approved [Visual Benchmark Plan](Documentation/Vision/POINT_CLEAR_VISUAL_BENCHMARK_PLAN.md); **no visual production (Phase 0) has begun.** See [ROADMAP.md](ROADMAP.md) and [DECISIONS.md](DECISIONS.md) for what is and is not decided.
 
 **Current proving target (DEC-034/035/036):** the prototype is a deliberately compressed version of the full game, focused on proving one **Arena gameplay loop** is fun enough that players immediately want another Run — `Character → Skill allocation → Enter Arena → Fight → Extraction → Results → Re-enter → Repeat`, with **every 5th Run a Boss Run** and **gentle onboarding that escalates each Cycle**, the Difficulty Tier rising per Cycle — *before* expanding into Zones, multiple Operations/Arenas, story, or world progression (which remain the intact long-term vision). The Arena is bounded; the sequence of Runs/Tiers is infinite. Prototype terms **Arena/Run/Cycle/Difficulty Tier** do not replace the long-term **Map/Zone/Operation**. See [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md) for the split.

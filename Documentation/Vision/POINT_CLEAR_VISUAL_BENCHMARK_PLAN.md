@@ -277,6 +277,8 @@ Both targets must hold at the **target crowd (~120)**, not just an empty scene. 
 
 > **Reference-device note:** the Art Bible defers exact min-spec/min-device. For the benchmark, the GD should confirm a **PC min-spec proxy** and a **mobile min-device proxy** to profile against (proposed as placeholders, to be set at review). Results are only meaningful against a named device.
 
+> **Platform-scope note (2026-07-16, GD ruling):** *Windows PC* is the initial **release** platform. The **Mobile 30 FPS** target here is a **technical scalability / future-platform target** — it enforces readability-preserving, decoration-first performance discipline and remains a benchmark criterion **for that scalability tier**. It is **not** a mobile launch commitment: mobile release, controls, store, and supported devices remain **unapproved** ([DECISIONS.md](../../DECISIONS.md) DEC-039). A mobile shortfall is a meaningful scalability/stack finding, but does **not** by itself gate the Windows PC release. The mobile tier is retained in full; only its status is clarified.
+
 ### PC — metrics to measure (at min, target, stress crowds; 1080p)
 - Average FPS + **1% low** FPS (target: 60 avg at target crowd)
 - CPU main-thread ms and GPU ms per frame (identify the bound)

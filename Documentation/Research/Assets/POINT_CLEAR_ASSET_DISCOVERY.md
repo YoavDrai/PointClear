@@ -5,6 +5,8 @@
 > **Purchasing policy (frozen, Art Bible §9):** one cohesive environment-pack family · one modular character base · one animation-library source · one licensed display serif + one humanist sans. **Every purchase requires: researched shortlist → licence verification → technical-compatibility check → Game-Director approval.**
 >
 > ⚠️ **Prices and licence terms below are indicative (early-2026 knowledge) and MUST be re-verified at purchase time.** This document is guidance, not legal advice. It identifies candidates, workflows, and considerations — it does not lock final vendors, prices, or licences.
+>
+> **Product-version note (2026-07-16):** the current Reallusion character generation is **Character Creator 5 (CC5)** — stale "CC5" references in this document have been updated to CC5. This is a version correction only, **not** new market research. For live-verified versions, prices, and licences, see the [Live Asset Shortlist](POINT_CLEAR_LIVE_ASSET_SHORTLIST.md); this document is **sourcing doctrine**, not a live shopping list.
 
 ---
 
@@ -26,7 +28,7 @@ The central problem for a **solo developer** targeting a **stylized-natural dark
 
 | Solution | What it is | Fit | Cost (indicative) | Licensing notes |
 |---|---|---|---|---|
-| **Reallusion Character Creator 4 (+ AccuRIG, iClone)** | Parametric human base + modular clothing/armour ecosystem + auto-rig + retarget | **Strong** — built for modular gear + a single reusable base; grounded realistic-stylized | CC4 mid-hundreds one-time; content packs extra; AccuRIG free | Per-seat; created characters usable commercially; **verify** content-pack redistribution terms |
+| **Reallusion Character Creator 5 (+ AccuRIG, iClone)** | Parametric human base + modular clothing/armour ecosystem + auto-rig + retarget | **Strong** — built for modular gear + a single reusable base; grounded realistic-stylized | CC5 mid-hundreds one-time; content packs extra; AccuRIG free | Per-seat; created characters usable commercially; **verify** content-pack redistribution terms |
 | **Unity UMA (Multipurpose Avatar)** | Free open modular avatar framework (runtime dye, slot-based gear) | **Good** for modular sockets/dye at runtime; needs art to feed it; older tooling | Free (asset) | Open; art you add carries its own licence |
 | **Synty Modular Fantasy Hero / POLYGON characters** | Cohesive modular fantasy character kit | **Partial** — very cohesive & cheap, but flat/cartoon-leaning vs "grounded" | Low tens per pack | Unity Asset Store EULA (see §11) |
 | **Ready Player Me** | Cross-game avatar SDK | **Weak** — stylized-generic, not dark-fantasy-grounded | Free tier / commercial tiers | SDK terms; **verify** commercial use |
@@ -34,9 +36,9 @@ The central problem for a **solo developer** targeting a **stylized-natural dark
 | **Mixamo** | Free auto-rig + animation library (Adobe) | **Strong** for rig + base locomotion (retarget target) | Free | Free commercial use; **verify** current Adobe terms |
 
 ### Recommendation
-**Character Creator 4 as the base + custom modular gear (sockets/dye) + Mixamo/AccuRIG rig + retargeted library animation**, with **AI (Meshy/Tripo) used for gear-piece concepting and variants only**. Rationale: the player is on screen constantly and must carry a *single reusable rig* through every future class — that demands a controlled, riggable, modular base, which CC4 gives faster than hand-modelling and more grounded than Synty. UMA is the fallback if runtime modularity/dye proves fiddly.
+**Character Creator 5 as the base + custom modular gear (sockets/dye) + Mixamo/AccuRIG rig + retargeted library animation**, with **AI (Meshy/Tripo) used for gear-piece concepting and variants only**. Rationale: the player is on screen constantly and must carry a *single reusable rig* through every future class — that demands a controlled, riggable, modular base, which CC5 gives faster than hand-modelling and more grounded than Synty. UMA is the fallback if runtime modularity/dye proves fiddly.
 
-**Pros:** grounded look, true modularity, one rig, fast. **Cons:** CC4 has a learning curve; content-pack licensing needs verification; keeping it stylized (not photoreal) requires the shared shader to pull it toward the Bible's look.
+**Pros:** grounded look, true modularity, one rig, fast. **Cons:** CC5 has a learning curve; content-pack licensing needs verification; keeping it stylized (not photoreal) requires the shared shader to pull it toward the Bible's look.
 
 ---
 
@@ -108,12 +110,12 @@ armor · helmets · cloaks · boots · gloves · shields · swords · axes · bo
 
 | Source | Best for | Fit | Licence |
 |---|---|---|---|
-| **Reallusion CC4 modular outfits / SkinGen** | Full modular armour/cloth on the player base (§1) | **Strong** (same base = one rig) | Verify content-pack terms |
+| **Reallusion CC5 modular outfits / SkinGen** | Full modular armour/cloth on the player base (§1) | **Strong** (same base = one rig) | Verify content-pack terms |
 | **Synty Modular Fantasy Hero + weapon packs** | Cohesive modular gear + weapon sets | Cohesive but flat | Asset Store EULA |
 | **Dungeon Mason / Infinity PBR, PolygonMaker, RPG weapon packs** | Weapons (swords/axes/bows/staffs), shields | Varies — pick a single publisher per weapon family | Asset Store EULA |
 | **AI (Meshy/Tripo) + cleanup** | Gear variants, accessory volume | Support role (concept + variants) | Paid-tier commercial — verify |
 
-**Doctrine:** equipment must **socket onto the one shared rig** (§1) and stay **legible from top-down**. Prefer gear from the **same base ecosystem as the player** so weights/skinning are compatible. Weapons are the easiest to source per-family from packs; armour is best kept on the CC4/base pipeline for modularity + dye.
+**Doctrine:** equipment must **socket onto the one shared rig** (§1) and stay **legible from top-down**. Prefer gear from the **same base ecosystem as the player** so weights/skinning are compatible. Weapons are the easiest to source per-family from packs; armour is best kept on the CC5/base pipeline for modularity + dye.
 
 ---
 
@@ -209,13 +211,13 @@ music · ambience · SFX · voice.
 | **Unity Asset Store** | Primary for Unity-native packs (Synty, Leartes, VFX, tools). One-time purchases, engine-ready. |
 | **Fab (Epic)** | Cross-engine marketplace; **hosts Quixel Megascans** (free w/ account — verify) + KitBash3D Cargo + more. Grounded materials/props. |
 | **CC0 sources (Kenney, Quaternius, KayKit, Poly Haven)** | **Zero-licence-risk** greybox + mobile-friendly stylized props + grounded PBR materials/HDRIs. Ideal for Phase 0/1. |
-| **Reallusion Content Store** | Player base + modular gear ecosystem (CC4). |
+| **Reallusion Content Store** | Player base + modular gear ecosystem (CC5). |
 | **Sketchfab** | One-off models — **licence per-model (CC/commercial), verify each**. |
 
 **Primary-ecosystem candidates (pick one for environment/props, then unify via shader):**
 - **Grounded route:** *Leartes* environment megapacks (+ Megascans materials via Fab).
 - **Cohesion/mobile route:** *Synty POLYGON* (accept a more stylized look) or CC0 *KayKit/Quaternius*.
-- **Character route (separate):** *Reallusion CC4* ecosystem.
+- **Character route (separate):** *Reallusion CC5* ecosystem.
 - **VFX route:** *custom VFX Graph* + one *Hovl/KriptoFX* library.
 
 **Decide the environment ecosystem via the paid single-arena (Shattered Coast) test — not on paper.**
@@ -277,8 +279,8 @@ QA            top-down readability check at horde scale, PC + mobile profiling v
 | Tier | ~Range | What it buys |
 |---|---|---|
 | **Minimal** | **~$0–400** | CC0 environment/props (KayKit/Quaternius) + Mixamo (free) + UMA/free base + free AI tiers (TRELLIS local, ChatGPT/Flux-schnell) + Sonniss free SFX + one licensed font. Ships, but style-fit is a stretch and more manual work. |
-| **Recommended** | **~$800–2,500** | One cohesive environment ecosystem (Leartes/Synty tier) + Reallusion CC4 + a weapon/gear pack + 1–2 AI subscriptions (Meshy + Scenario/Midjourney) + one VFX library + a licensed serif & sans + an audio subscription **or** a small commissioned track. Best quality-for-solo balance. |
-| **High-quality** | **~$3,500–8,000+** | Premium grounded environment ecosystem + Megascans/KitBash landmarks + full CC4 pipeline + premium AI tiers + premium VFX + **commissioned adaptive score** + **selective outsourcing** of 1–2 hero pieces (player/boss). Highest fidelity, still solo-managed. |
+| **Recommended** | **~$800–2,500** | One cohesive environment ecosystem (Leartes/Synty tier) + Reallusion CC5 + a weapon/gear pack + 1–2 AI subscriptions (Meshy + Scenario/Midjourney) + one VFX library + a licensed serif & sans + an audio subscription **or** a small commissioned track. Best quality-for-solo balance. |
+| **High-quality** | **~$3,500–8,000+** | Premium grounded environment ecosystem + Megascans/KitBash landmarks + full CC5 pipeline + premium AI tiers + premium VFX + **commissioned adaptive score** + **selective outsourcing** of 1–2 hero pieces (player/boss). Highest fidelity, still solo-managed. |
 
 Prices shift; treat these as planning envelopes, not quotes. The **paid single-arena test** should be costed first (a few hundred dollars) before any whole-game ecosystem commitment.
 
@@ -290,7 +292,7 @@ Prices shift; treat these as planning envelopes, not quotes. The **paid single-a
 
 1. **Foundation is in-engine, not bought.** The shared **URP shader library + one lighting/fog/post grade + the semantic-colour lock** is what makes mixed sources read as one game. Build it first (Art Bible Phase 0). *This is the single highest-leverage decision.*
 2. **Environment:** run a **paid single-arena test on The Shattered Coast** comparing a **grounded ecosystem (Leartes-leaning + Megascans materials)** against a **cohesive stylized one (Synty/KayKit)**, judged on the *finished* look through our shader. Commit to **one** ecosystem only after that test. Greybox everything with **CC0** until then (zero spend, zero risk).
-3. **Player:** **Reallusion CC4** base + modular gear + dye, one shared rig, Mixamo/AccuRIG + retargeted animation. Class-neutral only (decision 5).
+3. **Player:** **Reallusion CC5** base + modular gear + dye, one shared rig, Mixamo/AccuRIG + retargeted animation. Class-neutral only (decision 5).
 4. **Enemies:** **hybrid, AI-seeded** — Thrall end-to-end as the template, the other three as **AI-generated-then-cleaned** variants on the shared skeleton, tinted by the shader.
 5. **AI as the multiplier, never the shipper:** Midjourney/Scenario for concept + on-style 2D; Meshy/Tripo/TRELLIS for 3D volume/variants; everything cleaned and **gated**. Train a **Scenario style model** once the look is locked, to keep 2D (icons/textures/concept) cohesive.
 6. **Custom where identity lives:** VFX (semantic lock), UI + icons (journal identity), gameplay-critical props, and telegraph animations stay studio-made (Claude-assisted).
