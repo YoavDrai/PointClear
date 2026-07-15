@@ -6,6 +6,14 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-15 — Milestone 1 / Combat pacing: Walker TTK baseline (greybox tuning, playtest-approved)
+
+- **Combat-feel tuning pass — Walker only.** Following the Arena QA, we isolated the single biggest combat-feel variable — the basic Walker's time-to-kill — before touching anything else. Walker HP **100 → 40**, so with the unchanged base weapon (10 dmg × 6/s = 60 DPS) a Walker now dies in **4 shots (~0.67s)** instead of 10 (~1.67s). Playtest-confirmed: the base weapon feels meaningfully stronger and the Walker is no longer spongy, yet it stays alive long enough that aiming/accuracy still matter — preserving Run 1's gentle onboarding and power fantasy.
+- **This 4-shot Walker is now the greybox combat-feel BASELINE.** Per the agreed methodology (perfect the baseline enemy first, then balance the rest relative to it), the Charger/Surrounder/Empowerer HP ladder will later be designed as "Walker + N shots" against this proven anchor — **not done in this pass; only the Walker changed.**
+- Deliberately unchanged (scope discipline): Charger/Surrounder/Empowerer HP (still 100), player damage (10), fire rate (6), XP (1/enemy), kill quota (10), spawn pacing. No new mechanics/systems/enemies/progression.
+- Serves DEC-034 (prove the Arena loop is fun — frequent, satisfying kills), DEC-036 (feel powerful during gentle onboarding), DEC-038, and the "Combat Is King / every weapon feels powerful" pillar; shifts difficulty off HP-sponge toward behaviour (DEC-024).
+- Changed: `Prefabs/Enemies/Enemy.prefab` (Walker `Health.maxHealth` 100 → 40).
+
 ## 2026-07-15 — Milestone 1 / Block 2B: Hit Impact — tuned, consistent enemy hit reaction (PC-020, playtest-approved)
 
 - **Block 2B was resolved as a tuning + consistency pass — no new feedback system.** A hit-impact review confirmed the arena already had hit confirmation (enemy scale-pop + colour flash, plus muzzle flash, bullet trail, and the Block 2A death beat); the fix was to *tune* the reaction and make it *consistent*, not to add sparks/hitstop/shake/audio. The hit reaction is now **cyan `(0.4, 0.95, 1.0)`** (distinct from the white death beat, the yellow/orange telegraphs & muzzle/trail, and the player's red hurt flash) with a stronger **1.35× pop** (separated from the 1.15× attack pulse and the 1.2× death pop).
