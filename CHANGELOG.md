@@ -6,6 +6,16 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-15 — Milestone 1 / Combat clarity + pacing: Surrounder legibility fix + TTK (greybox tuning, playtest-approved)
+
+- **Surrounder role made legible (behavioural fix) + TTK relative to the ladder** — two coupled changes, playtest-approved together in Run 3:
+  - **`ringDistance` 2.2 → 1.9 (behavioural-clarity fix).** The Surrounder's flank slot (2.2) previously sat *outside* its own attack range (2.0), so a Surrounder that reached its assigned side parked there and **never attacked** — encirclement was strangely safe and you only got hit by moving *into* one, inverting the "keep moving" lesson. Moving the held slot just inside attack range makes **occupying a flank actually bite**: standing still while several complete the ring now takes damage from every side, and decisive movement (player 6 vs Surrounder 3.6) drops them out of range and breaks the encirclement. Attacks land at fair, normal melee range, and it still approaches a **fixed 67°-spaced angle** (not your centre), so it stays clearly non-Walker — the held perimeter now does something a Walker never does.
+  - **`Health.maxHealth` 100 → 50 (5 shots = 1.25× the Walker baseline).** Sticky flanking trash — survives long enough to establish a flank and pressure you, but a pack stays thinnable rather than a spongy HP wall (the lower HP is what lets you break a now-dangerous ring).
+- **Roster ladder so far:** Walker **40 / 4-shot** (baseline) → Surrounder **50 / 5-shot** (1.25×) → Charger **80 / 8-shot** (2×). Empowerer remains **100 / 10** and is still to be tuned last.
+- Deliberately unchanged: Surrounder `attackRange` (2.0), `moveSpeed` (3.6), `attackDamage` (10), `attackInterval` (1.0), fixed-angle assignment, spawn counts/density/pacing; other enemies' HP; player damage (10); fire rate (6); XP (1/enemy); kill quota (10). No new mechanics/systems/enemies/art/animation/audio/AI framework.
+- Serves DEC-034 (prove the Arena loop is fun), DEC-036 (a readable per-Run lesson), DEC-024 ("the world asks the questions" — the Surrounder now legibly poses *"can you keep moving and avoid being surrounded?"*), and the "Combat Is King" pillar.
+- Changed: `Prefabs/Enemies/Surrounder.prefab` (`Health.maxHealth` 100 → 50; `SurrounderAI.ringDistance` 2.2 → 1.9).
+
 ## 2026-07-15 — Milestone 1 / Combat pacing: Charger TTK relative to Walker baseline (greybox tuning, playtest-approved)
 
 - **Combat-feel tuning pass — Charger only** (second step of the one-enemy-at-a-time roster ladder, anchored on the approved 4-shot Walker). Charger HP **100 → 80**, so with the unchanged base weapon (60 DPS) it dies in **8 shots (~1.33s) = 2× the Walker** instead of 10. Playtest-confirmed: the Charger reads as clearly sturdier than the Walker, its telegraph/dash behaviour still matters, and the dodge-the-charge → punish-the-recovery loop kills it at the right beat (~1.5 recovery windows) without feeling spongy.

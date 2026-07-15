@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a421c179eba3545a3112df9b0dcba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Combat.Health
-  maxHealth: 100
+  maxHealth: 50
 --- !u!114 &8744410577380470878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.SurrounderAI
   moveSpeed: 3.6
-  ringDistance: 2.2
+  ringDistance: 1.9
   attackRange: 2
   attackDamage: 10
   attackInterval: 1
