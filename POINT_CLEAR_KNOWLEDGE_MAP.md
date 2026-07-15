@@ -117,6 +117,7 @@ No cycles: knowledge flows strictly downward from philosophy/process toward cont
 | KD-11 | Engine Architecture Overview | `ARCHITECTURE_OVERVIEW.md` | BLOCKED |
 | KD-11 | Performance & Scale Requirements | `PROJECT_BIBLE.md` §5 (one line today) | Will need its own document once KD-11 matures |
 | KD-12 | Classes / Skills / Weapons / Items / Enemies / Bosses / Maps / UI / Art / Audio | `Templates/*_TEMPLATE.md` instances | GENERATED, DEFERRED |
+| KD-12 | Visual Direction / Art Bible — global visual identity, the six readability laws, the saturation & semantic-colour locks, and the arena / player / enemy / VFX / skill / UI / audio visual language | [`Documentation/Vision/ART_BIBLE.md`](Documentation/Vision/ART_BIBLE.md) | **SOURCE OF TRUTH — FROZEN (v1.0).** The canonical frozen visual-direction document; every future arena, class, skill, and content instance conforms to it. The [rendered Artifact](https://claude.ai/code/artifact/99180619-c8d5-473b-ae71-ac4c8d068178) is a visual companion only, **not** the source of truth (this file wins on any divergence). Asset sourcing & purchase choices (`Documentation/Research/Assets/`) remain **non-canonical research** — indicative only until separately Game-Director-approved. |
 
 ## Source of Truth Registry — Resolutions for Contested Knowledge
 
@@ -379,4 +380,5 @@ This is not the document graph from the Knowledge Map — it's the chain of *que
 - [GLOSSARY.md](GLOSSARY.md)
 - [Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md](Documentation/Gameplay/CORE_GAMEPLAY_LOOP.md) (in review)
 - [Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md](Documentation/Progression/BUILD_SYSTEM_OVERVIEW.md)
+- [Documentation/Vision/ART_BIBLE.md](Documentation/Vision/ART_BIBLE.md) — Art Bible v1.0, frozen visual direction (KD-12 Source of Truth for visual/art language)
 - [DECISIONS.md](DECISIONS.md)
