@@ -6,6 +6,14 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-15 — Milestone 1 / Cross-Run intensity: Run 2 climax density (greybox tuning, playtest-approved)
+
+- **First cross-Run intensity experiment — Run 2 only, one phase, one value** (start of the cross-Run intensity thread, kept one-variable-at-a-time like the roster TTK pass). **Run 2 · Hold phase · `chaserTarget` 2 → 3.** Run 2's climax now maintains **3 Walkers alongside its injected Charger** (~4 concurrent) instead of 2. Playtest-confirmed: the final push feels meaningfully more intense than Run 1, the Charger's telegraph stays readable and fair, and the Arena doesn't become a wall of enemies.
+- **Deliberately surgical:** the escalation lands in the **climax** (where "build" belongs), while Run 2's **Warm-Up (2)**, **Charger Debut (1 Walker + 1 Charger)** and **Breather (2)** are untouched — so the Charger's first teach stays pristine and the breather still drops pressure. No second Charger (would double the telegraph / risk a wall) and no debut-density change.
+- Addresses the Arena-QA finding that cross-Run escalation was *variety-only* (Walker concurrency was flat 1–3 across Runs); this begins raising the **density/intensity** axis that DEC-036 calls for ("enemy density … increase across the cycle"), extending Arena Rhythm's pressure→lull→**build** across Runs. Serves DEC-034 (prove the Arena loop is fun / want another Run).
+- Deliberately unchanged: Run 1 values; Run 2 Warm-Up / Charger Debut / Breather; Charger injection count; Runs 3 & 4; enemy HP; player damage; fire rate; skills; XP; extraction quota; spawn interval. No new mechanics/systems/enemies/progression.
+- Changed: `Systems/Enemies/EnemySpawner.cs` (Run 2 Hold `chaserTarget` 2 → 3, in the code-default RunPlans; the scene's `runPlans` is empty so the defaults are authoritative).
+
 ## 2026-07-15 — Milestone 1 / Combat pacing: Empowerer TTK — roster TTK ladder complete (greybox tuning, playtest-approved)
 
 - **Combat-feel tuning pass — Empowerer only** (final step of the one-enemy-at-a-time roster ladder). Empowerer HP **100 → 60**, so with the unchanged base weapon (60 DPS) it dies in **6 shots (~1.0s) = 1.5× the Walker** instead of 10. Playtest-confirmed: the gold Empowerer is clearly identifiable as the priority target, its buffed Walkers create real pressure, and focusing it down is a fast, satisfying priority kill (not a sponge) that survives long enough for the buff to matter — when it dies, nearby Walkers snap back to normal speed and the fight visibly eases. Its difficulty stays **positional** (backline standoff + line-of-sight through a buffed swarm), not HP sponge (DEC-024).

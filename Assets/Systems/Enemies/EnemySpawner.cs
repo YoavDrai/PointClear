@@ -137,7 +137,7 @@ namespace PointClear.Enemies
                     new Phase { name = "Warm-Up",       killsToEnter = 0, chaserTarget = 2, timeBackstop = 12f },
                     new Phase { name = "Charger Debut", killsToEnter = 2, chaserTarget = 1, chargersToInject = 1, timeBackstop = 15f },
                     new Phase { name = "Breather",      killsToEnter = 5, chaserTarget = 2, timeBackstop = 12f },
-                    new Phase { name = "Hold",          killsToEnter = 8, chaserTarget = 2, chargersToInject = 1, timeBackstop = 999f },
+                    new Phase { name = "Hold",          killsToEnter = 8, chaserTarget = 3, chargersToInject = 1, timeBackstop = 999f },
                 }},
                 new RunPlan { name = "Run 3 — Keep Moving", phases = new[]
                 {
