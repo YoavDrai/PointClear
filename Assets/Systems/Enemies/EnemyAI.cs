@@ -40,9 +40,8 @@ namespace PointClear.Enemies
         [SerializeField]
         private Transform player;
 
-        [SerializeField]
-        private float hitFlashDuration = 0.1f;
-
+        // Block 2B: the cyan hit reaction moved to the shared EnemyHitReaction
+        // component (on every enemy prefab). EnemyAI keeps only its attack pulse.
         [SerializeField]
         private float attackPulseDuration = 0.15f;
 
@@ -135,8 +134,6 @@ namespace PointClear.Enemies
 
         private void OnEnable()
         {
-            health.Damaged += HandleDamaged;
-
             avoiding = false;
             lastProgressTime = Time.time;
             lastStuckCheckPosition = rb.position;
@@ -150,8 +147,6 @@ namespace PointClear.Enemies
 
         private void OnDisable()
         {
-            health.Damaged -= HandleDamaged;
-
             ActiveCount = Mathf.Max(0, ActiveCount - 1);
         }
 
@@ -459,11 +454,6 @@ namespace PointClear.Enemies
             PlayReaction(attackPulseDuration, 1.15f, Color.yellow);
         }
 
-        private void HandleDamaged(float amount)
-        {
-            PlayReaction(hitFlashDuration, 1.2f, Color.white);
-        }
-
         private void PlayReaction(float duration, float scaleMultiplier, Color flashColor)
         {
             if (reactionRoutine != null)
@@ -499,7 +489,17 @@ namespace PointClear.Enemies
 
             if (bodyRenderer != null)
             {
-                block.SetColor("_BaseColor", hasColor ? originalColor : Color.white);
+                // Restore to the enemy's real base colour. Tinted enemies carry it in
+                // their property block (hasColor); an untinted enemy (e.g. the grey
+                // Walker) has no override, so fall back to the shared material's colour
+                // — NOT a hardcoded white, which previously left Walkers permanently
+                // white after their first hit.
+                Color restore = hasColor
+                    ? originalColor
+                    : (bodyRenderer.sharedMaterial != null
+                        ? bodyRenderer.sharedMaterial.GetColor("_BaseColor")
+                        : Color.white);
+                block.SetColor("_BaseColor", restore);
                 bodyRenderer.SetPropertyBlock(block);
             }
 

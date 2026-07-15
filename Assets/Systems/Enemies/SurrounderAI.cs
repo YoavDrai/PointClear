@@ -20,7 +20,9 @@ namespace PointClear.Enemies
         [SerializeField] private float attackDamage = 10f;
         [SerializeField] private float attackInterval = 1f;
         [SerializeField] private float obstacleSkin = 0.2f;
-        [SerializeField] private Color bodyColor = new Color(0.2f, 0.7f, 0.4f); // green
+        // Purple — deliberately NOT green: a green capsule read as the player's green
+        // preset (both are the same greybox capsule). Distinct from every other cue.
+        [SerializeField] private Color bodyColor = new Color(0.6f, 0.25f, 0.85f); // purple
         [SerializeField] private Transform player;
 
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3482682666707247566}
   - component: {fileID: 1929109447876287728}
   - component: {fileID: 5854690336029721741}
+  - component: {fileID: 1379194085517957707}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -177,7 +178,6 @@ MonoBehaviour:
   attackDamage: 10
   attackInterval: 1
   player: {fileID: 0}
-  hitFlashDuration: 0.1
   attackPulseDuration: 0.15
   separationRadius: 1.75
   separationWeight: 1.5
@@ -228,3 +228,18 @@ MonoBehaviour:
   duration: 0.15
   popScale: 1.2
   flashColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1379194085517957707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687431738212142635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a595b36612e4dfa94cedb9b41ad388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.EnemyHitReaction
+  flashColor: {r: 0.4, g: 0.95, b: 1, a: 1}
+  flashDuration: 0.1
+  popScale: 1.35

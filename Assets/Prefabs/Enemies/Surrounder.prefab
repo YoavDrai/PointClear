@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1111761609698538850}
   - component: {fileID: 439075889365521709}
   - component: {fileID: 7230305979186960275}
+  - component: {fileID: 6257494499508817886}
   m_Layer: 0
   m_Name: Surrounder
   m_TagString: Untagged
@@ -206,7 +207,7 @@ MonoBehaviour:
   attackDamage: 10
   attackInterval: 1
   obstacleSkin: 0.2
-  bodyColor: {r: 0.2, g: 0.7, b: 0.4, a: 1}
+  bodyColor: {r: 0.6, g: 0.25, b: 0.85, a: 1}
   player: {fileID: 0}
 --- !u!114 &7230305979186960275
 MonoBehaviour:
@@ -223,3 +224,18 @@ MonoBehaviour:
   duration: 0.15
   popScale: 1.2
   flashColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &6257494499508817886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6697840029671130784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a595b36612e4dfa94cedb9b41ad388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.EnemyHitReaction
+  flashColor: {r: 0.4, g: 0.95, b: 1, a: 1}
+  flashDuration: 0.1
+  popScale: 1.35

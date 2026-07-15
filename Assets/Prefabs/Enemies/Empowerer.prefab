@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 728884485104238846}
   - component: {fileID: 1303454369653367375}
   - component: {fileID: 4001354740365631069}
+  - component: {fileID: 81271146974044019}
   m_Layer: 0
   m_Name: Empowerer
   m_TagString: Untagged
@@ -338,3 +339,18 @@ MonoBehaviour:
   duration: 0.15
   popScale: 1.2
   flashColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &81271146974044019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6126086984995987279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a595b36612e4dfa94cedb9b41ad388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointClear.Enemies.EnemyHitReaction
+  flashColor: {r: 0.4, g: 0.95, b: 1, a: 1}
+  flashDuration: 0.1
+  popScale: 1.35
