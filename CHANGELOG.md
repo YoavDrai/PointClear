@@ -6,6 +6,14 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-15 — Milestone 1 / Combat pacing: Charger TTK relative to Walker baseline (greybox tuning, playtest-approved)
+
+- **Combat-feel tuning pass — Charger only** (second step of the one-enemy-at-a-time roster ladder, anchored on the approved 4-shot Walker). Charger HP **100 → 80**, so with the unchanged base weapon (60 DPS) it dies in **8 shots (~1.33s) = 2× the Walker** instead of 10. Playtest-confirmed: the Charger reads as clearly sturdier than the Walker, its telegraph/dash behaviour still matters, and the dodge-the-charge → punish-the-recovery loop kills it at the right beat (~1.5 recovery windows) without feeling spongy.
+- **Ladder so far:** Walker **40 HP / 4 shots** (baseline) → Charger **80 HP / 8 shots** (2×). Surrounder and Empowerer remain **100 HP** and are still to be balanced relative to these proven anchors — **not touched in this pass; only the Charger changed.**
+- Deliberately unchanged (scope discipline): Charger telegraph (0.8s) / dash (0.35s, speed 16) / recovery (1.1s) / contact damage (20); Walker/Surrounder/Empowerer HP; player damage (10); fire rate (6); XP (1/enemy); kill quota (10); spawn pacing. No new mechanics/systems/enemies/progression.
+- Serves DEC-034 (prove the Arena loop is fun), DEC-036 (readable escalation across Runs), and the "Combat Is King" pillar; keeps the Charger's threat in its *behaviour* (telegraph/dash/recovery), not an HP sponge (DEC-024).
+- Changed: `Prefabs/Enemies/Charger.prefab` (Charger `Health.maxHealth` 100 → 80).
+
 ## 2026-07-15 — Milestone 1 / Combat pacing: Walker TTK baseline (greybox tuning, playtest-approved)
 
 - **Combat-feel tuning pass — Walker only.** Following the Arena QA, we isolated the single biggest combat-feel variable — the basic Walker's time-to-kill — before touching anything else. Walker HP **100 → 40**, so with the unchanged base weapon (10 dmg × 6/s = 60 DPS) a Walker now dies in **4 shots (~0.67s)** instead of 10 (~1.67s). Playtest-confirmed: the base weapon feels meaningfully stronger and the Walker is no longer spongy, yet it stays alive long enough that aiming/accuracy still matter — preserving Run 1's gentle onboarding and power fantasy.
