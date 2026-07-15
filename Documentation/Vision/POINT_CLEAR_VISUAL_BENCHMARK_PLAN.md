@@ -6,7 +6,7 @@
 >
 > **This is a plan, not an execution.** Nothing in this document builds anything yet. **No Unity changes, no asset purchases, no AI generation, and no Phase-0 production have begun or are authorized by this file.** Phase 0 begins only on an explicit Game-Director "go" (Art Bible §11 / §13).
 >
-> **On approval, this document becomes the blueprint for the first visual implementation of Point Clear** — the single scene that either proves or disproves the whole visual direction, *and validates the one provisional stack already chosen for it*, before any broader production investment or stack-wide purchasing commitment. **The benchmark does not select between Stack A and Stack B** — that provisional selection happens upstream (see the Entry Gate).
+> **On approval, this document becomes the blueprint for the first visual implementation of Point Clear** — the single scene that either proves or disproves the whole visual direction, *and validates the one provisional stack already chosen for it*, before any broader production investment or stack-wide purchasing commitment. **The benchmark neither selects nor recommends a stack** — it executes whatever provisional stack the Game Director has already approved (see the Entry Gate).
 >
 > **Placement note:** filed in `Documentation/Vision/` as the operational companion to the Art Bible. Move to repo root or a future `Documentation/Production/` on request.
 
@@ -26,7 +26,7 @@ This is deliberately the **smallest** scene that still exercises every load-bear
 
 This benchmark sits at **step 4 of a 5-step sequence.** It does **not** choose the production stack; it **validates a single provisional stack that has already been selected and purchased in limited scope.** The full sequence — do not reorder:
 
-1. **Select** one provisional stack for the paid benchmark, using the live asset shortlist ([`Documentation/Research/Assets/POINT_CLEAR_LIVE_ASSET_SHORTLIST.md`](../Research/Assets/POINT_CLEAR_LIVE_ASSET_SHORTLIST.md); current recommendation there: **Stack B — grounded semi-real**, *pending explicit GD approval*).
+1. **Select** one provisional stack for the paid benchmark. That selection is a **Game-Director decision made upstream** — informed by the live asset shortlist ([`Documentation/Research/Assets/POINT_CLEAR_LIVE_ASSET_SHORTLIST.md`](../Research/Assets/POINT_CLEAR_LIVE_ASSET_SHORTLIST.md)) — and this plan takes the approved stack as a given. **This document is stack-agnostic and carries no stack recommendation of its own.**
 2. **Verify** every outstanding technical, licensing, pipeline, and compatibility (`not confirmed`) field for that provisional package.
 3. **Approve** the exact, limited benchmark shopping list, with explicit GD purchase authorization.
 4. **Build** the benchmark scene per this plan. ← *this document.*
@@ -41,7 +41,46 @@ This benchmark sits at **step 4 of a 5-step sequence.** It does **not** choose t
 
 Until every box is checked, this remains a plan: no purchases, no Unity, no Phase 0.
 
-> **One stack, not two.** The benchmark buys and builds **one** provisional stack. It never assumes both stacks are purchased or implemented for a side-by-side comparison. If the benchmark fails, the outcome is a Game-Director identity/stack conversation (live shortlist §10 fallback) that *revises or rejects the provisional stack* — never an automatic second full build.
+> **One stack, not two.** The benchmark buys and builds **one** provisional stack — the one the GD approved. It never assumes multiple stacks are purchased or implemented for a side-by-side comparison. If the benchmark fails, the outcome is a Game-Director conversation that *revises or rejects the provisional stack* (§13) — never an automatic second full build.
+
+---
+
+## Phase structure — Planning · Execution · Review
+
+The benchmark runs in three explicit phases. Everything in this document belongs to one of them, and no phase begins before the previous one clears.
+
+```
+┌─ PHASE 1 · PLANNING ─────┐   ┌─ PHASE 2 · EXECUTION ──────────────────────┐   ┌─ PHASE 3 · REVIEW ───────┐
+│ This plan + Entry Gate.  │   │ Build the ONE scene, in dependency order:  │   │ Measure · judge · decide.│
+│ Stack approved,          │ ▸ │ Environment ▸ Player ▸ Thrall ▸ Crowd      │ ▸ │ Validation ▸ GD Review.  │
+│ fields verified,         │   │ ▸ VFX ▸ Optimization                       │   │ Exit Criteria + a        │
+│ purchased, devices set.  │   │                                            │   │ recorded GD decision.    │
+└──────────────────────────┘   └────────────────────────────────────────────┘   └──────────────────────────┘
+   no Unity / no spend             first Unity work begins here                     go/no-go on the stack
+   until every box is checked      (only after Phase 1 clears)                      + the visual direction
+```
+
+| Phase | What it covers | Sections | Cleared when |
+|---|---|---|---|
+| **1 · Planning** | Approve the provisional stack, verify `not confirmed` fields, approve the shopping list + purchase, confirm devices; this whole plan | Entry Gate, §1–§17 | Every Entry-Gate box is checked |
+| **2 · Execution** | Build the single scene in dependency order | Workflow steps 2–7; §2–§9 | All **Required** deliverables (D1–D3) exist and run on both platforms |
+| **3 · Review** | Profile, capture, judge against pass/fail, and hold the GD review | Workflow steps 8–9; §10–§13, §15–§16 | Exit Criteria met **and** a GD decision is recorded |
+
+## Benchmark workflow
+
+The build order is dependency-driven (Art Bible §11: desaturate the world first, prove one enemy end-to-end, then scale). Each step names the phase it belongs to.
+
+| # | Step | Phase | What happens | Refs |
+|---|---|---|---|---|
+| 1 | **Planning** | Planning | Clear the Entry Gate: provisional stack approved, `not confirmed` fields verified, exact shopping list + purchase authorized, target devices confirmed or proxied. | Entry Gate, §10 |
+| 2 | **Environment** | Execution | Build The Shattered Coast at final proportions; tune the mid-value floor; place cliffs / sea / vegetation / ruins as perimeter framing; stand up the lighting + fog + sky + grade rig and the top-down camera. **Get the world correctly desaturated before any saturated art sits on it.** | §2, §8, §9 |
+| 3 | **Player** | Execution | Bring the class-neutral base through rig → locator stack → dye → core locomotion/aim/attack anims, judged against the finished arena. | §4 |
+| 4 | **Thrall** | Execution | Take one enemy end-to-end — mesh → shared skeleton → tint/blight material → anims → hit-react → death-dissolve — as the pipeline template. | §5 |
+| 5 | **Crowd** | Execution | Instance the Thrall to the minimum / target / stress tiers via shared material + GPU instancing. | §6 |
+| 6 | **VFX** | Execution | Add only the temporary semantic VFX: player tracer, cyan hit, white + identity death, red hurt + vignette, one warm danger-decal, gold pickup. | §7 |
+| 7 | **Optimization** | Execution | Apply batching / instancing, animation LOD, shadow policy, and the PC/mobile tiers; confirm degradation is decoration-first. | §6, §10 |
+| 8 | **Validation** | Review | Profile both platforms at all three crowd tiers (incl. the sustained mobile thermal test); capture the full screenshot checklist + greyscale; score against pass/fail. | §10, §11, §12, §13 |
+| 9 | **GD Review** | Review | Assemble the deliverables package; the Game Director judges identity + the one-question and records the decision. | §11, §12, §15, §16 |
 
 ---
 
@@ -319,7 +358,7 @@ If any of these occur, **halt**: do **not** expand purchasing beyond the limited
 - **The floor can't be made mid-value / recessive** with the chosen approach, or the world **camouflages** enemies or hides the danger-decal at dusk (A1/A5 fail).
 - **The player gets lost** in the target or stress crowd — the locator stack is insufficient in a real horde (A4 fail). *This is a redesign-the-locator trigger, and a Law-vi review.*
 - **Semantic colours collide or read ambiguously** in motion (e.g. player fire reads as enemy danger, or death reads as a hit) (A3 fail). *Triggers a §5 ownership-stack review.*
-- **Frame targets cannot be met at the target crowd** on the reference devices even after reasonable optimization — especially **mobile thermal collapse** over the sustained test (A8 fail). *This is the core mobile-risk question the provisional stack was chosen to answer (live shortlist §7/§10); a fail here rejects or revises the provisional stack and escalates to a GD identity/stack conversation — never a silent drift.*
+- **Frame targets cannot be met at the target crowd** on the reference devices even after reasonable optimization — especially **mobile thermal collapse** over the sustained test (A8 fail). *This is the core mobile-risk question the provisional stack was chosen to answer (see the live shortlist's mobile-performance risk analysis, §7); a fail here rejects or revises the provisional stack and escalates to a GD identity/stack conversation — never a silent drift.*
 - **Degradation breaks readability** — decoration-first is not achievable; the semantic layer degrades before decoration (A7 fail).
 - **The identity reads wrong** — the GD judges it cartoon, generic, or photoreal-MMO rather than grounded dark fantasy (A9 fail). *Triggers an identity/reference-matrix revisit before spend.*
 
@@ -352,4 +391,62 @@ On a PASS, the following graduate from "proposed" to **frozen production standar
 
 ---
 
-> **Scope reaffirmation:** this document plans a benchmark; it builds nothing. No Unity, no purchases, no AI generation, no Phase-0 production are authorized or begun by it. Execution starts only on an explicit Game-Director "go," at which point this plan becomes the blueprint for Point Clear's first visual implementation.
+## 15 · Deliverables
+
+The benchmark is not "done" until it has produced these artifacts. **Required** deliverables must exist for the exercise to be complete (pass *or* fail); **Optional** ones raise confidence.
+
+**Required**
+- **D1 — The built scene.** The Shattered Coast at final proportions, dressed with the approved provisional stack (plus a free CC0 greybox pass where needed), with player, Thrall, crowd, and temporary VFX wired up enough to observe combat.
+- **D2 — Two instrumented builds.** A PC build and a mobile build running on the confirmed target devices (or documented proxies), profiled for the §10 metrics.
+- **D3 — The screenshot set.** All 14 mandatory captures (§11) plus the greyscale capture, at a fixed resolution, labelled, taken through the final camera rig.
+- **D4 — The performance dataset.** The §10 metrics measured at minimum / target / stress crowds on both platforms, including the 10-minute mobile thermal run, exported as a table. **This dataset is the primary input to the future Technical Art Budget document.**
+- **D5 — The Benchmark Findings Report.** A per-assumption verdict on A1–A9, an overall PASS/FAIL against §12/§13, and — critically — an explicit separation of *language/stack failure* from *placeholder-asset quality*, so the verdict is never confounded by "the stand-in looked rough."
+- **D6 — The freeze-candidate list.** The §14 setpoints proposed to freeze on a pass (palette + semantic lock, mid-value-floor recipe, locator implementation, lighting/fog/grade rig, camera, enemy pipeline, degradation policy).
+- **D7 — The GD-review package.** A single bundle (D3 + D4 + D5 + D6) presented for the one-question sign-off.
+
+**Optional**
+- **D8 —** A short capture/GIF of the player moving through the target crowd (findability in motion).
+- **D9 —** An overdraw visualization at stress crowd.
+- **D10 —** A first-draft Technical Art Budget document seeded from D4.
+
+---
+
+## 16 · Exit criteria — when the benchmark is officially complete
+
+Completion is distinct from success. The benchmark is **officially complete** when **all** of the following are true — whether the outcome was PASS or FAIL:
+
+- [ ] All **Required deliverables (D1–D7)** are produced.
+- [ ] The **§10 metrics are measured at all three crowd tiers on both platforms** (or any platform/device gap is explicitly documented, naming the proxy used).
+- [ ] The **full §11 screenshot checklist** (including the greyscale capture) is taken.
+- [ ] The **Benchmark Findings Report (D5)** records an explicit per-assumption (A1–A9) verdict and an overall PASS/FAIL against §12/§13.
+- [ ] The **GD review is held** and a **decision is recorded** in the decision log — validate, revise, or reject the provisional stack.
+
+> A documented **FAIL with a recorded GD decision is a *complete* benchmark**, not a failed exercise. "Complete" means the question was answered; the answer being "no — revise" is a valid and valuable completion.
+
+---
+
+## 17 · Risk register — benchmark-specific
+
+Risks to the *benchmark exercise itself* — distinct from the Art Bible §12 risks to the visual direction. Each mitigation is already built into this plan.
+
+| Risk | If unmitigated | Mitigation |
+|---|---|---|
+| **Scope creep into gameplay / polish** | The "smallest scene" becomes a mini-production; time and money overrun | Hard rule: validate the *language*, not build the game (see "the one question"). Optional stays optional; timebox each workflow step. |
+| **Confounding asset quality with language/stack failure** | A rough placeholder is misread as "the direction doesn't work" → wrong verdict | D5 separates the two explicitly; use representative (not hero) fidelity; every asset passes the §9 acceptance gate before it counts. |
+| **Provisional-stack import / compat surprises** (Unity 6 / URP / mobile) | The build blocks, or silently misbehaves, late | The Entry Gate live-verifies every `not confirmed` field *before* purchase; test-import before the full build. |
+| **Unrepresentative or missing mobile device** | The performance verdict (A8) is meaningless | No perf result is reported without a named device; the Entry Gate requires a confirmed device or a documented proxy (§10). |
+| **Over-optimizing to hit the numbers** | A false PASS that hides a real cost problem; degradation stops being decoration-first | Record every optimization applied; verify decoration-first degradation (A7); measure PC headroom, not just the 60/30 threshold. |
+| **A hand-tuned "hero" grade flatters the frame** | Camouflage risk (A5) is masked → false PASS on readability | Judge at the design grade, not a beauty shot; the greyscale capture (§11 #14) and a fixed neutral frame are part of the mandatory set. |
+| **Cohesion effort balloons** (multi-source assets) | Schedule slips chasing a unified look | Cohesion-via-shared-shader is itself *under test*; a cohesion failure is a **finding to report**, not a reason to keep polishing. |
+
+---
+
+## Authorization boundary — what a pass does and does not do
+
+> **A successful benchmark validates the visual direction and the provisional stack — and authorizes the *next Game-Director decision*. It does not automatically authorize full production.**
+>
+> On a PASS, the Game Director is cleared to *decide* whether to commit the stack to broader production and proceed down the vertical-slice roadmap (Art Bible §11). Broader purchasing, additional arenas / factions / schools / classes, and Phase-1-and-beyond production each remain **separate, explicit GD decisions.** A pass is a green light to *decide* — never a green light to *build everything*. On a FAIL, the next decision is to revise or reject the provisional stack (§13), still without broader spend.
+
+---
+
+> **Scope reaffirmation:** this document plans a benchmark; it builds nothing. No Unity, no purchases, no AI generation, no Phase-0 production are authorized or begun by it. Execution starts only on an explicit Game-Director "go" (and only once the Entry Gate is fully cleared), at which point this plan becomes the blueprint for Point Clear's first visual implementation.
