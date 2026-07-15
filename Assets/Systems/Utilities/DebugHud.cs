@@ -7,11 +7,13 @@ namespace PointClear.Utilities
 {
     /// <summary>
     /// PROTOTYPE/DEBUG-ONLY. On-screen control instructions, readable
-    /// player HP, a brief red flash when the player takes damage, and
-    /// Sprint 1.3 crowd-scalability metrics (active/target/peak enemy
-    /// count, spawn interval, approximate FPS), all via legacy OnGUI.
-    /// Not intended to survive past the prototype phase — remove once real
-    /// UI exists.
+    /// player HP, and Sprint 1.3 crowd-scalability metrics (active/target/
+    /// peak enemy count, spawn interval, approximate FPS), all via legacy
+    /// OnGUI. Not intended to survive past the prototype phase — remove once
+    /// real UI exists.
+    ///
+    /// Block 2C moved the player's damage flash to PlayerDamageFeedback (body
+    /// flash + screen-edge danger vignette); this HUD is now text-only.
     ///
     /// FPS is a diagnostic approximation only (smoothed over ~0.5s of
     /// unscaled time) — not a substitute for Profiler-measured frame time,
@@ -33,58 +35,20 @@ namespace PointClear.Utilities
         private DetonationField detonationField;
 
         [SerializeField]
-        private float damageFlashDuration = 0.15f;
-
-        [SerializeField]
         private int maxEnemyHpLinesShown = 5;
 
         private GUIStyle controlsStyle;
         private GUIStyle hpStyle;
         private GUIStyle enemyHpStyle;
         private GUIStyle metricsStyle;
-        private Texture2D flashTexture;
-        private float flashTimer;
 
         private float fpsAccumulator;
         private int fpsFrameCount;
         private float fpsTimer;
         private float currentFps;
 
-        private void Awake()
-        {
-            flashTexture = new Texture2D(1, 1);
-            flashTexture.SetPixel(0, 0, Color.white);
-            flashTexture.Apply();
-        }
-
-        private void OnEnable()
-        {
-            if (playerHealth != null)
-            {
-                playerHealth.Damaged += HandlePlayerDamaged;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (playerHealth != null)
-            {
-                playerHealth.Damaged -= HandlePlayerDamaged;
-            }
-        }
-
-        private void HandlePlayerDamaged(float amount)
-        {
-            flashTimer = damageFlashDuration;
-        }
-
         private void Update()
         {
-            if (flashTimer > 0f)
-            {
-                flashTimer -= Time.deltaTime;
-            }
-
             fpsAccumulator += 1f / Mathf.Max(Time.unscaledDeltaTime, 0.0001f);
             fpsFrameCount++;
             fpsTimer += Time.unscaledDeltaTime;
@@ -100,14 +64,6 @@ namespace PointClear.Utilities
         private void OnGUI()
         {
             EnsureStyles();
-
-            if (flashTimer > 0f)
-            {
-                Color previousColor = GUI.color;
-                GUI.color = new Color(1f, 0f, 0f, 0.25f * (flashTimer / damageFlashDuration));
-                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), flashTexture);
-                GUI.color = previousColor;
-            }
 
             GUILayout.BeginArea(new Rect(10, 10, 380, 420));
 
