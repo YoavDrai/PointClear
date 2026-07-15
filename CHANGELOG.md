@@ -6,6 +6,13 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-15 — Milestone 1 / Cross-Run intensity: Run 4 reviewed — intentionally unchanged; thread complete (design decision, no code change)
+
+- **Run 4 intensity reviewed; no change made — this completes the cross-Run intensity thread (Runs 1–4).** Run 4 is already the clear cycle peak: the highest Walker baseline (`chaserTarget 3` in Warm-Up, Debut and Peak), the unique Empowerer buff (Walkers 3.5 → 6.5, faster than the player's 6, so buffed Walkers can't be kited), and the most-mixed Peak (3 Walkers + 1 Charger + 1 Empowerer ≈ 5 concurrent, force-multiplied by the buff). Its intensity is driven by the buff *mechanic*, not raw count.
+- **Verdict (Game Director, back-to-back Run 3 → Run 4 playtest): confirmed.** Run 4 feels clearly more intense than Run 3; the Empowerer stays easy to identify as the priority target; buffed Walkers create strong pressure; the Charger stays readable during the Peak; the Breather is a genuine lull once the debut Empowerer is killed; and the Peak is challenging **without becoming a wall**. Adding density here was explicitly rejected — it would obscure the gold Empowerer and the Charger telegraph and risk a wall, hurting the two lessons Run 4 layers.
+- **All Run 4 values stay as-is.** No gameplay code changed; Runs 1–3 and all non-density values remain untouched.
+- **Cross-Run intensity thread summary:** Run 2 climax density raised (Hold `chaserTarget` 2 → 3, playtest-approved); Runs 1, 3, 4 reviewed and intentionally left unchanged (Run 1 = approved onboarding baseline; Run 3 escalates via Surrounder spatial pressure; Run 4 = the buff-driven cycle peak). Density was raised only where it was both needed and readable.
+
 ## 2026-07-15 — Milestone 1 / Cross-Run intensity: Run 3 reviewed — intentionally unchanged (design decision, no code change)
 
 - **Run 3 intensity reviewed; no change made.** Continuing the cross-Run intensity thread to Run 3, its climax density (~4 concurrent: 2 Walkers + 1 Charger + 1 Surrounder) was noted to roughly *equal* Run 2's newly-raised climax (~4) — i.e. after the Run 2 Hold buff, the Run 2→3 **density** step is flat. Rather than tune on count, a **back-to-back Run 2 vs Run 3 playtest** was run to decide on *feel*.
