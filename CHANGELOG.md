@@ -6,6 +6,12 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-15 — Milestone 1 / Cross-Run intensity: Run 3 reviewed — intentionally unchanged (design decision, no code change)
+
+- **Run 3 intensity reviewed; no change made.** Continuing the cross-Run intensity thread to Run 3, its climax density (~4 concurrent: 2 Walkers + 1 Charger + 1 Surrounder) was noted to roughly *equal* Run 2's newly-raised climax (~4) — i.e. after the Run 2 Hold buff, the Run 2→3 **density** step is flat. Rather than tune on count, a **back-to-back Run 2 vs Run 3 playtest** was run to decide on *feel*.
+- **Verdict (Game Director): Run 3 already feels clearly more intense and demanding than Run 2** — driven by the Surrounders' spatial/encirclement pressure (now legible after the ring-distance fix) and the mixed-threat Hold (dodge a Charger *and* avoid a flank). Here intensity escalates through the *kind* of pressure, not raw density, so **no density change is needed**.
+- **Run 3 Hold stays `chaserTarget 2`.** A `2 → 3` bump was prepared but deliberately **not** applied. Recorded so the flat Run 2→3 density step is understood as an intentional decision, not an oversight to be re-opened. No gameplay code changed; Runs 1, 2, 4 and all non-density values remain untouched.
+
 ## 2026-07-15 — Milestone 1 / Cross-Run intensity: Run 2 climax density (greybox tuning, playtest-approved)
 
 - **First cross-Run intensity experiment — Run 2 only, one phase, one value** (start of the cross-Run intensity thread, kept one-variable-at-a-time like the roster TTK pass). **Run 2 · Hold phase · `chaserTarget` 2 → 3.** Run 2's climax now maintains **3 Walkers alongside its injected Charger** (~4 concurrent) instead of 2. Playtest-confirmed: the final push feels meaningfully more intense than Run 1, the Charger's telegraph stays readable and fair, and the Arena doesn't become a wall of enemies.
