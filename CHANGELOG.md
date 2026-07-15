@@ -6,6 +6,22 @@ Format: `YYYY-MM-DD — Summary`
 
 ---
 
+## 2026-07-15 — Milestone 1 / Combat pacing: Empowerer TTK — roster TTK ladder complete (greybox tuning, playtest-approved)
+
+- **Combat-feel tuning pass — Empowerer only** (final step of the one-enemy-at-a-time roster ladder). Empowerer HP **100 → 60**, so with the unchanged base weapon (60 DPS) it dies in **6 shots (~1.0s) = 1.5× the Walker** instead of 10. Playtest-confirmed: the gold Empowerer is clearly identifiable as the priority target, its buffed Walkers create real pressure, and focusing it down is a fast, satisfying priority kill (not a sponge) that survives long enough for the buff to matter — when it dies, nearby Walkers snap back to normal speed and the fight visibly eases. Its difficulty stays **positional** (backline standoff + line-of-sight through a buffed swarm), not HP sponge (DEC-024).
+- **Roster TTK ladder COMPLETE** (all four enemies now balanced relative to the proven 4-shot Walker baseline):
+
+  | Enemy | HP | Shots | Ratio | Role |
+  |---|---|---|---|---|
+  | Walker | 40 | 4 | 1× | trash baseline |
+  | Surrounder | 50 | 5 | 1.25× | sticky flanking trash |
+  | Empowerer | 60 | 6 | 1.5× | soft support-elite (priority target) |
+  | Charger | 80 | 8 | 2× | hard dodge-elite |
+
+- Deliberately unchanged: Empowerer standoff (8.5), moveSpeed (4), auraRadius (6), Walker speed buff (3.5→6.5), buff tint, gold colour; other enemies' HP; player damage (10); fire rate (6); XP (1/enemy); kill quota (10); spawn counts/density/pacing. No new mechanics/systems/enemies/progression.
+- Serves DEC-034 (prove the Arena loop is fun — every enemy now dies at a satisfying, role-appropriate pace), DEC-036 (readable per-Run lessons), and the "Combat Is King" pillar; keeps enemy difficulty in behaviour, not stat inflation (DEC-024).
+- Changed: `Prefabs/Enemies/Empowerer.prefab` (Empowerer `Health.maxHealth` 100 → 60).
+
 ## 2026-07-15 — Milestone 1 / Combat clarity + pacing: Surrounder legibility fix + TTK (greybox tuning, playtest-approved)
 
 - **Surrounder role made legible (behavioural fix) + TTK relative to the ladder** — two coupled changes, playtest-approved together in Run 3:
