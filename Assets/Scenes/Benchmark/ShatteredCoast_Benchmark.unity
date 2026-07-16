@@ -4804,10 +4804,19 @@ MonoBehaviour:
   - {fileID: 559009455}
   - {fileID: 476250325}
   - {fileID: 1925768453}
-  spawnInterval: 0.5
+  spawnInterval: 0.3
   player: {fileID: 2862981006317607149}
   playerSafetyDistance: 8
-  runPlans: []
+  runPlans:
+  - name: Benchmark Horde (T8)
+    phases:
+    - name: Dense
+      killsToEnter: 0
+      chaserTarget: 30
+      chargersToInject: 0
+      empowerersToInject: 0
+      surroundersToInject: 0
+      timeBackstop: 999
   startRunNumber: 1
 --- !u!4 &1700942417
 Transform:
